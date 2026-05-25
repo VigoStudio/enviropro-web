@@ -1,0 +1,14 @@
+---
+export interface Props {
+  lang: 'en' | 'es';
+}
+const { lang } = Astro.props;
+---
+<footer class="bg-ink text-white py-12 border-t border-border mt-auto">
+  <div class="container-x flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="font-display font-extrabold text-lg">EnviroPro USA</div>
+    <div class="text-sm text-ink-soft">
+      &copy; {new Date().getFullYear()} EnviroPro USA. All rights reserved.
+    </div>
+  </div>
+</footer>

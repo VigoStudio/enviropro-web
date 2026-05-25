@@ -1,0 +1,155 @@
+---
+/**
+ * BaseLayout.astro — Layout maestro de EnviroPro USA
+ *
+ * Responsabilidades:
+ *  - <head> SEO completo (title, description, OG, Twitter, hreflang)
+ *  - Schema markup: LocalBusiness + EmergencyService combinado
+ *  - Carga global.css
+ *  - Inyecta Header + Footer + Sticky Mobile Bar
+ *  - Manejo de idioma (en/es) vía prop `lang`
+ */
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import StickyMobileBar from '../components/StickyMobileBar.astro';
+import { business } from '../data/business';
+
+export interface Props {
+  title: string;
+  description: string;
+  lang?: 'en' | 'es';
+  pathname?: string;          // ruta actual, ej "/services/water-damage"
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  lang = 'en',
+  pathname = '/',
+  ogImage = '/images/og-default.jpg',
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = 'https://enviropro.net';
+const fullUrl = `${siteUrl}${pathname}`;
+
+// hreflang: construye la URL alterna en el otro idioma
+const altLang = lang === 'en' ? 'es' : 'en';
+const altPath = lang === 'en'
+  ? `/es${pathname === '/' ? '/' : pathname}`
+  : pathname.replace(/^\/es/, '') || '/';
+const altUrl = `${siteUrl}${altPath}`;
+
+// Schema combinado LocalBusiness + EmergencyService
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['LocalBusiness', 'EmergencyService'],
+  '@id': `${siteUrl}/#business`,
+  name: business.legalName,
+  alternateName: business.brandName,
+  description: lang === 'en'
+    ? 'South Florida\'s trusted experts in water damage restoration, mold removal, fire damage, and hurricane emergency response. 24/7 service in Miami-Dade, Broward, and Orlando.'
+    : 'Expertos de confianza en South Florida para restauración de daños por agua, remoción de moho, daños por fuego y emergencias de huracán. Servicio 24/7 en Miami-Dade, Broward y Orlando.',
+  url: siteUrl,
+  telephone: business.phones.find(p => p.isEmergency)?.e164,
+  email: business.email.support,
+  foundingDate: `${business.foundedYear}`,
+  image: `${siteUrl}/images/og-default.jpg`,
+  priceRange: '$$',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.street,
+    addressLocality: business.address.city,
+    addressRegion: business.address.state,
+    postalCode: business.address.zip,
+    addressCountry: business.address.country,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: business.geo.latitude,
+    longitude: business.geo.longitude,
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '00:00',
+    closes: '23:59',
+  },
+  areaServed: business.serviceAreas.map((area) => ({
+    '@type': 'City',
+    name: area.city,
+    containedInPlace: {
+      '@type': 'AdministrativeArea',
+      name: `${area.county} County, FL`,
+    },
+  })),
+  sameAs: [business.social.facebook, business.social.google].filter(Boolean),
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Title & description -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Robots -->
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Canonical & hreflang -->
+    <link rel="canonical" href={fullUrl} />
+    <link rel="alternate" hreflang="en" href={lang === 'en' ? fullUrl : altUrl} />
+    <link rel="alternate" hreflang="es" href={lang === 'es' ? fullUrl : altUrl} />
+    <link rel="alternate" hreflang="x-default" href={lang === 'en' ? fullUrl : altUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={fullUrl} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'es_US'} />
+    <meta property="og:site_name" content={business.brandName} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+
+    <!-- Fuentes (Inter + Manrope vía Google Fonts con preconnect) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Schema LocalBusiness + EmergencyService -->
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+
+    <!-- Slot adicional para schemas específicos de página (Service, FAQPage, etc.) -->
+    <slot name="page-schema" />
+  </head>
+
+  <body>
+    <Header lang={lang} currentPath={pathname} />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+    <StickyMobileBar lang={lang} />
+  </body>
+</html>

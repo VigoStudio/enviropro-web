@@ -1,0 +1,16 @@
+---
+export interface Props {
+  lang: 'en' | 'es';
+  currentPath: string;
+}
+const { lang, currentPath } = Astro.props;
+---
+<header class="container-x py-4 bg-white border-b border-border">
+  <div class="flex items-center justify-between">
+    <div class="font-display font-extrabold text-xl text-trust">EnviroPro</div>
+    <nav class="flex gap-4">
+      <a href={lang === 'en' ? '/' : '/es/'} class="text-ink hover:text-trust transition-colors">Home</a>
+      <a href={lang === 'en' ? '/services' : '/es/servicios'} class="text-ink hover:text-trust transition-colors">Services</a>
+    </nav>
+  </div>
+</header>

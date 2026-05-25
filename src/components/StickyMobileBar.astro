@@ -1,0 +1,14 @@
+---
+export interface Props {
+  lang: 'en' | 'es';
+}
+const { lang } = Astro.props;
+---
+<div class="sticky-mobile-bar">
+  <a href="tel:+18772166653" class="btn-emergency py-3 rounded-none text-center">
+    {lang === 'en' ? 'Emergency' : 'Emergencia'}
+  </a>
+  <a href="#contact" class="btn-trust py-3 rounded-none text-center">
+    {lang === 'en' ? 'Contact' : 'Contacto'}
+  </a>
+</div>
