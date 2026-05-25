@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { business, emergencyPhone } from '../../data/business';
+
+const title = 'EnviroPro USA · Restauración 24/7 de Agua, Moho y Fuego · Miami-Dade';
+const description = 'Expertos de confianza en restauración por 36 años en South Florida. Daños por agua, remoción de moho, daños por fuego, respuesta a huracanes. Emergencias 24/7 en Miami-Dade, Broward y Orlando.';
+
+const services = [
+  { icon: '💧', title: 'Daños por Agua', desc: 'Tuberías rotas, inundaciones, filtraciones — respuesta en 60 minutos.', href: '/es/servicios/danos-por-agua' },
+  { icon: '🦠', title: 'Remoción de Moho', desc: 'Inspección y remediación certificada IICRC.', href: '/es/servicios/remocion-de-moho' },
+  { icon: '🔥', title: 'Fuego y Humo', desc: 'Restauración completa, facturación directa con aseguradora.', href: '/es/servicios/danos-por-fuego' },
+  { icon: '🌀', title: 'Huracán', desc: 'Lonas de techo, extracción de agua, secado estructural.', href: '/es/servicios/emergencia-huracan' },
+  { icon: '🪟', title: 'Ventanas de Impacto', desc: 'Ventanas y puertas certificadas para huracán.', href: '/es/servicios/ventanas-de-impacto' },
+];
+---
+
+<BaseLayout title={title} description={description} lang="es" pathname="/es/">
+
+  <!-- ================== HERO ================== -->
+  <section class="relative bg-[var(--color-ink)] text-white overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-ink)] via-[var(--color-trust)]/30 to-[var(--color-ink)] opacity-90"></div>
+
+    <div class="container-x relative py-20 lg:py-32">
+      <div class="max-w-3xl">
+        <p class="gsap-fade-in text-sm uppercase tracking-widest font-semibold mb-4" style="color: var(--color-accent)">
+          Emergencias 24/7 · 36 Años en South Florida
+        </p>
+
+        <h1 class="gsap-fade-in font-bold mb-6 leading-tight" style="font-size: var(--text-display); font-family: var(--font-display)">
+          Cuando ocurre el desastre,<br/>
+          <span style="color: var(--color-emergency)">ya vamos en camino.</span>
+        </h1>
+
+        <ul class="gsap-stagger space-y-2 mb-8 text-lg opacity-90">
+          <li class="flex items-center gap-2 opacity-0 -translate-x-4">✓ Agua · Moho · Fuego · Huracanes</li>
+          <li class="flex items-center gap-2 opacity-0 -translate-x-4">✓ Certificados IICRC · Facturación directa con aseguradora</li>
+          <li class="flex items-center gap-2 opacity-0 -translate-x-4">✓ Equipo bilingüe · Miami-Dade, Broward, Orlando</li>
+        </ul>
+
+        <div class="gsap-fade-in flex flex-col sm:flex-row gap-3">
+          <a href={`tel:${emergencyPhone.e164}`} class="btn-emergency gsap-pulse text-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Llamar {emergencyPhone.display}
+          </a>
+          <a href="/es/contacto" class="btn-trust text-lg">Agendar Cita</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== SERVICES GRID ================== -->
+  <section class="section-y bg-white">
+    <div class="container-x">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-5xl font-bold mb-4" style="font-family: var(--font-display)">Servicios de Restauración</h2>
+        <p class="text-lg" style="color: var(--color-ink-soft)">Desde respuesta de emergencia hasta reconstrucción completa.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        {services.map((s) => (
+          <a href={s.href} class="block p-6 rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-trust)] hover:shadow-lg transition-all">
+            <div class="text-4xl mb-3">{s.icon}</div>
+            <h3 class="font-bold text-lg mb-2">{s.title}</h3>
+            <p class="text-sm" style="color: var(--color-ink-soft)">{s.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== WHY ENVIROPRO ================== -->
+  <section class="section-y" style="background: var(--color-surface-alt)">
+    <div class="container-x grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-3xl lg:text-5xl font-bold mb-6" style="font-family: var(--font-display)">
+          Por qué South Florida<br/>elige EnviroPro.
+        </h2>
+        <ul class="space-y-4 text-lg">
+          <li class="flex gap-3"><span style="color: var(--color-emergency)">●</span> <strong>36 años</strong> sirviendo Miami-Dade desde 1990</li>
+          <li class="flex gap-3"><span style="color: var(--color-emergency)">●</span> Técnicos <strong>certificados IICRC</strong></li>
+          <li class="flex gap-3"><span style="color: var(--color-emergency)">●</span> <strong>Facturación directa con aseguradora</strong> — sin gastos de bolsillo en reclamos cubiertos</li>
+          <li class="flex gap-3"><span style="color: var(--color-emergency)">●</span> <strong>Equipo bilingüe</strong> — Español e Inglés</li>
+          <li class="flex gap-3"><span style="color: var(--color-emergency)">●</span> Respuesta de <strong>emergencia 24/7</strong>, 365 días</li>
+        </ul>
+      </div>
+      <div class="bg-white p-8 rounded-2xl shadow-lg">
+        <p class="text-lg italic mb-4">"EnviroPro respondió en menos de una hora después de la rotura de nuestra tubería. Profesionales, bilingües y trabajaron directamente con nuestra aseguradora. Altamente recomendados."</p>
+        <p class="font-semibold">Mellissa Clark</p>
+        <p class="text-sm" style="color: var(--color-ink-soft)">Pinecrest, FL</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== FINAL CTA ================== -->
+  <section class="section-y bg-[var(--color-ink)] text-white text-center">
+    <div class="container-x">
+      <h2 class="text-3xl lg:text-5xl font-bold mb-4" style="font-family: var(--font-display)">
+        El agua no espera. Nosotros tampoco.
+      </h2>
+      <p class="text-lg opacity-80 mb-8">Llame ahora para respuesta de emergencia en todo South Florida.</p>
+      <a href={`tel:${emergencyPhone.e164}`} class="btn-emergency text-xl">
+        Llamar {emergencyPhone.display}
+      </a>
+    </div>
+  </section>
+
+  <!-- GSAP — mismas 4 animaciones disciplinadas -->
+  <script>
+    import { gsap } from 'gsap';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+      tl.to('.gsap-fade-in', { opacity: 1, duration: 0.8, stagger: 0.15 });
+      tl.to('.gsap-stagger li', { opacity: 1, x: 0, duration: 0.5, stagger: 0.1 }, '-=0.3');
+      gsap.to('.gsap-pulse', { scale: 1.03, duration: 1.2, repeat: -1, yoyo: true, ease: 'power1.inOut' });
+    });
+  </script>
+</BaseLayout>
