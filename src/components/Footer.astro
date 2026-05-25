@@ -1,14 +1,161 @@
 ---
+/**
+ * Footer.astro — NAP completo, redes, certificaciones, copyright.
+ */
+import { business, emergencyPhone, miamiPhone, browardPhone, orlandoPhone } from '../data/business';
+
 export interface Props {
   lang: 'en' | 'es';
 }
+
 const { lang } = Astro.props;
+
+const t = {
+  en: {
+    tagline: '36 years restoring South Florida homes — 24/7 emergency response.',
+    services: 'Services',
+    coverage: 'Coverage',
+    company: 'Company',
+    serviceList: [
+      { label: 'Water Damage Restoration', href: '/services/water-damage' },
+      { label: 'Mold Removal & Remediation', href: '/services/mold-removal' },
+      { label: 'Fire & Smoke Damage', href: '/services/fire-damage' },
+      { label: 'Hurricane Emergency', href: '/services/hurricane-emergency' },
+      { label: 'Impact Windows & Doors', href: '/services/impact-windows' },
+    ],
+    companyList: [
+      { label: 'About Us', href: '/about' },
+      { label: 'Projects', href: '/projects' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'Privacy Policy', href: '/privacy' },
+    ],
+    emergency: '24/7 Emergency',
+    rights: 'All rights reserved.',
+    license: 'Licensed & Insured · IICRC Certified',
+  },
+  es: {
+    tagline: '36 años restaurando hogares en South Florida — emergencias 24/7.',
+    services: 'Servicios',
+    coverage: 'Cobertura',
+    company: 'Empresa',
+    serviceList: [
+      { label: 'Daños por Agua', href: '/es/servicios/danos-por-agua' },
+      { label: 'Remoción de Moho', href: '/es/servicios/remocion-de-moho' },
+      { label: 'Daños por Fuego y Humo', href: '/es/servicios/danos-por-fuego' },
+      { label: 'Emergencia de Huracán', href: '/es/servicios/emergencia-huracan' },
+      { label: 'Ventanas de Impacto', href: '/es/servicios/ventanas-de-impacto' },
+    ],
+    companyList: [
+      { label: 'Nosotros', href: '/es/nosotros' },
+      { label: 'Proyectos', href: '/es/proyectos' },
+      { label: 'Contacto', href: '/es/contacto' },
+      { label: 'Política de Privacidad', href: '/es/privacidad' },
+    ],
+    emergency: 'Emergencias 24/7',
+    rights: 'Todos los derechos reservados.',
+    license: 'Licenciado y Asegurado · Certificado IICRC',
+  },
+}[lang];
+
+const year = new Date().getFullYear();
 ---
-<footer class="bg-ink text-white py-12 border-t border-border mt-auto">
-  <div class="container-x flex flex-col md:flex-row justify-between items-center gap-6">
-    <div class="font-display font-extrabold text-lg">EnviroPro USA</div>
-    <div class="text-sm text-ink-soft">
-      &copy; {new Date().getFullYear()} EnviroPro USA. All rights reserved.
+
+<footer class="bg-[var(--color-ink)] text-white">
+  <div class="container-x section-y">
+
+    <!-- Top grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <!-- Brand + tagline + emergency -->
+      <div class="space-y-4">
+        <h3 class="text-2xl font-bold" style="font-family: var(--font-display)">{business.brandName}</h3>
+        <p class="text-sm opacity-80 leading-relaxed">{t.tagline}</p>
+
+        <div class="pt-2">
+          <p class="text-xs uppercase tracking-wider opacity-60 mb-1">{t.emergency}</p>
+          <a
+            href={`tel:${emergencyPhone.e164}`}
+            class="text-xl font-bold hover:underline"
+            style="color: var(--color-emergency)"
+          >
+            {emergencyPhone.display}
+          </a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wider mb-4 opacity-90">{t.services}</h4>
+        <ul class="space-y-2">
+          {t.serviceList.map((s) => (
+            <li>
+              <a href={s.href} class="text-sm opacity-80 hover:opacity-100 hover:underline transition-opacity">
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Coverage -->
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wider mb-4 opacity-90">{t.coverage}</h4>
+        <ul class="space-y-2 text-sm">
+          <li class="opacity-80">
+            <span class="block text-xs uppercase opacity-60">Miami-Dade</span>
+            <a href={`tel:${miamiPhone.e164}`} class="hover:underline">{miamiPhone.display}</a>
+          </li>
+          <li class="opacity-80">
+            <span class="block text-xs uppercase opacity-60">Broward</span>
+            <a href={`tel:${browardPhone.e164}`} class="hover:underline">{browardPhone.display}</a>
+          </li>
+          <li class="opacity-80">
+            <span class="block text-xs uppercase opacity-60">Orlando</span>
+            <a href={`tel:${orlandoPhone.e164}`} class="hover:underline">{orlandoPhone.display}</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Company + address -->
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wider mb-4 opacity-90">{t.company}</h4>
+        <ul class="space-y-2 mb-4">
+          {t.companyList.map((c) => (
+            <li>
+              <a href={c.href} class="text-sm opacity-80 hover:opacity-100 hover:underline">
+                {c.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <address class="text-sm opacity-70 not-italic leading-relaxed">
+          {business.address.street}<br/>
+          {business.address.city}, {business.address.state} {business.address.zip}
+        </address>
+      </div>
+    </div>
+
+    <!-- Bottom strip -->
+    <div class="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <p class="text-xs opacity-60">
+        © {year} {business.legalName}. {t.rights} · {t.license}
+      </p>
+
+      <!-- Social -->
+      <div class="flex gap-4">
+        <a
+          href={business.social.facebook}
+          target="_blank"
+          rel="noopener"
+          aria-label="Facebook"
+          class="opacity-70 hover:opacity-100 transition-opacity"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+      </div>
     </div>
   </div>
 </footer>
