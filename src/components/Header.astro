@@ -1,16 +1,125 @@
 ---
+/**
+ * Header.astro — navegación bilingüe con language toggle.
+ */
+import { business, emergencyPhone } from '../data/business';
+
 export interface Props {
   lang: 'en' | 'es';
   currentPath: string;
 }
+
 const { lang, currentPath } = Astro.props;
+
+const nav = {
+  en: [
+    { label: 'Services', href: '/services' },
+    { label: 'Service Areas', href: '/service-areas' },
+    { label: 'Projects', href: '/projects' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ],
+  es: [
+    { label: 'Servicios', href: '/es/servicios' },
+    { label: 'Áreas de Servicio', href: '/es/areas-de-servicio' },
+    { label: 'Proyectos', href: '/es/proyectos' },
+    { label: 'Nosotros', href: '/es/nosotros' },
+    { label: 'Contacto', href: '/es/contacto' },
+  ],
+};
+
+const langSwitchUrl = lang === 'en'
+  ? `/es${currentPath === '/' ? '/' : currentPath}`
+  : currentPath.replace(/^\/es/, '') || '/';
+
+const ctaText = lang === 'en' ? 'Call 24/7' : 'Llamar 24/7';
 ---
-<header class="container-x py-4 bg-white border-b border-border">
-  <div class="flex items-center justify-between">
-    <div class="font-display font-extrabold text-xl text-trust">EnviroPro</div>
-    <nav class="flex gap-4">
-      <a href={lang === 'en' ? '/' : '/es/'} class="text-ink hover:text-trust transition-colors">Home</a>
-      <a href={lang === 'en' ? '/services' : '/es/servicios'} class="text-ink hover:text-trust transition-colors">Services</a>
+
+<header class="sticky top-0 z-40 bg-white border-b border-[var(--color-border)] shadow-sm">
+  <div class="container-x flex items-center justify-between py-3 lg:py-4">
+
+    <!-- Logo -->
+    <a href={lang === 'en' ? '/' : '/es/'} class="flex items-center gap-2 font-bold text-xl" style="font-family: var(--font-display); color: var(--color-trust)">
+      <span>EnviroPro</span>
+      <span class="hidden sm:inline text-sm font-normal" style="color: var(--color-ink-soft)">USA</span>
+    </a>
+
+    <!-- Nav desktop -->
+    <nav class="hidden lg:flex items-center gap-7">
+      {nav[lang].map((item) => (
+        <a
+          href={item.href}
+          class="text-sm font-medium transition-colors hover:text-[var(--color-trust)]"
+          style="color: var(--color-ink)"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- CTAs derecha -->
+    <div class="flex items-center gap-3">
+      <!-- Language toggle -->
+      <a
+        href={langSwitchUrl}
+        class="text-sm font-semibold px-2 py-1 rounded transition-colors hover:bg-[var(--color-surface-alt)]"
+        style="color: var(--color-ink-soft)"
+        aria-label={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
+      >
+        {lang === 'en' ? 'ES' : 'EN'}
+      </a>
+
+      <!-- Emergency call -->
+      <a
+        href={`tel:${emergencyPhone.e164}`}
+        class="btn-emergency text-sm py-2.5 px-4 lg:py-3 lg:px-5"
+        aria-label={`${ctaText} ${emergencyPhone.display}`}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span class="hidden sm:inline">{ctaText}</span>
+        <span class="sm:hidden">{lang === 'en' ? 'Call' : 'Llamar'}</span>
+      </a>
+
+      <!-- Menú móvil toggle -->
+      <button
+        id="mobile-menu-btn"
+        class="lg:hidden p-2"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menú móvil dropdown -->
+  <div id="mobile-menu" class="lg:hidden hidden border-t border-[var(--color-border)] bg-white">
+    <nav class="container-x py-4 flex flex-col gap-1">
+      {nav[lang].map((item) => (
+        <a
+          href={item.href}
+          class="py-3 px-2 text-base font-medium rounded transition-colors hover:bg-[var(--color-surface-alt)]"
+          style="color: var(--color-ink)"
+        >
+          {item.label}
+        </a>
+      ))}
     </nav>
   </div>
 </header>
+
+<script>
+  // Toggle menú móvil — vanilla JS, sin frameworks
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>
