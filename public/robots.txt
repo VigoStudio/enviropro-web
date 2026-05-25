@@ -1,0 +1,13 @@
+# EnviroPro USA — robots.txt
+# https://enviropro.net
+
+User-agent: *
+Allow: /
+
+# Bloquear assets internos y rutas técnicas
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://enviropro.net/sitemap-index.xml
