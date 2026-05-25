@@ -1,1 +1,144 @@
+/* ============================================================
+   EnviroPro USA — Global Styles
+   Tailwind v4 (sintaxis @theme en CSS, NO tailwind.config.mjs)
+   ============================================================ */
+
 @import "tailwindcss";
+
+/* ------------------------------------------------------------
+   TODO: PALETA PROVISIONAL — reemplazar tras aprobación de mockup home.
+   Valores actuales son neutros profesionales seguros para arrancar.
+   ------------------------------------------------------------ */
+@theme {
+  /* --- Colores base --- */
+  --color-ink: #0A0A0A;              /* Texto principal */
+  --color-ink-soft: #404040;         /* Texto secundario */
+  --color-surface: #FAFAFA;          /* Fondo claro */
+  --color-surface-alt: #F4F4F5;      /* Fondo secciones */
+  --color-border: #E4E4E7;
+
+  /* --- Marca (PROVISIONAL — pendiente decisión post-mockup) --- */
+  --color-emergency: #DC2626;        /* Rojo emergency CTA */
+  --color-emergency-hover: #B91C1C;
+  --color-trust: #1E3A8A;            /* Azul navy autoridad */
+  --color-trust-hover: #1E40AF;
+  --color-accent: #F59E0B;           /* Acento amber (badges, ratings) */
+
+  /* --- Estados --- */
+  --color-success: #16A34A;
+  --color-warning: #D97706;
+
+  /* --- Tipografía --- */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Manrope', 'Inter', system-ui, sans-serif;
+
+  /* --- Tamaños custom --- */
+  --text-display: clamp(2.5rem, 6vw, 4.5rem);
+  --text-hero: clamp(1.25rem, 2.5vw, 1.5rem);
+
+  /* --- Spacing extras --- */
+  --spacing-section: clamp(4rem, 10vw, 8rem);
+
+  /* --- Radius --- */
+  --radius-card: 1rem;
+  --radius-btn: 0.625rem;
+
+  /* --- Shadows --- */
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-card-hover: 0 10px 30px rgb(0 0 0 / 0.12), 0 4px 8px rgb(0 0 0 / 0.06);
+}
+
+/* ------------------------------------------------------------
+   Base resets y tipografía
+   ------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  /* Anti-iOS auto-formatting de teléfonos en displays.
+     Solo se aplica a contenedores que NO son tel: links. */
+  .no-phone-autoformat {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Focus visible accesible (WCAG 2.1 AA) */
+  :focus-visible {
+    outline: 3px solid var(--color-trust);
+    outline-offset: 2px;
+  }
+}
+
+/* ------------------------------------------------------------
+   Componentes utilitarios reutilizables
+   ------------------------------------------------------------ */
+@layer components {
+  .btn-emergency {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-4 font-semibold text-white transition-all;
+    background: var(--color-emergency);
+    border-radius: var(--radius-btn);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-emergency:hover {
+    background: var(--color-emergency-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .btn-trust {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-4 font-semibold text-white transition-all;
+    background: var(--color-trust);
+    border-radius: var(--radius-btn);
+  }
+  .btn-trust:hover { background: var(--color-trust-hover); }
+
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-y {
+    padding-block: var(--spacing-section);
+  }
+}
+
+/* ------------------------------------------------------------
+   GSAP — estados iniciales (evitar FOUC)
+   Solo aplicar a elementos animados en Hero.
+   ------------------------------------------------------------ */
+.gsap-fade-in { opacity: 0; }
+.gsap-slide-up { opacity: 0; transform: translateY(20px); }
+
+/* ------------------------------------------------------------
+   Sticky mobile bar — emergency CTA siempre visible
+   ------------------------------------------------------------ */
+.sticky-mobile-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--color-ink);
+  box-shadow: 0 -4px 12px rgb(0 0 0 / 0.15);
+}
+@media (min-width: 1024px) {
+  .sticky-mobile-bar { display: none; }
+}
