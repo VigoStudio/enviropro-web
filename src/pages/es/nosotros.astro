@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { business, emergencyPhone } from '../../data/business';
+
+const title = 'Sobre EnviroPro USA · 36 Años Restaurando Hogares en South Florida';
+const description = 'Empresa familiar de restauración sirviendo Miami-Dade, Broward y Orlando desde 1990. Certificados IICRC, bilingües, aprobados por aseguradoras. Conoce al equipo de EnviroPro.';
+
+const milestones = [
+  { year: '1990', label: 'Fundada en Miami por Rafael Salazar' },
+  { year: '2005', label: 'Expansión al Condado de Broward' },
+  { year: '2012', label: 'Servicio en el área metropolitana de Orlando' },
+  { year: '2018', label: 'División de Ventanas de Impacto agregada' },
+  { year: '2026', label: '36 años y contando — más de 10,000 hogares restaurados' },
+];
+
+const values = [
+  { icon: '⚡', title: 'Respuesta Inmediata', desc: 'Despacho 24/7, 365 días. La mayoría de llamadas atendidas en menos de 60 minutos.' },
+  { icon: '🛡️', title: 'Facturación Directa con Aseguradora', desc: 'Coordinamos con su ajustador — sin gastos de bolsillo en reclamos cubiertos.' },
+  { icon: '🌎', title: 'Bilingual desde el Día Uno', desc: 'Inglés y español, en cada llamada. Miami merece nada menos.' },
+  { icon: '🏅', title: 'Certificación IICRC', desc: 'Cada técnico capacitado bajo estándares de industria en agua, fuego y moho.' },
+];
+---
+
+<BaseLayout title={title} description={description} lang="es" pathname="/es/nosotros">
+
+  <section class="bg-[var(--color-ink)] text-white">
+    <div class="container-x py-20 lg:py-28">
+      <p class="text-sm uppercase tracking-widest font-semibold mb-4" style="color: var(--color-accent)">Desde 1990</p>
+      <h1 class="text-4xl lg:text-6xl font-bold mb-6" style="font-family: var(--font-display)">
+        Empresa familiar.<br/>
+        <span style="color: var(--color-emergency)">Probada en South Florida.</span>
+      </h1>
+      <p class="text-xl opacity-80 max-w-2xl leading-relaxed">
+        Por 36 años, la familia Salazar ha sido la llamada que los propietarios de South Florida hacen
+        cuando golpea el agua, el moho, el fuego o un huracán. Construimos esta empresa con una promesa:
+        llegar, repararlo bien, tratar cada hogar como si fuera el nuestro.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-y bg-white">
+    <div class="container-x grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+      <div class="lg:col-span-2">
+        <div class="aspect-square bg-[var(--color-surface-alt)] rounded-2xl flex items-center justify-center">
+          <span class="text-sm" style="color: var(--color-ink-soft)">[Foto del fundador]</span>
+        </div>
+      </div>
+      <div class="lg:col-span-3">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-6" style="font-family: var(--font-display)">
+          La historia de la familia Salazar
+        </h2>
+        <div class="space-y-4 text-lg" style="color: var(--color-ink-soft)">
+          <p>
+            Rafael Salazar fundó EnviroPro USA en 1990 con una observación simple: los propietarios de South
+            Florida estaban siendo decepcionados por contratistas de restauración que llegaban tarde, no
+            hablaban su idioma o desaparecían después del depósito.
+          </p>
+          <p>
+            Tres décadas después, Rafael todavía responde llamadas de emergencia. Su hijo Andrew dirige las
+            operaciones diarias. El equipo ha crecido a docenas de técnicos certificados en Miami-Dade,
+            Broward y Orlando — pero el estándar no ha cambiado: respondemos el teléfono, llegamos rápido,
+            y dejamos el hogar mejor de como lo encontramos.
+          </p>
+          <p class="font-semibold" style="color: var(--color-ink)">
+            36 años. Misma familia. Misma promesa.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-y" style="background: var(--color-surface-alt)">
+    <div class="container-x">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-5xl font-bold mb-4" style="font-family: var(--font-display)">
+          Qué nos distingue
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {values.map((v) => (
+          <div class="bg-white p-7 rounded-2xl shadow-sm">
+            <div class="text-3xl mb-3">{v.icon}</div>
+            <h3 class="font-bold text-xl mb-2">{v.title}</h3>
+            <p style="color: var(--color-ink-soft)">{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-y bg-white">
+    <div class="container-x max-w-3xl">
+      <h2 class="text-3xl lg:text-5xl font-bold mb-12 text-center" style="font-family: var(--font-display)">
+        Nuestra historia por año
+      </h2>
+      <div class="space-y-6">
+        {milestones.map((m) => (
+          <div class="flex gap-6 items-start border-l-2 border-[var(--color-emergency)] pl-6 py-2">
+            <span class="text-2xl font-bold min-w-[80px]" style="color: var(--color-trust); font-family: var(--font-display)">
+              {m.year}
+            </span>
+            <p class="text-lg pt-1">{m.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-white border-t border-[var(--color-border)]">
+    <div class="container-x text-center">
+      <p class="text-sm uppercase tracking-widest mb-6" style="color: var(--color-ink-soft)">
+        Licenciados · Asegurados · Certificados
+      </p>
+      <div class="flex flex-wrap justify-center gap-8 items-center">
+        {business.certifications.map((cert) => (
+          <span class="px-5 py-3 bg-[var(--color-surface-alt)] rounded-lg font-semibold text-sm">
+            {cert}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-y bg-[var(--color-ink)] text-white text-center">
+    <div class="container-x">
+      <h2 class="text-3xl lg:text-5xl font-bold mb-4" style="font-family: var(--font-display)">
+        Listos cuando nos necesite.
+      </h2>
+      <p class="text-lg opacity-80 mb-8">Emergencia o servicio programado — misma promesa, misma familia.</p>
+      <a href={`tel:${emergencyPhone.e164}`} class="btn-emergency text-xl">
+        Llamar {emergencyPhone.display}
+      </a>
+    </div>
+  </section>
+</BaseLayout>
