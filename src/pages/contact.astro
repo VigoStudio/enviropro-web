@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business, emergencyPhone, miamiPhone, browardPhone, orlandoPhone } from '../data/business';
+
+const title = 'Contact EnviroPro USA · 24/7 Emergency Restoration Service · Miami';
+const description = 'Call 24/7 for water, mold, fire and hurricane damage restoration in Miami-Dade, Broward and Orlando. Bilingual team, insurance direct billing.';
+
+// TODO: reemplazar mailto por endpoint Formspree o Cloudflare Worker antes de lanzamiento
+const contactEmail = business.email.support;
+
+const offices = [
+  { region: 'Miami-Dade', phone: miamiPhone, area: 'Pinecrest · Coral Gables · Kendall · Doral · Hialeah · Brickell' },
+  { region: 'Broward', phone: browardPhone, area: 'Fort Lauderdale · Hollywood · Pembroke Pines · Aventura' },
+  { region: 'Orlando', phone: orlandoPhone, area: 'Winter Park · Lake Nona · Dr. Phillips · Windermere' },
+];
+---
+
+<BaseLayout title={title} description={description} lang="en" pathname="/contact">
+
+  <!-- EMERGENCY BANNER -->
+  <section style="background: var(--color-emergency)" class="text-white py-4">
+    <div class="container-x flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="font-semibold text-lg">⚠️ Emergency? Don't fill the form — call now.</p>
+      <a href={`tel:${emergencyPhone.e164}`} class="bg-white text-[var(--color-emergency)] font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+        {emergencyPhone.display} · 24/7
+      </a>
+    </div>
+  </section>
+
+  <!-- HERO -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="container-x max-w-4xl text-center">
+      <h1 class="text-4xl lg:text-6xl font-bold mb-6" style="font-family: var(--font-display)">
+        Three ways to reach us.
+      </h1>
+      <p class="text-xl" style="color: var(--color-ink-soft)">
+        Call for emergencies. WhatsApp for quick questions. Form for scheduled service or quotes.
+      </p>
+    </div>
+  </section>
+
+  <!-- OFFICES GRID -->
+  <section class="pb-16 bg-white">
+    <div class="container-x">
+      <h2 class="text-2xl font-bold mb-8 text-center" style="font-family: var(--font-display)">Office by region</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {offices.map((office) => (
+          <div class="p-7 rounded-2xl border-2 border-[var(--color-border)] hover:border-[var(--color-trust)] transition-colors">
+            <p class="text-xs uppercase tracking-widest font-bold mb-2" style="color: var(--color-trust)">
+              {office.region}
+            </p>
+            <a href={`tel:${office.phone.e164}`} class="block text-2xl font-bold mb-3 hover:underline">
+              {office.phone.display}
+            </a>
+            <p class="text-sm" style="color: var(--color-ink-soft)">{office.area}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM + MAP -->
+  <section class="section-y" style="background: var(--color-surface-alt)">
+    <div class="container-x grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+      <!-- FORM -->
+      <div class="bg-white p-8 rounded-2xl shadow-sm">
+        <h2 class="text-2xl lg:text-3xl font-bold mb-2" style="font-family: var(--font-display)">
+          Schedule a service or quote
+        </h2>
+        <p class="mb-6" style="color: var(--color-ink-soft)">
+          We respond to non-emergency requests within 4 business hours.
+        </p>
+
+        <!--
+          TODO: migrar de mailto: a Formspree (free 50/mes) o Cloudflare Worker antes de lanzamiento.
+          Form actual: usa mailto: que abre cliente de email del usuario con campos pre-llenados.
+        -->
+        <form
+          action={`mailto:${contactEmail}`}
+          method="post"
+          enctype="text/plain"
+          class="space-y-4"
+        >
+          <div>
+            <label for="name" class="block text-sm font-semibold mb-1">Name *</label>
+            <input
+              type="text"
+              id="name"
+              name="Name"
+              required
+              class="w-full px-4 py-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-trust)]"
+            />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="phone" class="block text-sm font-semibold mb-1">Phone *</label>
+              <input
+                type="tel"
+                id="phone"
+                name="Phone"
+                required
+                class="w-full px-4 py-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-trust)]"
+              />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-semibold mb-1">Email *</label>
+              <input
+                type="email"
+                id="email"
+                name="Email"
+                required
+                class="w-full px-4 py-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-trust)]"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="service" class="block text-sm font-semibold mb-1">Service needed *</label>
+            <select
+              id="service"
+              name="Service"
+              required
+              class="w-full px-4 py-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-trust)] bg-white"
+            >
+              <option value="">Select a service…</option>
+              <option>Water Damage Restoration</option>
+              <option>Mold Removal</option>
+              <option>Fire & Smoke Damage</option>
+              <option>Hurricane Emergency</option>
+              <option>Impact Windows</option>
+              <option>Other / Not sure</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="urgency" class="block text-sm font-semibold mb-1">Urgency</label>
+            <select
+              id="urgency"
+              name="Urgency"
+              class="w-full px-4 py-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-trust)] bg-white"
+            >
+              <option>Scheduled / not urgent</option>
+              <option>Within 24-48 hours</option>
+              <option>Today (call us instead)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-semibold mb-1">Tell us what happened</label>
+            <textarea
+              id="message"
+              name="Message"
+              rows="4"
+              class="w-full px-4 py-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-trust)] resize-none"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn-trust w-full text-lg py-4">
+            Send Message
+          </button>
+
+          <p class="text-xs text-center" style="color: var(--color-ink-soft)">
+            * Required fields. We respond within 4 business hours.
+          </p>
+        </form>
+      </div>
+
+      <!-- MAP + ADDRESS -->
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-2xl lg:text-3xl font-bold mb-2" style="font-family: var(--font-display)">
+            Visit our office
+          </h2>
+          <p style="color: var(--color-ink-soft)">By appointment only — emergency response is dispatched, not walk-in.</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm">
+          <p class="text-xs uppercase tracking-widest font-bold mb-2" style="color: var(--color-trust)">Headquarters</p>
+          <address class="text-lg not-italic font-semibold mb-4">
+            {business.address.street}<br/>
+            {business.address.city}, {business.address.state} {business.address.zip}
+          </address>
+
+          <div class="space-y-2 text-sm">
+            <p><span class="font-semibold">Emergency:</span> 24/7 — 365 days</p>
+            <p><span class="font-semibold">Office hours:</span> Mon-Fri 8AM-6PM EST</p>
+          </div>
+
+          <a
+            href={`https://maps.google.com/?q=${encodeURIComponent(business.address.formatted)}`}
+            target="_blank"
+            rel="noopener"
+            class="inline-block mt-4 font-semibold text-sm hover:underline"
+            style="color: var(--color-trust)"
+          >
+            Open in Google Maps →
+          </a>
+        </div>
+
+        <!-- Embed mapa -->
+        <div class="rounded-2xl overflow-hidden shadow-sm bg-white">
+          <iframe
+            src={`https://www.google.com/maps?q=${business.geo.latitude},${business.geo.longitude}&z=15&output=embed`}
+            width="100%"
+            height="300"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="EnviroPro USA location"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

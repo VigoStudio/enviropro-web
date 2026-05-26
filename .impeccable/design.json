@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-25T00:00:00Z",
+  "title": "Design System: EnviroPro USA",
+  "extensions": {
+    "colorMeta": {
+      "trust-navy":        { "role": "primary",   "displayName": "Trust Navy",       "canonical": "oklch(30% 0.107 264)", "tonalRamp": ["oklch(12% 0.05 264)","oklch(18% 0.08 264)","oklch(24% 0.10 264)","oklch(30% 0.107 264)","oklch(40% 0.10 264)","oklch(55% 0.09 264)","oklch(72% 0.06 264)","oklch(90% 0.02 264)"] },
+      "emergency-red":     { "role": "secondary", "displayName": "Emergency Red",     "canonical": "oklch(52% 0.201 28)",  "tonalRamp": ["oklch(22% 0.12 28)","oklch(31% 0.16 28)","oklch(40% 0.19 28)","oklch(52% 0.20 28)","oklch(62% 0.17 28)","oklch(73% 0.13 28)","oklch(84% 0.07 28)","oklch(95% 0.03 28)"] },
+      "coastal-amber":     { "role": "tertiary",  "displayName": "Coastal Amber",     "canonical": "oklch(77% 0.157 80)",  "tonalRamp": ["oklch(28% 0.09 80)","oklch(40% 0.12 80)","oklch(53% 0.14 80)","oklch(65% 0.16 80)","oklch(77% 0.157 80)","oklch(86% 0.12 80)","oklch(93% 0.07 80)","oklch(97% 0.03 80)"] },
+      "near-black":        { "role": "neutral",   "displayName": "Near-Black Ink",    "canonical": "oklch(8% 0.005 264)",  "tonalRamp": ["oklch(4% 0.003 264)","oklch(8% 0.005 264)","oklch(18% 0.008 264)","oklch(30% 0.008 264)","oklch(45% 0.006 264)","oklch(62% 0.005 264)","oklch(78% 0.004 264)","oklch(94% 0.003 264)"] },
+      "soft-ink":          { "role": "neutral",   "displayName": "Soft Ink",          "canonical": "oklch(32% 0.008 264)", "tonalRamp": null },
+      "clean-canvas":      { "role": "neutral",   "displayName": "Clean Canvas",      "canonical": "oklch(98% 0.004 264)", "tonalRamp": null },
+      "pale-surface":      { "role": "neutral",   "displayName": "Pale Surface",      "canonical": "oklch(96% 0.005 264)", "tonalRamp": null },
+      "zinc-border":       { "role": "neutral",   "displayName": "Zinc Border",       "canonical": "oklch(92% 0.006 264)", "tonalRamp": null },
+      "success-green":     { "role": "semantic",  "displayName": "Success Green",     "canonical": "oklch(51% 0.14 145)",  "tonalRamp": null }
+    },
+    "typographyMeta": {
+      "display":  { "displayName": "Display",  "purpose": "Hero h1 only. One per page. Manrope 800, negative tracking." },
+      "headline": { "displayName": "Headline", "purpose": "Section h2 headings. Manrope 700." },
+      "title":    { "displayName": "Title",    "purpose": "Card titles, service names. Manrope 700 at smaller scale." },
+      "body":     { "displayName": "Body",     "purpose": "All reading copy. Inter 400. Max 65-75ch line length." },
+      "label":    { "displayName": "Label",    "purpose": "Eyebrow labels, category tags, nav items. Inter 600 uppercase with wide tracking." }
+    },
+    "shadows": [
+      { "name": "card-ambient",   "value": "0 1px 3px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.04)", "purpose": "Card hover state only. Not applied at rest." },
+      { "name": "card-lifted",    "value": "0 10px 30px rgb(0 0 0 / 0.12), 0 4px 8px rgb(0 0 0 / 0.06)", "purpose": "Active hover for service cards and CTA containers." },
+      { "name": "sticky-bar",     "value": "0 -4px 12px rgb(0 0 0 / 0.15)", "purpose": "Sticky mobile emergency bar. Upward shadow only." },
+      { "name": "header",         "value": "0 1px 3px rgb(0 0 0 / 0.06)", "purpose": "Sticky header bottom edge. Very subtle." }
+    ],
+    "motion": [
+      { "name": "ease-out-standard", "value": "cubic-bezier(0, 0, 0.2, 1)", "purpose": "Default easing for state transitions (hover, focus)." },
+      { "name": "hero-pulse",        "value": "scale 1.03, duration 1.2s, yoyo, ease power1.inOut (GSAP)", "purpose": "Emergency CTA pulse in Hero section only. Disable with prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "sm",  "value": "640px"  },
+      { "name": "md",  "value": "768px"  },
+      { "name": "lg",  "value": "1024px" },
+      { "name": "xl",  "value": "1280px" },
+      { "name": "2xl", "value": "1536px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Emergency Button",
+      "kind": "button",
+      "refersTo": "btn-emergency",
+      "description": "Red CTA for emergency phone calls. Only used when the action triggers an immediate emergency response.",
+      "html": "<a href=\"tel:+18772166653\" class=\"ds-btn-emergency\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"/></svg>Call 1-877-216-6653</a>",
+      "css": ".ds-btn-emergency { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 1.5rem; background: #DC2626; color: #FAFAFA; font-family: Inter, system-ui, sans-serif; font-size: 1rem; font-weight: 600; border: none; border-radius: 0.625rem; text-decoration: none; cursor: pointer; transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease; box-shadow: 0 1px 3px rgb(0 0 0 / 0.08); } .ds-btn-emergency:hover { background: #B91C1C; transform: translateY(-1px); box-shadow: 0 10px 30px rgb(0 0 0 / 0.12); } .ds-btn-emergency:focus-visible { outline: 3px solid #1E3A8A; outline-offset: 2px; }"
+    },
+    {
+      "name": "Trust Button",
+      "kind": "button",
+      "refersTo": "btn-trust",
+      "description": "Navy CTA for scheduled appointments and informational actions. Never for emergency calls.",
+      "html": "<a href=\"/contact\" class=\"ds-btn-trust\">Book Appointment</a>",
+      "css": ".ds-btn-trust { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 1.5rem; background: #1E3A8A; color: #FAFAFA; font-family: Inter, system-ui, sans-serif; font-size: 1rem; font-weight: 600; border: none; border-radius: 0.625rem; text-decoration: none; cursor: pointer; transition: background 0.15s ease; } .ds-btn-trust:hover { background: #1E40AF; } .ds-btn-trust:focus-visible { outline: 3px solid #1E3A8A; outline-offset: 2px; }"
+    },
+    {
+      "name": "Service Card",
+      "kind": "card",
+      "refersTo": "service-card",
+      "description": "Service overview card. Flat at rest, lifted border on hover. Icon top, title, body copy.",
+      "html": "<a href=\"/services/water-damage\" class=\"ds-service-card\"><div class=\"ds-service-card__icon\">💧</div><h3 class=\"ds-service-card__title\">Water Damage</h3><p class=\"ds-service-card__body\">Pipe bursts, flooding, leaks — 60-minute response.</p></a>",
+      "css": ".ds-service-card { display: block; padding: 1.5rem; background: #FAFAFA; border: 1px solid #E4E4E7; border-radius: 1rem; text-decoration: none; color: #0A0A0A; transition: border-color 0.15s ease, box-shadow 0.15s ease; } .ds-service-card:hover { border-color: #1E3A8A; box-shadow: 0 10px 30px rgb(0 0 0 / 0.12), 0 4px 8px rgb(0 0 0 / 0.06); } .ds-service-card__icon { font-size: 2.5rem; margin-bottom: 0.75rem; } .ds-service-card__title { font-family: Manrope, Inter, system-ui, sans-serif; font-size: 1.125rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.5rem; } .ds-service-card__body { font-family: Inter, system-ui, sans-serif; font-size: 0.875rem; color: #404040; line-height: 1.6; margin: 0; }"
+    },
+    {
+      "name": "Eyebrow Label",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Small uppercase label that appears above major headings. Coastal Amber only.",
+      "html": "<p class=\"ds-eyebrow\">24/7 Emergency Response · 36 Years in South Florida</p>",
+      "css": ".ds-eyebrow { font-family: Inter, system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #F59E0B; margin: 0 0 1rem 0; }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Sticky top header. Logo left, nav center (desktop), CTAs right. Collapses to hamburger on mobile.",
+      "html": "<header class=\"ds-header\"><div class=\"ds-header__inner\"><a href=\"/\" class=\"ds-header__logo\">EnviroPro <span>USA</span></a><nav class=\"ds-header__nav\"><a href=\"/services\">Services</a><a href=\"/about\">About</a><a href=\"/contact\">Contact</a></nav><a href=\"tel:+18772166653\" class=\"ds-btn-emergency\" style=\"font-size:0.875rem;padding:0.625rem 1rem\">Call 24/7</a></div></header>",
+      "css": ".ds-header { position: sticky; top: 0; z-index: 40; background: #FAFAFA; border-bottom: 1px solid #E4E4E7; box-shadow: 0 1px 3px rgb(0 0 0 / 0.06); } .ds-header__inner { max-width: 80rem; margin: 0 auto; padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; } .ds-header__logo { font-family: Manrope, Inter, system-ui, sans-serif; font-size: 1.25rem; font-weight: 700; color: #1E3A8A; text-decoration: none; } .ds-header__logo span { font-size: 0.875rem; font-weight: 400; color: #404040; } .ds-header__nav { display: flex; gap: 1.75rem; } .ds-header__nav a { font-family: Inter, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; color: #0A0A0A; text-decoration: none; transition: color 0.15s; } .ds-header__nav a:hover { color: #1E3A8A; }"
+    },
+    {
+      "name": "Testimonial Block",
+      "kind": "card",
+      "refersTo": null,
+      "description": "Customer quote card. White background, lifted shadow. Used in Why EnviroPro sections.",
+      "html": "<div class=\"ds-testimonial\"><p class=\"ds-testimonial__quote\">EnviroPro responded within an hour after our pipe burst. Professional, bilingual, and worked directly with our insurance.</p><p class=\"ds-testimonial__name\">Mellissa Clark</p><p class=\"ds-testimonial__location\">Pinecrest, FL</p></div>",
+      "css": ".ds-testimonial { background: #FAFAFA; border-radius: 1rem; padding: 2rem; box-shadow: 0 10px 30px rgb(0 0 0 / 0.08), 0 4px 8px rgb(0 0 0 / 0.04); } .ds-testimonial__quote { font-family: Inter, system-ui, sans-serif; font-size: 1.125rem; font-style: italic; color: #0A0A0A; line-height: 1.65; margin: 0 0 1rem 0; } .ds-testimonial__name { font-family: Inter, system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; color: #0A0A0A; margin: 0 0 0.25rem 0; } .ds-testimonial__location { font-family: Inter, system-ui, sans-serif; font-size: 0.875rem; color: #404040; margin: 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Reliable Contractor",
+    "overview": "Like a contractor who shows up on time, names a fair price, and does exactly what they said they would. The EnviroPro design system doesn't perform credibility — it communicates capability. Every visual decision earns its place the same way a skilled tradesperson earns trust: by being clear, precise, and dependable under pressure.\n\nThe palette is built around two primary signals: navy for authority and permanence, red for immediate action. The coastal amber appears rarely — only where credentials need a visual marker. Its rarity is load-bearing; when amber appears, it means something.\n\nThis system explicitly rejects the HomeAdvisor/Angi contractor template aesthetic: stock photos of smiling workers in hard hats, orange-yellow CTA gradients, 'Get Free Quotes' hero sections, and stacked trust-badge rows.",
+    "keyCharacteristics": [
+      "Two-button language: red = call now (emergency), navy = schedule or learn more (considered)",
+      "Manrope at display and headline scale for authoritative, tight-tracked headings",
+      "Inter for body copy — warm, legible, never clinical",
+      "Cards with zinc borders, not floating shadows",
+      "Amber used at ≤5% of any surface; marks authority, not decoration",
+      "Section rhythm driven by generous vertical spacing"
+    ],
+    "rules": [
+      { "name": "The Two-Button Rule",       "body": "Red means call now. Navy means learn more or schedule. These two signals never swap roles, never share a color, and are never used decoratively.", "section": "colors" },
+      { "name": "The Amber Rarity Rule",     "body": "Amber appears on ≤5% of any screen. If amber is appearing more frequently than navy, something is wrong with the layout's priority.", "section": "colors" },
+      { "name": "The Single Display Rule",   "body": "One h1 per page, one instance of display-scale type. Section headings use Headline scale. This is what makes the hero headline actually feel like one.", "section": "typography" },
+      { "name": "The Tracking Contract",     "body": "Negative letter-spacing belongs to Manrope at display and headline scale. Positive letter-spacing belongs to Inter labels at 0.08em+. No other combination.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule",  "body": "Surfaces at rest have no box-shadow. A card's identity comes from its 1px zinc border and 1rem radius, not from floating above the page.", "section": "elevation" },
+      { "name": "The No Side-Stripe Rule",   "body": "Cards never use border-left greater than 1px as a colored accent. Full border or nothing. A colored left-stripe signals budget template.", "section": "components" }
+    ],
+    "dos": [
+      "Do use Emergency Red exclusively for call-to-action elements that trigger emergency response.",
+      "Do tightly track Manrope headings at -0.02em at display and headline scale.",
+      "Do separate sections with alternating background colors (Clean Canvas / Pale Surface) rather than dividers.",
+      "Do keep amber to eyebrow labels, star ratings, and certification markers.",
+      "Do write phone numbers as clickable tel: links with full e164 format.",
+      "Do ensure all text meets WCAG 2.1 AA contrast.",
+      "Do use prefers-reduced-motion to disable the hero pulse animation.",
+      "Do keep body line length at 65-75ch max."
+    ],
+    "donts": [
+      "Don't use stock photos of smiling workers in hard hats, orange/yellow gradients, or 'Get Free Quotes' banners.",
+      "Don't use border-left greater than 1px as a colored accent stripe on any card or callout.",
+      "Don't use gradient text (background-clip: text).",
+      "Don't use glassmorphism — blur cards, frosted panels, or backdrop-filter decorations.",
+      "Don't add a third button variant.",
+      "Don't use Coastal Amber as a background color or for large text areas.",
+      "Don't apply positive letter-spacing to Manrope headings or negative letter-spacing to Inter body.",
+      "Don't replace real testimonials with placeholder or fabricated quotes."
+    ]
+  }
+}

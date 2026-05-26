@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { business, emergencyPhone } from '../../data/business';
+
+const title = 'Restoration Services in Miami-Dade · EnviroPro USA';
+const description = 'Water damage, mold removal, fire restoration, hurricane emergency response, and impact windows. IICRC certified, 24/7 service across Miami-Dade, Broward and Orlando.';
+
+const services = [
+  {
+    icon: '💧',
+    title: 'Water Damage Restoration',
+    href: '/services/water-damage',
+    summary: 'Pipe bursts, flooding, leaks, appliance failures. The faster we arrive, the more we save.',
+    process: ['Emergency response', 'Water extraction', 'Structural drying', 'Restoration & repair'],
+    cta: 'Most common emergency call · 60-minute response',
+  },
+  {
+    icon: '🦠',
+    title: 'Mold Removal & Remediation',
+    href: '/services/mold-removal',
+    summary: 'Health-driven service. IICRC-certified inspection, containment, removal, and clearance testing.',
+    process: ['Inspection', 'Containment', 'Removal', 'Clearance testing'],
+    cta: 'High-humidity South Florida specialty',
+  },
+  {
+    icon: '🔥',
+    title: 'Fire & Smoke Damage',
+    href: '/services/fire-damage',
+    summary: 'Full restoration: structural repair, smoke odor neutralization, content cleaning, reconstruction.',
+    process: ['Assessment', 'Securing', 'Cleaning', 'Reconstruction'],
+    cta: 'We coordinate directly with your insurance adjuster',
+  },
+  {
+    icon: '🌀',
+    title: 'Hurricane Emergency',
+    href: '/services/hurricane-emergency',
+    summary: 'Roof tarping, water extraction, structural drying, mold prevention. Priority hotline June-November.',
+    process: ['Roof tarping', 'Water extraction', 'Structural drying', 'Mold prevention'],
+    cta: 'Hurricane season hotline active',
+  },
+  {
+    icon: '🪟',
+    title: 'Impact Windows & Doors',
+    href: '/services/impact-windows',
+    summary: 'Hurricane-rated impact windows and doors. Insurance discounts, code compliance, noise reduction.',
+    process: ['Free measurement', 'Quote', 'Permit & installation', 'Final inspection'],
+    cta: 'Available as standalone or post-storm replacement',
+  },
+];
+---
+
+<BaseLayout title={title} description={description} lang="en" pathname="/services">
+
+  <section class="bg-[var(--color-ink)] text-white">
+    <div class="container-x py-20 lg:py-28">
+      <p class="text-sm uppercase tracking-widest font-semibold mb-4" style="color: var(--color-accent)">
+        Restoration Services
+      </p>
+      <h1 class="text-4xl lg:text-6xl font-bold mb-6 max-w-3xl" style="font-family: var(--font-display)">
+        One call. <span style="color: var(--color-emergency)">Every restoration service</span> South Florida needs.
+      </h1>
+      <p class="text-xl opacity-80 max-w-2xl leading-relaxed">
+        Water, mold, fire, hurricane, impact windows. 36 years. Same family, same standard.
+        Pick a service to see how we work.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-y bg-white">
+    <div class="container-x space-y-16">
+      {services.map((s, idx) => (
+        <article class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+
+          <div class="lg:col-span-1">
+            <div class="text-5xl">{s.icon}</div>
+            <p class="text-sm font-bold mt-2" style="color: var(--color-ink-soft)">
+              0{idx + 1}
+            </p>
+          </div>
+
+          <div class="lg:col-span-7">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-4" style="font-family: var(--font-display)">
+              {s.title}
+            </h2>
+            <p class="text-lg mb-6 leading-relaxed" style="color: var(--color-ink-soft)">
+              {s.summary}
+            </p>
+
+            <p class="text-xs uppercase tracking-widest font-bold mb-3" style="color: var(--color-trust)">
+              Our 4-step process
+            </p>
+            <ol class="grid grid-cols-2 gap-3 mb-6">
+              {s.process.map((step, i) => (
+                <li class="flex gap-2 text-sm">
+                  <span class="font-bold" style="color: var(--color-emergency)">{i + 1}.</span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+
+            <a
+              href={s.href}
+              class="inline-flex items-center gap-2 font-semibold hover:underline"
+              style="color: var(--color-trust)"
+            >
+              See full {s.title.toLowerCase()} details →
+            </a>
+          </div>
+
+          <div class="lg:col-span-4">
+            <div class="bg-[var(--color-surface-alt)] p-6 rounded-2xl">
+              <p class="text-sm font-semibold mb-4">{s.cta}</p>
+              <a href={`tel:${emergencyPhone.e164}`} class="btn-emergency w-full justify-center text-sm">
+                Call {emergencyPhone.display}
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-y" style="background: var(--color-surface-alt)">
+    <div class="container-x text-center max-w-3xl">
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4" style="font-family: var(--font-display)">
+        We work directly with your insurance.
+      </h2>
+      <p class="text-lg" style="color: var(--color-ink-soft)">
+        No out-of-pocket cost for covered claims. We coordinate documentation, scoping, and direct billing
+        with your adjuster so you can focus on your family — not paperwork.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-y bg-[var(--color-ink)] text-white text-center">
+    <div class="container-x">
+      <h2 class="text-3xl lg:text-5xl font-bold mb-4" style="font-family: var(--font-display)">
+        Not sure which service you need?
+      </h2>
+      <p class="text-lg opacity-80 mb-8">Call us. We'll diagnose by phone in under 5 minutes.</p>
+      <a href={`tel:${emergencyPhone.e164}`} class="btn-emergency text-xl">
+        Call {emergencyPhone.display}
+      </a>
+    </div>
+  </section>
+</BaseLayout>
