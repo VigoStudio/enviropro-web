@@ -28,9 +28,18 @@ const nav = {
   ],
 };
 
+const enToEs: Record<string, string> = {
+  '/': '/es/',
+  '/services': '/es/servicios',
+  '/service-areas': '/es/areas-de-servicio',
+  '/projects': '/es/proyectos',
+  '/about': '/es/nosotros',
+  '/contact': '/es/contacto',
+};
+const esPathKey = currentPath.replace(/\/$/, '') || '/';
 const langSwitchUrl = lang === 'en'
-  ? `/es${currentPath === '/' ? '/' : currentPath}`
-  : currentPath.replace(/^\/es/, '') || '/';
+  ? (enToEs[currentPath] ?? enToEs[esPathKey] ?? `/es${currentPath}`)
+  : (Object.entries(enToEs).find(([, es]) => es === currentPath || es === esPathKey + '/')?.[0] ?? '/');
 
 const ctaText = lang === 'en' ? 'Call 24/7' : 'Llamar 24/7';
 ---
