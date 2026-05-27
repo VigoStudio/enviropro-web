@@ -104,32 +104,43 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
         {ctaLabel}
       </a>
 
-      <!-- Mobile hamburger -->
+      <!-- Mobile hamburger — shows ≡ only; X lives inside the overlay -->
       <button
         id="mobile-menu-btn"
         class="lg:hidden p-2 text-white"
         aria-label={menuLabel}
         aria-expanded="false"
       >
-        <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="3" y1="6" x2="21" y2="6"/>
           <line x1="3" y1="12" x2="21" y2="12"/>
           <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
       </button>
     </div>
   </div>
 
-  <!-- Mobile menu — full-screen glass overlay -->
+  <!-- Mobile menu — full-screen glass overlay (z-[60] > header z-50) -->
   <div
     id="mobile-menu"
-    class="lg:hidden hidden fixed inset-0 z-40 flex flex-col pt-20 px-6 pb-8"
-    style="-webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); background: rgba(5,10,20,0.88);"
+    class="lg:hidden hidden fixed inset-0 z-[60] flex flex-col px-6 pb-8"
+    style="-webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); background: rgba(5,10,20,0.92);"
   >
+    <!-- Close button at top-right inside overlay -->
+    <div class="flex items-center justify-between pt-5 pb-6">
+      <img src="/images/logos/enviro-pro-white.png" alt="EnviroPro" class="h-6 w-auto opacity-60" />
+      <button
+        id="mobile-menu-close"
+        class="p-2 text-white/70 hover:text-white transition-colors"
+        aria-label="Close menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
     <nav class="flex flex-col gap-1 flex-1">
       {nav[lang].map((item) => (
         <a
@@ -195,11 +206,10 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
 </style>
 
 <script>
-  const header   = document.getElementById('site-header');
-  const btn      = document.getElementById('mobile-menu-btn');
-  const menu     = document.getElementById('mobile-menu');
-  const iconMenu  = document.getElementById('icon-menu');
-  const iconClose = document.getElementById('icon-close');
+  const header = document.getElementById('site-header');
+  const btn    = document.getElementById('mobile-menu-btn');
+  const menu   = document.getElementById('mobile-menu');
+  const closeBtn = document.getElementById('mobile-menu-close');
 
   // Scroll → pill morph
   const THRESHOLD = 60;
@@ -207,25 +217,25 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
     header?.classList.toggle('scrolled', window.scrollY > THRESHOLD);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); // run once on load
+  onScroll();
 
-  // Mobile menu toggle
-  btn?.addEventListener('click', () => {
-    const isOpen = menu?.classList.toggle('hidden') === false;
-    btn.setAttribute('aria-expanded', String(isOpen));
-    iconMenu?.classList.toggle('hidden', isOpen);
-    iconClose?.classList.toggle('hidden', !isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
+  function openMenu() {
+    menu?.classList.remove('hidden');
+    btn?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
 
-  // Close menu on nav link click
+  function closeMenu() {
+    menu?.classList.add('hidden');
+    btn?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  btn?.addEventListener('click', openMenu);
+  closeBtn?.addEventListener('click', closeMenu);
+
+  // Close on nav link tap
   menu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      menu.classList.add('hidden');
-      btn?.setAttribute('aria-expanded', 'false');
-      iconMenu?.classList.remove('hidden');
-      iconClose?.classList.add('hidden');
-      document.body.style.overflow = '';
-    });
+    link.addEventListener('click', closeMenu);
   });
 </script>
