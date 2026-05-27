@@ -91,33 +91,29 @@ const trustPoints = [
 
     </div>
 
-    <!-- ── Bottom CTA bar — glass pill anchored to hero floor ── -->
+    <!-- ── Bottom CTA bar ── -->
     <div class="absolute bottom-0 left-0 right-0 px-4 pb-6 lg:pb-8">
-      <div class="max-w-3xl mx-auto rounded-2xl lg:rounded-full flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 px-4 py-3 lg:px-6"
+      <div class="max-w-4xl mx-auto rounded-2xl lg:rounded-full flex flex-wrap items-center justify-between gap-3 px-4 py-3 lg:px-6"
         style="background: rgba(10,15,30,0.60); backdrop-filter: blur(20px) saturate(1.5); -webkit-backdrop-filter: blur(20px) saturate(1.5); border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07);">
 
-        <!-- Left: primary CTAs -->
-        <div class="flex flex-col sm:flex-row gap-2 flex-1">
+        <!-- LEFT: CTAs -->
+        <div class="flex items-center gap-3 shrink-0">
           <a href={`tel:${emergencyPhone.e164}`}
-            class="btn-emergency gsap-pulse text-sm py-3 px-5 flex-1 sm:flex-none justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            class="btn-emergency gsap-pulse text-sm py-2.5 px-4 whitespace-nowrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
             </svg>
             Call {emergencyPhone.display}
           </a>
-          <a href="/contact"
-            class="btn-trust text-sm py-3 px-5 flex-1 sm:flex-none justify-center">
+          <a href="/contact" class="btn-trust text-sm py-2.5 px-4 whitespace-nowrap">
             Book Free Inspection
           </a>
         </div>
 
-        <!-- Divider (desktop only) -->
-        <div class="hidden sm:block w-px h-8 mx-2 shrink-0" style="background: rgba(255,255,255,0.12);" aria-hidden="true"></div>
-
-        <!-- Right: trust badges -->
-        <ul class="gsap-stagger hidden sm:flex items-center gap-4 shrink-0">
+        <!-- CENTER: Trust badges — hidden on mobile -->
+        <ul class="gsap-stagger hidden md:flex items-center gap-4">
           {credentials.map((c) => (
-            <li class="flex items-center gap-1 text-xs opacity-0" style="color: rgba(255,255,255,0.45);">
+            <li class="flex items-center gap-1 text-xs opacity-0 whitespace-nowrap" style="color: rgba(255,255,255,0.45);">
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M2 7l3.5 3.5 6.5-6.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -126,9 +122,9 @@ const trustPoints = [
           ))}
         </ul>
 
-        <!-- Contact Form link (desktop) -->
+        <!-- RIGHT: Contact Form link — hidden on mobile -->
         <a href="/contact"
-          class="hidden lg:inline-flex items-center gap-1.5 text-sm font-medium whitespace-nowrap transition-colors"
+          class="hidden md:inline-flex items-center gap-1.5 text-sm font-medium whitespace-nowrap shrink-0 transition-colors"
           style="color: rgba(255,255,255,0.45);"
           onmouseover="this.style.color='rgba(255,255,255,0.85)'"
           onmouseout="this.style.color='rgba(255,255,255,0.45)'"
