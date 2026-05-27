@@ -10,6 +10,33 @@ export interface Props {
 
 const { lang } = Astro.props;
 
+const certLogos = [
+  {
+    src: 'https://res.cloudinary.com/dxdibfgvw/image/upload/f_auto,q_auto/v1779917205/home-advisor_white_y1zorp.webp',
+    alt: lang === 'en' ? 'HomeAdvisor Screened & Approved' : 'HomeAdvisor Verificado y Aprobado',
+    width: 120,
+    height: 48,
+  },
+  {
+    src: 'https://res.cloudinary.com/dxdibfgvw/image/upload/f_auto,q_auto/v1779917205/bni-logo_rnhpcg.png',
+    alt: lang === 'en' ? 'BNI Member' : 'Miembro BNI',
+    width: 120,
+    height: 48,
+  },
+  {
+    src: 'https://res.cloudinary.com/dxdibfgvw/image/upload/f_auto,q_auto/v1779917205/businesswhite_c8trqe.png',
+    alt: lang === 'en' ? 'Chamber of Commerce Member' : 'Miembro de la Cámara de Comercio',
+    width: 140,
+    height: 48,
+  },
+  {
+    src: 'https://res.cloudinary.com/dxdibfgvw/image/upload/f_auto,q_auto/v1779917205/62964af32be59dc55430caad_nq0etx.png',
+    alt: lang === 'en' ? 'Better Business Bureau Accredited' : 'Acreditado por Better Business Bureau',
+    width: 120,
+    height: 48,
+  },
+];
+
 const t = {
   en: {
     tagline: '36 years restoring South Florida homes — 24/7 emergency response.',
@@ -136,8 +163,29 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
+    <!-- Certification logos -->
+    <div class="mt-12 pt-10 border-t border-white/10">
+      <p class="text-center text-xs font-semibold uppercase tracking-widest mb-8"
+        style="color: rgba(255,255,255,0.40); letter-spacing: 0.12em;">
+        {lang === 'en' ? 'Trusted & Certified' : 'Confianza y Certificación'}
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14">
+        {certLogos.map((logo) => (
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            width={logo.width}
+            height={logo.height}
+            loading="lazy"
+            decoding="async"
+            class="h-10 md:h-12 w-auto object-contain opacity-60 hover:opacity-90 transition-opacity duration-200"
+          />
+        ))}
+      </div>
+    </div>
+
     <!-- Bottom strip -->
-    <div class="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div class="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       <p class="text-xs opacity-60">
         © {year} {business.legalName}. {t.rights} · {t.license}
       </p>
