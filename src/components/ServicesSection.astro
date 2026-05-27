@@ -2,7 +2,7 @@
 /**
  * ServicesSection.astro — Bento-style restoration services grid.
  * Featured card (Water Damage) spans left column full height.
- * 4 secondary cards form a 2×2 grid on the right.
+ * Cards 02–05: hover reveals Cloudinary background image (desktop only).
  */
 import { emergencyPhone } from '../data/business';
 
@@ -11,6 +11,14 @@ export interface Props {
 }
 
 const { lang } = Astro.props;
+
+// Images are service-specific, language-agnostic
+const serviceImages = [
+  'https://res.cloudinary.com/dxdibfgvw/image/upload/f_auto,q_auto,dpr_auto/v1779853414/mold1_iuqg9y.jpg',
+  'https://res.cloudinary.com/dxdibfgvw/image/upload/f_auto,q_auto,dpr_auto/v1779853304/fireandsmoke_orcmkk.jpg',
+  'https://res.cloudinary.com/dxdibfgvw/image/upload/f_auto,q_auto,dpr_auto/v1779853304/hurricane_jozczp.jpg',
+  'https://res.cloudinary.com/dxdibfgvw/image/upload/f_auto,q_auto,dpr_auto/v1779853304/safetywindow_rfsksm.jpg',
+];
 
 const t = {
   en: {
@@ -26,10 +34,10 @@ const t = {
       ctaHref: `tel:${emergencyPhone.e164}`,
     },
     secondary: [
-      { num: '02', title: 'Mold Removal',      desc: 'IICRC-certified inspection, containment, and full remediation.',                        href: '/services/mold-removal' },
-      { num: '03', title: 'Fire & Smoke',       desc: 'Structure cleaning, odor removal, and direct insurance coordination.',                  href: '/services/fire-damage' },
-      { num: '04', title: 'Hurricane Response', desc: 'Roof tarping, water extraction, and rapid mold prevention.',                           href: '/services/hurricane-emergency' },
-      { num: '05', title: 'Impact Windows',     desc: 'Hurricane-rated installation eligible for insurance premium discounts.',                href: '/services/impact-windows' },
+      { num: '02', title: 'Mold Removal',      desc: 'IICRC-certified inspection, containment, and full remediation.',                href: '/services/mold-removal',        imgAlt: 'Mold remediation in progress' },
+      { num: '03', title: 'Fire & Smoke',       desc: 'Structure cleaning, odor removal, and direct insurance coordination.',          href: '/services/fire-damage',         imgAlt: 'Fire and smoke damage restoration' },
+      { num: '04', title: 'Hurricane Response', desc: 'Roof tarping, water extraction, and rapid mold prevention.',                   href: '/services/hurricane-emergency', imgAlt: 'Hurricane damage response' },
+      { num: '05', title: 'Impact Windows',     desc: 'Hurricane-rated installation eligible for insurance premium discounts.',        href: '/services/impact-windows',      imgAlt: 'Impact-resistant window installation' },
     ],
     learnMore: 'Learn more →',
   },
@@ -46,10 +54,10 @@ const t = {
       ctaHref: `tel:${emergencyPhone.e164}`,
     },
     secondary: [
-      { num: '02', title: 'Eliminación de Moho',    desc: 'Inspección, contención y remediación certificada por IICRC.',                        href: '/es/servicios/moho' },
-      { num: '03', title: 'Incendio y Humo',         desc: 'Limpieza estructural, eliminación de olores y coordinación con seguros.',             href: '/es/servicios/incendio' },
-      { num: '04', title: 'Respuesta a Huracanes',   desc: 'Cubierta de techos, extracción de agua y prevención rápida de moho.',                href: '/es/servicios/huracanes' },
-      { num: '05', title: 'Ventanas de Impacto',     desc: 'Instalación resistente a huracanes con descuentos en primas de seguro.',             href: '/es/servicios/ventanas-impacto' },
+      { num: '02', title: 'Eliminación de Moho',  desc: 'Inspección, contención y remediación certificada por IICRC.',                   href: '/es/servicios/moho',               imgAlt: 'Remediación de moho en progreso' },
+      { num: '03', title: 'Incendio y Humo',       desc: 'Limpieza estructural, eliminación de olores y coordinación con seguros.',       href: '/es/servicios/incendio',           imgAlt: 'Restauración por daños de incendio' },
+      { num: '04', title: 'Respuesta a Huracanes', desc: 'Cubierta de techos, extracción de agua y prevención rápida de moho.',          href: '/es/servicios/huracanes',          imgAlt: 'Respuesta a daños por huracán' },
+      { num: '05', title: 'Ventanas de Impacto',   desc: 'Instalación resistente a huracanes con descuentos en primas de seguro.',       href: '/es/servicios/ventanas-impacto',   imgAlt: 'Instalación de ventanas de impacto' },
     ],
     learnMore: 'Ver más →',
   },
@@ -68,7 +76,7 @@ const copy = t[lang];
       </h2>
       <a
         href={copy.viewAllHref}
-        class="hidden sm:inline-flex items-center gap-1 text-sm font-semibold shrink-0 ml-4 transition-colors"
+        class="hidden sm:inline-flex items-center gap-1 text-sm font-semibold shrink-0 ml-4 transition-colors hover:underline"
         style="color: #4384BF;"
       >
         {copy.viewAll}
@@ -80,12 +88,13 @@ const copy = t[lang];
 
       <!-- ── Card 01: Featured (blue, row-span-2) ── -->
       <article
+        role="article"
+        aria-label={copy.featured.title}
         class="card-featured group flex flex-col h-full rounded-2xl p-8 cursor-pointer
                transition-all duration-300 ease-in-out
                hover:-translate-y-2 hover:shadow-xl"
         style="background: #4384BF;"
       >
-
         <!-- Number -->
         <span class="text-xs font-bold tracking-widest text-white/50 mb-5 block">
           {copy.featured.num}
@@ -101,7 +110,7 @@ const copy = t[lang];
           {copy.featured.desc}
         </p>
 
-        <!-- Steps — grows to fill space -->
+        <!-- Steps — flex-1 pushes CTA to bottom -->
         <ul class="flex flex-col gap-3 flex-1">
           {copy.featured.steps.map((step, i) => (
             <li class="flex items-center gap-3">
@@ -132,38 +141,71 @@ const copy = t[lang];
         </div>
       </article>
 
-      <!-- ── Cards 02–05: Secondary services ── -->
-      {copy.secondary.map((svc) => (
+      <!-- ── Cards 02–05: Secondary services with hover image ── -->
+      {copy.secondary.map((svc, i) => (
         <a
           href={svc.href}
-          class="card-secondary group flex flex-col justify-between h-full rounded-2xl p-6 cursor-pointer
-                 transition-all duration-300 ease-in-out
+          role="article"
+          aria-label={svc.title}
+          class="card-secondary group relative overflow-hidden rounded-2xl p-6 lg:p-7
+                 flex flex-col justify-between
+                 cursor-pointer transition-all duration-300 ease-in-out
                  hover:-translate-y-2 hover:shadow-xl"
-          style="background: #F8FAFC; border: 1px solid #E2E8F0;"
+          style="background: #F8FAFC; border: 1px solid #E2E8F0; min-height: 200px;"
         >
-          <div class="flex flex-col flex-1">
+
+          <!-- ── Background image (desktop hover only) ── -->
+          <div class="card-bg-img absolute inset-0 z-0" aria-hidden="true">
+            <img
+              src={serviceImages[i]}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover
+                     blur-[2px]
+                     opacity-0 md:group-hover:opacity-100
+                     scale-100 md:group-hover:scale-105
+                     transition-all duration-500 ease-in-out"
+            />
+          </div>
+
+          <!-- ── Gradient overlay (text protection, always visible on hover) ── -->
+          <div
+            class="card-overlay absolute inset-0 z-10
+                   opacity-0 md:group-hover:opacity-100
+                   transition-opacity duration-500 ease-in-out"
+            style="background: linear-gradient(to right, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.88) 55%, rgba(255,255,255,0.3) 100%);"
+            aria-hidden="true"
+          />
+
+          <!-- ── Content — always above image and overlay ── -->
+          <div class="relative z-20 flex flex-col flex-1">
 
             <!-- Number accent -->
             <span class="text-xs font-bold tracking-widest mb-4 block" style="color: #D97706;">
               {svc.num}
             </span>
 
-            <!-- Title — changes color on group hover -->
+            <!-- Title — shifts to blue on hover -->
             <h3 class="text-base lg:text-lg font-bold text-slate-900 leading-snug mb-2
-                       group-hover:text-blue-600 transition-colors">
+                       group-hover:text-blue-600 transition-colors duration-300">
               {svc.title}
             </h3>
 
             <!-- Description -->
-            <p class="text-sm text-slate-500 leading-relaxed">
+            <p class="text-sm text-slate-500 leading-relaxed flex-1">
               {svc.desc}
             </p>
-          </div>
 
-          <!-- Learn more — always at bottom -->
-          <span class="inline-flex items-center gap-1 text-sm font-semibold mt-5 transition-colors group-hover:text-blue-700" style="color: #4384BF;">
-            {copy.learnMore}
-          </span>
+            <!-- Learn more — always at bottom -->
+            <span
+              class="inline-flex items-center gap-1 text-sm font-semibold mt-5 transition-colors duration-300 group-hover:text-blue-700"
+              style="color: #4384BF;"
+            >
+              {copy.learnMore}
+            </span>
+          </div>
         </a>
       ))}
     </div>
@@ -186,7 +228,7 @@ const copy = t[lang];
     gap: 1rem;
   }
 
-  /* Tablet: featured full-width top, 2-col secondaries */
+  /* Tablet: featured full-width, 2-col secondaries */
   @media (min-width: 640px) {
     .bento-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -196,7 +238,7 @@ const copy = t[lang];
     }
   }
 
-  /* Desktop: 3-col bento — featured left spans 2 rows */
+  /* Desktop: 3-col bento — featured left spans both rows */
   @media (min-width: 1024px) {
     .bento-grid {
       grid-template-columns: 1.1fr 1fr 1fr;
@@ -206,6 +248,23 @@ const copy = t[lang];
     .card-featured {
       grid-column: 1;
       grid-row: 1 / span 2;
+    }
+  }
+
+  /* ── Respect prefers-reduced-motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .card-secondary img,
+    .card-overlay,
+    .card-secondary {
+      transition: none !important;
+    }
+    /* Still show the image on hover, just without animation */
+    .card-secondary:hover img {
+      opacity: 0.6;
+      transform: none;
+    }
+    .card-secondary:hover .card-overlay {
+      opacity: 1;
     }
   }
 </style>
