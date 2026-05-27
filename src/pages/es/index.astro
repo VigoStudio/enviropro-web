@@ -51,36 +51,20 @@ const trustPoints = [
   >
     <!-- ── Video de fondo ── -->
     <video
-      id="hero-video"
       class="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      autoplay loop muted playsinline aria-hidden="true" preload="metadata"
-      poster="https://res.cloudinary.com/dxdibfgvw/video/upload/so_0,f_jpg,q_auto:good,w_1280/v1779848047/GettyImages-1399919975_1_j9bdot.jpg"
+      autoplay muted loop playsinline preload="auto" aria-hidden="true"
+      poster="https://res.cloudinary.com/dxdibfgvw/image/upload/w_720,h_1280,c_fill,q_auto/v1779848047/GettyImages-1399919975_1_j9bdot.jpg"
     >
-      <!-- Móvil: portrait crop (720×1280), archivo más liviano -->
-      <source media="(max-width: 767px)"
-        src="https://res.cloudinary.com/dxdibfgvw/video/upload/f_auto,q_auto:good,w_720,h_1280,c_fill,vc_auto/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
-        type="video/mp4" />
-      <!-- Desktop: calidad completa -->
-      <source media="(min-width: 768px)"
-        src="https://res.cloudinary.com/dxdibfgvw/video/upload/f_auto,q_auto,w_1920,vc_auto/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
-        type="video/mp4" />
+      <source
+        media="(max-width: 768px)"
+        src="https://res.cloudinary.com/dxdibfgvw/video/upload/w_720,h_1280,c_fill,q_auto:eco,f_mp4,br_400k,du_15,e_loop:0/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
+        type="video/mp4"
+      />
+      <source
+        src="https://res.cloudinary.com/dxdibfgvw/video/upload/w_1920,q_auto,f_mp4,br_800k,du_15,e_loop:0/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
+        type="video/mp4"
+      />
     </video>
-
-    <!-- ── Toca para reproducir (solo móvil, si autoplay falla) ── -->
-    <button
-      id="play-button"
-      class="md:hidden absolute bottom-32 left-1/2 -translate-x-1/2 z-20
-             flex items-center gap-2 px-6 py-3 rounded-full
-             text-white text-sm font-medium
-             opacity-0 pointer-events-none transition-opacity duration-300"
-      style="background: rgba(0,0,0,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15);"
-      aria-label="Reproducir video de fondo"
-    >
-      <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
-      </svg>
-      Toca para ver
-    </button>
 
     <!-- ── Overlay cinematográfico ── -->
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
@@ -145,29 +129,6 @@ const trustPoints = [
     </div>
 
   </section>
-
-  <!-- ── Script autoplay / toca para reproducir ── -->
-  <script>
-    const video = document.getElementById('hero-video') as HTMLVideoElement | null;
-    const btn   = document.getElementById('play-button');
-
-    if (video) {
-      video.play().catch(() => {
-        setTimeout(() => {
-          btn?.classList.remove('opacity-0', 'pointer-events-none');
-        }, 800);
-      });
-
-      video.addEventListener('play', () => {
-        btn?.classList.add('opacity-0', 'pointer-events-none');
-      });
-    }
-
-    btn?.addEventListener('click', () => {
-      video?.play();
-      btn.classList.add('opacity-0', 'pointer-events-none');
-    });
-  </script>
 
   <!-- Servicios Bento -->
   <ServicesSection lang="es" />
