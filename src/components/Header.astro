@@ -56,12 +56,22 @@ const menuOpen = lang === 'en' ? 'Open menu' : 'Abrir menú';
     >
 
       <!-- ① Logo — left -->
-      <a href={lang === 'en' ? '/' : '/es/'} class="flex-shrink-0" aria-label="EnviroPro USA">
+      <!-- Logo dual: white → color on scroll -->
+      <a href={lang === 'en' ? '/' : '/es/'} class="flex-shrink-0 relative" aria-label="EnviroPro USA">
+        <!-- White logo: visible on hero (transparent bg), fades out on scroll -->
         <img
-          src="/images/logos/enviro-pro-logo.png"
+          src="/images/logos/enviro-pro-white.png"
           alt="EnviroPro USA"
           loading="eager"
-          class="h-7 md:h-8 w-auto object-contain"
+          class="logo-white block h-7 md:h-8 w-auto object-contain transition-opacity duration-300"
+        />
+        <!-- Color logo: hidden on hero, fades in on scroll (white bg pill) -->
+        <img
+          src="/images/logos/enviro-pro-logo.png"
+          alt=""
+          aria-hidden="true"
+          loading="eager"
+          class="logo-color absolute inset-0 h-full w-auto object-contain transition-opacity duration-300 opacity-0"
         />
       </a>
 
@@ -195,6 +205,10 @@ const menuOpen = lang === 'en' ? 'Open menu' : 'Abrir menú';
 </header>
 
 <style>
+  /* ── Logo swap on scroll ── */
+  #navbar.scrolled .logo-white { opacity: 0; }
+  #navbar.scrolled .logo-color { opacity: 1; }
+
   /* ── INITIAL STATE: transparent pill, white text ── */
   #nav-pill {
     background: transparent;
