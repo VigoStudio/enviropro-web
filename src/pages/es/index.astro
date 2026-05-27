@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServicesSection from '../../components/ServicesSection.astro';
 import { business, emergencyPhone } from '../../data/business';
 
 const title = 'EnviroPro USA · Restauración 24/7 de Agua, Moho y Fuego · Miami-Dade';
@@ -126,128 +127,8 @@ const trustPoints = [
 
   </section>
 
-  <!-- ===================================================
-       SERVICIOS BENTO
-       =================================================== -->
-  <section class="section-y bg-white">
-    <div class="container-x">
-
-      <div class="flex items-end justify-between mb-10 flex-wrap gap-4">
-        <h2
-          class="text-3xl lg:text-5xl font-bold leading-tight"
-          style="font-family: var(--font-display); letter-spacing: -0.02em;"
-        >
-          Servicios de<br class="hidden lg:block" /> Restauración
-        </h2>
-        <a
-          href="/es/servicios"
-          class="text-sm font-semibold flex items-center gap-1.5 hover:underline"
-          style="color: var(--color-trust);"
-        >
-          Ver todos los servicios
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-
-      <!-- Bento grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
-
-        <!-- Destacado: Daños por Agua -->
-        <article
-          class="sm:col-span-2 lg:col-span-1 lg:row-span-2 flex flex-col justify-between p-8 rounded-2xl overflow-hidden relative"
-          style="background: var(--color-trust); color: white; min-height: 22rem;"
-        >
-          <div>
-            <p
-              class="text-xs font-bold mb-5"
-              style="letter-spacing: 0.08em; color: rgba(255,255,255,0.4);"
-            >{featuredService.num}</p>
-
-            <h3
-              class="text-2xl lg:text-3xl font-bold mb-4 leading-tight"
-              style="font-family: var(--font-display); letter-spacing: -0.02em;"
-            >{featuredService.title}</h3>
-
-            <p
-              class="text-base leading-relaxed mb-6"
-              style="color: rgba(255,255,255,0.75);"
-            >{featuredService.desc}</p>
-
-            <ol class="space-y-2.5 mb-8">
-              {featuredService.steps.map((step, i) => (
-                <li class="flex items-center gap-3 text-sm" style="color: rgba(255,255,255,0.8);">
-                  <span
-                    class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
-                    style="background: rgba(255,255,255,0.15);"
-                  >{i + 1}</span>
-                  {step}
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div class="flex flex-col sm:flex-row lg:flex-col gap-3">
-            <a
-              href={`tel:${emergencyPhone.e164}`}
-              class="btn-emergency w-full justify-center text-sm"
-              aria-label={`Llamar línea de emergencia EnviroPro: ${emergencyPhone.display}`}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-              Llamar {emergencyPhone.display}
-            </a>
-            <a
-              href={featuredService.href}
-              class="text-sm font-semibold text-center py-3 px-4 rounded-[var(--radius-btn)] transition-colors"
-              style="background: rgba(255,255,255,0.12); color: white;"
-            >
-              Ver detalles →
-            </a>
-          </div>
-        </article>
-
-        <!-- Servicios secundarios -->
-        {secondaryServices.map((s) => (
-          <a
-            href={s.href}
-            class="group flex flex-col justify-between p-6 rounded-2xl transition-all hover:shadow-lg"
-            style="border: 1px solid var(--color-border); background: var(--color-surface);"
-          >
-            <div>
-              <p
-                class="text-xs font-bold mb-4"
-                style="color: var(--color-accent); letter-spacing: 0.08em;"
-              >{s.num}</p>
-              <h3
-                class="text-lg font-bold mb-2 leading-snug"
-                style="font-family: var(--font-display); letter-spacing: -0.01em;"
-              >{s.title}</h3>
-              <p
-                class="text-sm leading-relaxed"
-                style="color: var(--color-ink-soft);"
-              >{s.desc}</p>
-            </div>
-            <p
-              class="mt-5 text-sm font-semibold flex items-center gap-1.5 transition-all"
-              style="color: var(--color-trust);"
-            >
-              Ver más
-              <svg
-                width="14" height="14" viewBox="0 0 14 14" fill="none"
-                aria-hidden="true"
-                class="transition-transform group-hover:translate-x-0.5"
-              >
-                <path d="M2.5 7h9M8 3.5l3.5 3.5-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </p>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- Servicios Bento -->
+  <ServicesSection lang="es" />
 
   <!-- ===================================================
        CONFIANZA — TESTIMONIO
