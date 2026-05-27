@@ -81,16 +81,18 @@ const menuOpen = lang === 'en' ? 'Open menu' : 'Abrir menú';
       <!-- ③ CTA + lang toggle — right -->
       <div class="flex items-center gap-2 shrink-0">
 
-        <!-- Language toggle -->
+        <!-- Language toggle — visible on ALL sizes -->
         <a
           href={langSwitchUrl}
-          class="lang-link hidden lg:inline-block text-xs font-bold transition-colors px-2 py-1"
+          class="lang-link inline-flex items-center text-xs font-bold transition-colors
+                 px-2.5 py-1.5 rounded-full"
+          style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.20);"
           aria-label={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
         >
           {lang === 'en' ? 'ES' : 'EN'}
         </a>
 
-        <!-- Call button — always green, always white text -->
+        <!-- Call button — hidden on xs, visible sm+ -->
         <a
           href={`tel:${emergencyPhone.e164}`}
           class="hidden sm:inline-flex items-center gap-1.5 rounded-full font-bold text-white
@@ -185,7 +187,7 @@ const menuOpen = lang === 'en' ? 'Open menu' : 'Abrir menú';
   }
 
   .nav-link  { color: rgba(255, 255, 255, 0.88); }
-  .lang-link { color: rgba(255, 255, 255, 0.60); }
+  .lang-link { color: rgba(255, 255, 255, 0.90); }
   .hamburger-btn { color: white; }
 
   /* ── SCROLLED STATE: white glass pill, dark text ── */
@@ -198,11 +200,15 @@ const menuOpen = lang === 'en' ? 'Open menu' : 'Abrir menú';
   }
 
   #navbar.scrolled .nav-link  { color: #0f172a; } /* slate-900 */
-  #navbar.scrolled .lang-link { color: #64748b; } /* slate-500 */
+  #navbar.scrolled .lang-link {
+    color: #0f172a;
+    background: rgba(15, 23, 42, 0.08) !important;
+    border-color: rgba(15, 23, 42, 0.15) !important;
+  }
   #navbar.scrolled .hamburger-btn { color: #0f172a; }
 
   #navbar.scrolled .nav-link:hover  { color: #00A38A; opacity: 1; }
-  #navbar.scrolled .lang-link:hover { color: #0f172a; }
+  #navbar.scrolled .lang-link:hover { color: #00A38A; }
 </style>
 
 <script>
