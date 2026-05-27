@@ -1,8 +1,8 @@
 ---
 /**
- * Header.astro — Floating pill nav, Apple-style.
- * Always white/transparent glass pill from the first pixel.
- * On scroll: pill becomes slightly more opaque — never changes color.
+ * Header.astro — Floating pill nav.
+ * Initial : transparent bg, white text.
+ * Scrolled: white/90 bg, dark text on nav links, green CTA stays green.
  */
 import { emergencyPhone } from '../data/business';
 
@@ -13,7 +13,6 @@ export interface Props {
 
 const { lang, currentPath } = Astro.props;
 
-// Desktop nav labels — ES uses abbreviated "Áreas" to stay single-line
 const nav = {
   en: [
     { label: 'Services',      href: '/services' },
@@ -33,7 +32,6 @@ const enToEs: Record<string, string> = {
   '/': '/es/',
   '/services': '/es/servicios',
   '/service-areas': '/es/areas-de-servicio',
-  '/projects': '/es/proyectos',
   '/about': '/es/nosotros',
   '/contact': '/es/contacto',
 };
@@ -42,85 +40,80 @@ const langSwitchUrl = lang === 'en'
   ? (enToEs[currentPath] ?? enToEs[esPathKey] ?? `/es${currentPath}`)
   : (Object.entries(enToEs).find(([, es]) => es === currentPath || es === esPathKey + '/')?.[0] ?? '/');
 
-const callLabelFull  = lang === 'en' ? 'Call 24/7'   : 'Llamar 24/7';
-const callLabelShort = '24/7';
-const menuLabel      = lang === 'en' ? 'Open menu'   : 'Abrir menú';
+const ctaFull  = lang === 'en' ? 'Call 24/7' : 'Llamar 24/7';
+const menuOpen = lang === 'en' ? 'Open menu' : 'Abrir menú';
 ---
 
-<!-- Fixed wrapper -->
-<header id="main-header" class="fixed top-0 left-0 right-0 z-50">
-  <div class="px-3 pt-3 md:px-5 md:pt-4">
+<header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+  <div class="mx-auto max-w-7xl px-3 pt-3 md:px-5 md:pt-4">
 
-    <!-- ── Floating pill — contains EVERYTHING ── -->
+    <!-- Floating pill -->
     <div
       id="nav-pill"
-      class="max-w-7xl mx-auto flex items-center justify-between gap-2 md:gap-4
+      class="flex items-center justify-between gap-3 md:gap-6
              rounded-full px-3 py-2 md:px-5 md:py-2.5
              transition-all duration-300"
-      style="background: rgba(255,255,255,0.12); backdrop-filter: blur(14px) saturate(1.5); -webkit-backdrop-filter: blur(14px) saturate(1.5); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 4px 24px rgba(0,0,0,0.18);"
     >
 
-      <!-- Logo -->
-      <a href={lang === 'en' ? '/' : '/es/'} class="shrink-0" aria-label="EnviroPro USA — Home">
+      <!-- ① Logo — left -->
+      <a href={lang === 'en' ? '/' : '/es/'} class="shrink-0" aria-label="EnviroPro USA">
         <img
           src="/images/logos/enviro-pro-logo.png"
           alt="EnviroPro USA"
-          width="160"
-          height="40"
-          class="h-7 md:h-9 w-auto object-contain"
+          width="160" height="40"
+          class="h-8 md:h-10 w-auto object-contain"
           loading="eager"
         />
       </a>
 
-      <!-- Desktop nav — centered, single line -->
-      <nav class="hidden md:flex items-center gap-2 lg:gap-4 flex-1 justify-center">
+      <!-- ② Nav — center (desktop) -->
+      <nav class="hidden md:flex items-center gap-4 lg:gap-6 flex-1 justify-center">
         {nav[lang].map((item) => (
           <a
             href={item.href}
-            class="text-xs lg:text-sm font-medium text-white/85 hover:text-white
-                   whitespace-nowrap transition-colors px-2 py-1"
+            class="nav-link text-sm font-semibold tracking-wide whitespace-nowrap
+                   transition-colors hover:opacity-80"
           >
             {item.label}
           </a>
         ))}
       </nav>
 
-      <!-- Right: lang + CTA + hamburger -->
-      <div class="flex items-center gap-1.5 md:gap-2 shrink-0">
+      <!-- ③ CTA + lang toggle — right -->
+      <div class="flex items-center gap-2 shrink-0">
 
-        <!-- Language toggle (desktop only) -->
+        <!-- Language toggle -->
         <a
           href={langSwitchUrl}
-          class="hidden lg:inline-block text-xs font-semibold text-white/60 hover:text-white transition-colors px-2 py-1"
+          class="lang-link hidden lg:inline-block text-xs font-bold transition-colors px-2 py-1"
           aria-label={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
         >
           {lang === 'en' ? 'ES' : 'EN'}
         </a>
 
-        <!-- Call CTA — green pill inside the glass pill -->
+        <!-- Call button — always green, always white text -->
         <a
           href={`tel:${emergencyPhone.e164}`}
-          class="inline-flex items-center gap-1.5 rounded-full font-semibold text-white
-                 px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm
-                 whitespace-nowrap transition-colors shadow-md"
-          style="background: #00C9A7;"
+          class="hidden sm:inline-flex items-center gap-1.5 rounded-full font-bold text-white
+                 px-4 py-2 text-sm whitespace-nowrap transition-all
+                 shadow-md hover:shadow-lg hover:scale-105"
+          style="background:#00C9A7;"
           onmouseover="this.style.background='#00A38A'"
           onmouseout="this.style.background='#00C9A7'"
-          aria-label={`${callLabelFull} ${emergencyPhone.display}`}
+          aria-label={`${ctaFull} ${emergencyPhone.display}`}
         >
           <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
               d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
           </svg>
-          <span class="hidden sm:inline">{callLabelFull}</span>
-          <span class="sm:hidden">{callLabelShort}</span>
+          {ctaFull}
         </a>
 
-        <!-- Mobile hamburger -->
+        <!-- Hamburger (mobile only) -->
         <button
           id="mobile-menu-btn"
-          class="md:hidden p-1.5 text-white rounded-full hover:bg-white/10 transition-colors"
-          aria-label={menuLabel}
+          class="md:hidden p-1.5 rounded-full transition-colors hamburger-btn"
+          aria-label={menuOpen}
           aria-expanded="false"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -134,14 +127,14 @@ const menuLabel      = lang === 'en' ? 'Open menu'   : 'Abrir menú';
     </div>
   </div>
 
-  <!-- Mobile menu — full-screen glass overlay -->
+  <!-- Mobile overlay menu -->
   <div
     id="mobile-menu"
     class="md:hidden hidden fixed inset-0 z-[60] flex flex-col px-6 pb-8"
-    style="-webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); background: rgba(5,10,20,0.92);"
+    style="background:rgba(5,10,20,0.93); -webkit-backdrop-filter:blur(24px); backdrop-filter:blur(24px);"
   >
     <div class="flex items-center justify-between pt-5 pb-6">
-      <img src="/images/logos/enviro-pro-logo.png" alt="EnviroPro" class="h-8 w-auto opacity-85" />
+      <img src="/images/logos/enviro-pro-logo.png" alt="EnviroPro" class="h-8 w-auto" />
       <button
         id="mobile-menu-close"
         class="p-2 text-white/70 hover:text-white transition-colors"
@@ -186,26 +179,45 @@ const menuLabel      = lang === 'en' ? 'Open menu'   : 'Abrir menú';
 </header>
 
 <style>
-  /* On scroll: pill becomes more opaque white — never changes color */
-  #main-header.scrolled #nav-pill {
-    background: rgba(255, 255, 255, 0.20) !important;
-    border-color: rgba(255, 255, 255, 0.30) !important;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22) !important;
+  /* ── INITIAL STATE: transparent pill, white text ── */
+  #nav-pill {
+    background: transparent;
+    border: 1px solid transparent;
   }
+
+  .nav-link  { color: rgba(255, 255, 255, 0.88); }
+  .lang-link { color: rgba(255, 255, 255, 0.60); }
+  .hamburger-btn { color: white; }
+
+  /* ── SCROLLED STATE: white glass pill, dark text ── */
+  #navbar.scrolled #nav-pill {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(226, 232, 240, 0.80); /* slate-200/80 */
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+    -webkit-backdrop-filter: blur(20px) saturate(1.8);
+    backdrop-filter: blur(20px) saturate(1.8);
+  }
+
+  #navbar.scrolled .nav-link  { color: #0f172a; } /* slate-900 */
+  #navbar.scrolled .lang-link { color: #64748b; } /* slate-500 */
+  #navbar.scrolled .hamburger-btn { color: #0f172a; }
+
+  #navbar.scrolled .nav-link:hover  { color: #00A38A; opacity: 1; }
+  #navbar.scrolled .lang-link:hover { color: #0f172a; }
 </style>
 
 <script>
-  const header   = document.getElementById('main-header');
+  const navbar   = document.getElementById('navbar');
   const btn      = document.getElementById('mobile-menu-btn');
   const menu     = document.getElementById('mobile-menu');
   const closeBtn = document.getElementById('mobile-menu-close');
 
-  // Scroll → slightly more opaque pill
+  // Scroll → white pill
   window.addEventListener('scroll', () => {
-    header?.classList.toggle('scrolled', window.scrollY > 50);
+    navbar?.classList.toggle('scrolled', window.scrollY > 50);
   }, { passive: true });
 
-  function openMenu() {
+  function openMenu()  {
     menu?.classList.remove('hidden');
     btn?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
@@ -218,5 +230,5 @@ const menuLabel      = lang === 'en' ? 'Open menu'   : 'Abrir menú';
 
   btn?.addEventListener('click', openMenu);
   closeBtn?.addEventListener('click', closeMenu);
-  menu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  menu?.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
 </script>
