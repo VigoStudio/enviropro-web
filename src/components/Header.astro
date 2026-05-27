@@ -2,7 +2,7 @@
 /**
  * Header.astro — Liquid Glass nav.
  * Initial: transparent fixed bar over the video hero.
- * On scroll (>60px): morphs into a floating pill with backdrop-blur.
+ * On scroll (>60px): morphs into a floating green-brand pill with backdrop-blur.
  */
 import { emergencyPhone } from '../data/business';
 
@@ -21,10 +21,10 @@ const nav = {
     { label: 'Contact',       href: '/contact' },
   ],
   es: [
-    { label: 'Servicios',        href: '/es/servicios' },
-    { label: 'Áreas de Servicio',href: '/es/areas-de-servicio' },
-    { label: 'Nosotros',         href: '/es/nosotros' },
-    { label: 'Contacto',         href: '/es/contacto' },
+    { label: 'Servicios',         href: '/es/servicios' },
+    { label: 'Áreas de Servicio', href: '/es/areas-de-servicio' },
+    { label: 'Nosotros',          href: '/es/nosotros' },
+    { label: 'Contacto',          href: '/es/contacto' },
   ],
 };
 
@@ -48,7 +48,7 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
 <!-- Fixed wrapper — always full-width, zero background -->
 <header id="site-header" class="fixed top-0 left-0 right-0 z-50">
 
-  <!-- Inner container: morphs from transparent bar → glass pill on scroll -->
+  <!-- Inner container: morphs from transparent bar → green brand pill on scroll -->
   <div
     id="nav-inner"
     class="nav-inner mx-auto flex items-center justify-between gap-4 transition-all duration-500 ease-out px-5 py-4 lg:px-8"
@@ -61,17 +61,17 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
         alt="EnviroPro USA"
         width="200"
         height="50"
-        class="h-10 w-auto md:h-12 object-contain"
+        class="h-8 md:h-10 w-auto object-contain"
         loading="eager"
       />
     </a>
 
-    <!-- Desktop nav — center -->
-    <nav class="hidden lg:flex items-center gap-6 flex-1 justify-center">
+    <!-- Desktop nav — centered between logo and CTA -->
+    <nav class="hidden lg:flex items-center gap-4 flex-1 justify-center">
       {nav[lang].map((item) => (
         <a
           href={item.href}
-          class="text-sm font-medium text-white/80 hover:text-white transition-colors"
+          class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors whitespace-nowrap px-3 py-1"
         >
           {item.label}
         </a>
@@ -90,21 +90,20 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
         {lang === 'en' ? 'ES' : 'EN'}
       </a>
 
-      <!-- CTA: emergency call — glass pill style on initial, red on scroll -->
+      <!-- CTA: emergency call — glass pill initially, white pill on scroll -->
       <a
         href={`tel:${emergencyPhone.e164}`}
         id="header-cta"
         class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-full border border-white/25 text-white transition-all duration-300 hover:bg-white/20"
         aria-label={`${ctaLabel} ${emergencyPhone.display}`}
       >
-        <!-- Phone icon -->
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
         </svg>
         {ctaLabel}
       </a>
 
-      <!-- Mobile hamburger — shows ≡ only; X lives inside the overlay -->
+      <!-- Mobile hamburger -->
       <button
         id="mobile-menu-btn"
         class="lg:hidden p-2 text-white"
@@ -120,13 +119,13 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
     </div>
   </div>
 
-  <!-- Mobile menu — full-screen glass overlay (z-[60] > header z-50) -->
+  <!-- Mobile menu — full-screen glass overlay -->
   <div
     id="mobile-menu"
     class="lg:hidden hidden fixed inset-0 z-[60] flex flex-col px-6 pb-8"
     style="-webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); background: rgba(5,10,20,0.92);"
   >
-    <!-- Close button at top-right inside overlay -->
+    <!-- Close button -->
     <div class="flex items-center justify-between pt-5 pb-6">
       <img src="/images/logos/enviro-pro-logo.png" alt="EnviroPro" class="h-8 w-auto opacity-80" />
       <button
@@ -151,6 +150,7 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
         </a>
       ))}
     </nav>
+
     <!-- Mobile CTA -->
     <a
       href={`tel:${emergencyPhone.e164}`}
@@ -171,7 +171,6 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
 
 </header>
 
-<!-- Pill morph styles -->
 <style>
   /* ── Initial: transparent bar ── */
   #nav-inner {
@@ -181,35 +180,44 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
     border-radius: 0;
   }
 
-  /* ── Scrolled: floating glass pill ── */
+  /* ── Scrolled: floating green brand pill ── */
   #site-header.scrolled #nav-inner {
     max-width: 1080px;
-    margin-top: 14px;
-    background: rgba(10, 15, 30, 0.55);
-    -webkit-backdrop-filter: blur(20px) saturate(1.6);
-    backdrop-filter: blur(20px) saturate(1.6);
-    border: 1px solid rgba(255, 255, 255, 0.13);
+    margin-top: 12px;
+    background: rgba(0, 201, 167, 0.85);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.20);
     border-radius: 9999px;
-    padding-top: 0.6rem;
-    padding-bottom: 0.6rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255,255,255,0.08);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: 0 8px 32px rgba(0, 163, 138, 0.30), inset 0 1px 0 rgba(255,255,255,0.15);
   }
 
-  /* CTA button goes green when scrolled */
+  /* Nav links — pure white on the green pill */
+  #site-header.scrolled .nav-link {
+    color: rgba(255, 255, 255, 0.90);
+  }
+  #site-header.scrolled .nav-link:hover {
+    color: #ffffff;
+  }
+
+  /* CTA button — white pill on green background for contrast */
   #site-header.scrolled #header-cta {
-    background: #00C9A7;
-    border-color: transparent;
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #ffffff;
   }
   #site-header.scrolled #header-cta:hover {
-    background: #00A38A;
+    background: rgba(255, 255, 255, 0.32);
   }
 </style>
 
 <script>
-  const header = document.getElementById('site-header');
-  const btn    = document.getElementById('mobile-menu-btn');
-  const menu   = document.getElementById('mobile-menu');
-  const closeBtn = document.getElementById('mobile-menu-close');
+  const header    = document.getElementById('site-header');
+  const btn       = document.getElementById('mobile-menu-btn');
+  const menu      = document.getElementById('mobile-menu');
+  const closeBtn  = document.getElementById('mobile-menu-close');
 
   // Scroll → pill morph
   const THRESHOLD = 60;
