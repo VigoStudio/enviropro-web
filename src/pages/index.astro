@@ -44,22 +44,25 @@ const trustPoints = [
     class="relative overflow-hidden text-white"
     style="background: #0A0A0A; min-height: 88vh; display: flex; align-items: center;"
   >
-    <!-- Atmospheric gradient: deep diagonal navy wash -->
+    <!-- Background video -->
+    <video
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+      autoplay
+      loop
+      muted
+      playsinline
+      aria-hidden="true"
+      preload="auto"
+    >
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260306_074215_04640ca7-042c-45d6-bb56-58b1e8a42489.mp4" type="video/mp4" />
+    </video>
+
+    <!-- Dark overlay so text stays readable -->
     <div
       class="absolute inset-0 pointer-events-none"
       aria-hidden="true"
-      style="background: linear-gradient(135deg, #080808 0%, #0c1730 55%, #080808 100%);"
+      style="background: linear-gradient(135deg, rgba(8,8,8,0.82) 0%, rgba(12,23,48,0.72) 55%, rgba(8,8,8,0.82) 100%);"
     ></div>
-
-    <!-- Decorative typographic element: faint large "24/7" -->
-    <div
-      class="absolute right-[-1rem] bottom-[-2rem] pointer-events-none select-none hidden lg:block"
-      aria-hidden="true"
-    >
-      <span
-        style="font-family: var(--font-display); font-size: 20rem; font-weight: 800; color: var(--color-trust); opacity: 0.06; letter-spacing: -0.04em; line-height: 1; display: block;"
-      >24/7</span>
-    </div>
 
     <div class="container-x relative w-full">
       <div class="max-w-4xl py-24 lg:py-36">
