@@ -1,9 +1,10 @@
 ---
 /**
- * ServicesSection.astro — Bento Cards con imagen de fondo.
- * Row 1: Card 01 (2 cols) + Card 02 (1 col)
- * Row 2: Card 03 + Card 04 + Card 05 (1 col cada una)
+ * ServicesSection.astro — Grid híbrido:
+ *   Col 1 (lg): Tarjeta azul con steps + CTA (Water Damage)
+ *   Cols 2–3 (lg): Grid 2×2 con tarjetas de imagen y botón cápsula flotante
  */
+import { emergencyPhone } from '../data/business';
 
 export interface Props {
   lang: 'en' | 'es';
@@ -11,13 +12,11 @@ export interface Props {
 
 const { lang } = Astro.props;
 
-// Cloudinary: c_fill asegura encuadre, f_auto+q_auto optimizan formato y compresión
 const imgs = {
-  water:     'https://res.cloudinary.com/dxdibfgvw/image/upload/w_1200,h_800,c_fill,f_auto,q_auto/v1779848047/GettyImages-1399919975_1_j9bdot.jpg',
-  mold:      'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_800,c_fill,f_auto,q_auto/v1779853414/mold1_iuqg9y.jpg',
-  fire:      'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_800,c_fill,f_auto,q_auto/v1779853304/fireandsmoke_orcmkk.jpg',
-  hurricane: 'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_800,c_fill,f_auto,q_auto/v1779853304/hurricane_jozczp.jpg',
-  windows:   'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_800,c_fill,f_auto,q_auto/v1779853304/safetywindow_rfsksm.jpg',
+  mold:      'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_640,c_fill,f_auto,q_auto/v1779853414/mold1_iuqg9y.jpg',
+  fire:      'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_640,c_fill,f_auto,q_auto/v1779853304/fireandsmoke_orcmkk.jpg',
+  hurricane: 'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_640,c_fill,f_auto,q_auto/v1779853304/hurricane_jozczp.jpg',
+  windows:   'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_640,c_fill,f_auto,q_auto/v1779853304/safetywindow_rfsksm.jpg',
 };
 
 const t = {
@@ -26,52 +25,19 @@ const t = {
     viewAll: 'View all services',
     viewAllHref: '/services',
     viewMore: 'View more',
-    services: [
-      {
-        num: '01',
-        title: 'Water Damage Restoration',
-        desc: 'Pipe bursts, flooding, storm water — rapid on-site response in under 60 minutes.',
-        href: '/services/water-damage',
-        img: imgs.water,
-        imgAlt: 'Water damage flooding emergency',
-        featured: true,
-      },
-      {
-        num: '02',
-        title: 'Mold Removal',
-        desc: 'IICRC-certified inspection, containment, and full remediation.',
-        href: '/services/mold-removal',
-        img: imgs.mold,
-        imgAlt: 'Mold remediation in progress',
-        featured: false,
-      },
-      {
-        num: '03',
-        title: 'Fire & Smoke',
-        desc: 'Structure cleaning, odor removal, and direct insurance coordination.',
-        href: '/services/fire-damage',
-        img: imgs.fire,
-        imgAlt: 'Fire and smoke damage restoration',
-        featured: false,
-      },
-      {
-        num: '04',
-        title: 'Hurricane Response',
-        desc: 'Roof tarping, water extraction, and rapid mold prevention.',
-        href: '/services/hurricane-emergency',
-        img: imgs.hurricane,
-        imgAlt: 'Hurricane damage emergency response',
-        featured: false,
-      },
-      {
-        num: '05',
-        title: 'Impact Windows',
-        desc: 'Hurricane-rated installation eligible for insurance premium discounts.',
-        href: '/services/impact-windows',
-        img: imgs.windows,
-        imgAlt: 'Impact-resistant window installation',
-        featured: false,
-      },
+    featured: {
+      num: '01',
+      title: 'Water Damage Restoration',
+      desc: 'Pipe bursts, flooding, storm water — the clock starts the moment water enters your property. We aim to be on-site in under 60 minutes.',
+      steps: ['Emergency dispatch', 'Water extraction', 'Structural drying', 'Full restoration'],
+      cta: `Call ${emergencyPhone.display}`,
+      ctaHref: `tel:${emergencyPhone.e164}`,
+    },
+    secondary: [
+      { num: '02', title: 'Mold Removal',      desc: 'IICRC-certified inspection, containment, and full remediation.',                href: '/services/mold-removal',        img: imgs.mold,      imgAlt: 'Mold remediation in progress' },
+      { num: '03', title: 'Fire & Smoke',       desc: 'Structure cleaning, odor removal, and direct insurance coordination.',          href: '/services/fire-damage',         img: imgs.fire,      imgAlt: 'Fire and smoke damage restoration' },
+      { num: '04', title: 'Hurricane Response', desc: 'Roof tarping, water extraction, and rapid mold prevention.',                   href: '/services/hurricane-emergency', img: imgs.hurricane, imgAlt: 'Hurricane damage response' },
+      { num: '05', title: 'Impact Windows',     desc: 'Hurricane-rated installation eligible for insurance premium discounts.',        href: '/services/impact-windows',      img: imgs.windows,   imgAlt: 'Impact-resistant window installation' },
     ],
   },
   es: {
@@ -79,52 +45,19 @@ const t = {
     viewAll: 'Ver todos los servicios',
     viewAllHref: '/es/servicios',
     viewMore: 'Ver más',
-    services: [
-      {
-        num: '01',
-        title: 'Restauración por Daños de Agua',
-        desc: 'Tuberías rotas, inundaciones, tormenta — llegamos en menos de 60 minutos.',
-        href: '/es/servicios/moho',
-        img: imgs.water,
-        imgAlt: 'Emergencia de inundación por daño de agua',
-        featured: true,
-      },
-      {
-        num: '02',
-        title: 'Eliminación de Moho',
-        desc: 'Inspección, contención y remediación certificada por IICRC.',
-        href: '/es/servicios/moho',
-        img: imgs.mold,
-        imgAlt: 'Remediación de moho en progreso',
-        featured: false,
-      },
-      {
-        num: '03',
-        title: 'Incendio y Humo',
-        desc: 'Limpieza estructural, eliminación de olores y coordinación con seguros.',
-        href: '/es/servicios/incendio',
-        img: imgs.fire,
-        imgAlt: 'Restauración por daños de incendio y humo',
-        featured: false,
-      },
-      {
-        num: '04',
-        title: 'Respuesta a Huracanes',
-        desc: 'Cubierta de techos, extracción de agua y prevención rápida de moho.',
-        href: '/es/servicios/huracanes',
-        img: imgs.hurricane,
-        imgAlt: 'Respuesta a emergencia por huracán',
-        featured: false,
-      },
-      {
-        num: '05',
-        title: 'Ventanas de Impacto',
-        desc: 'Instalación resistente a huracanes con descuentos en primas de seguro.',
-        href: '/es/servicios/ventanas-impacto',
-        img: imgs.windows,
-        imgAlt: 'Instalación de ventanas de impacto',
-        featured: false,
-      },
+    featured: {
+      num: '01',
+      title: 'Restauración por Daños de Agua',
+      desc: 'Tuberías rotas, inundaciones, agua de tormenta — el reloj comienza cuando el agua entra a tu propiedad. Llegamos en menos de 60 minutos.',
+      steps: ['Despacho de emergencia', 'Extracción de agua', 'Secado estructural', 'Restauración completa'],
+      cta: `Llamar ${emergencyPhone.display}`,
+      ctaHref: `tel:${emergencyPhone.e164}`,
+    },
+    secondary: [
+      { num: '02', title: 'Eliminación de Moho',  desc: 'Inspección, contención y remediación certificada por IICRC.',              href: '/es/servicios/moho',             img: imgs.mold,      imgAlt: 'Remediación de moho en progreso' },
+      { num: '03', title: 'Incendio y Humo',       desc: 'Limpieza estructural, eliminación de olores y coordinación con seguros.',  href: '/es/servicios/incendio',         img: imgs.fire,      imgAlt: 'Restauración por daños de incendio' },
+      { num: '04', title: 'Respuesta a Huracanes', desc: 'Cubierta de techos, extracción de agua y prevención rápida de moho.',     href: '/es/servicios/huracanes',        img: imgs.hurricane, imgAlt: 'Respuesta a daños por huracán' },
+      { num: '05', title: 'Ventanas de Impacto',   desc: 'Instalación resistente a huracanes con descuentos en primas de seguro.',  href: '/es/servicios/ventanas-impacto', img: imgs.windows,   imgAlt: 'Instalación de ventanas de impacto' },
     ],
   },
 }[lang];
@@ -142,7 +75,6 @@ const t = {
         href={t.viewAllHref}
         class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold shrink-0 ml-4 transition-opacity hover:opacity-70"
         style="color: var(--color-trust);"
-        aria-label={t.viewAll}
       >
         {t.viewAll}
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -151,75 +83,132 @@ const t = {
       </a>
     </div>
 
-    <!-- Bento grid -->
-    <div class="bento-grid">
-      {t.services.map((svc) => (
-        <a
-          href={svc.href}
-          aria-label={svc.title}
-          class:list={[
-            'bento-card group relative overflow-hidden rounded-3xl cursor-pointer',
-            svc.featured ? 'bento-featured' : '',
-          ]}
-        >
-          <!-- Background image -->
-          <div
-            class="absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-out group-hover:scale-110"
-            style={`background-image: url('${svc.img}');`}
-            role="img"
-            aria-label={svc.imgAlt}
-          />
+    <!-- ── Hybrid grid ── -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
 
-          <!-- Gradient overlay -->
-          <div
-            class="absolute inset-0"
-            style="background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.38) 55%, rgba(0,0,0,0.10) 100%);"
-            aria-hidden="true"
-          />
+      <!-- ══════════════════════════════════════════════
+           Card 01 — Azul featured (col 1, full height)
+           ══════════════════════════════════════════════ -->
+      <article
+        aria-label={t.featured.title}
+        class="group flex flex-col h-full rounded-3xl p-8 cursor-pointer
+               transition-all duration-300 ease-in-out
+               hover:-translate-y-1 hover:shadow-2xl"
+        style="background: var(--color-trust); min-height: 500px;"
+      >
+        <!-- Number -->
+        <span class="text-xs font-bold tracking-widest text-white/50 mb-5 block">
+          {t.featured.num}
+        </span>
 
-          <!-- Content -->
-          <div class="relative z-10 h-full flex flex-col justify-end p-6 md:p-8">
+        <!-- Title -->
+        <h3 class="text-2xl lg:text-3xl font-bold text-white leading-snug mb-4"
+          style="font-family: var(--font-display);">
+          {t.featured.title}
+        </h3>
 
-            <!-- Service number -->
-            <span class="text-xs font-semibold tracking-widest mb-3 block"
-              style="color: rgba(255,255,255,0.55);">
-              {svc.num}
-            </span>
+        <!-- Description -->
+        <p class="text-white/80 text-sm lg:text-base leading-relaxed mb-6">
+          {t.featured.desc}
+        </p>
 
-            <!-- Title -->
-            <h3 class:list={[
-              'font-bold text-white leading-snug mb-3',
-              svc.featured ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl',
-            ]}>
-              {svc.title}
-            </h3>
-
-            <!-- Description -->
-            <p class="text-sm leading-relaxed mb-6 line-clamp-2"
-              style="color: rgba(255,255,255,0.78);">
-              {svc.desc}
-            </p>
-
-            <!-- CTA pill -->
-            <div>
+        <!-- Steps — flex-1 pushes CTA to bottom -->
+        <ul class="flex flex-col gap-3 flex-1">
+          {t.featured.steps.map((step, i) => (
+            <li class="flex items-center gap-3">
               <span
-                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 group-hover:gap-3"
-                style="background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.30); backdrop-filter: blur(8px);"
+                class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
+                style="background: rgba(255,255,255,0.22); color: var(--color-trust);"
               >
-                {t.viewMore}
-                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
+                {i + 1}
               </span>
+              <span class="text-sm text-white/90">{step}</span>
+            </li>
+          ))}
+        </ul>
+
+        <!-- CTA — green call button, pinned to bottom -->
+        <div class="mt-auto pt-8">
+          <a
+            href={t.featured.ctaHref}
+            class="flex items-center justify-center gap-2 w-full
+                   text-white font-bold py-3 px-6 rounded-xl text-sm transition-all
+                   hover:opacity-90 hover:shadow-lg"
+            style="background: var(--color-green);"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            {t.featured.cta}
+          </a>
+        </div>
+      </article>
+
+      <!-- ══════════════════════════════════════════════
+           Cards 02–05 — Imagen + botón cápsula flotante
+           ══════════════════════════════════════════════ -->
+      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6 pb-7">
+        {t.secondary.map((svc) => (
+          <div class="group relative rounded-3xl overflow-visible shadow-md"
+            style="height: 320px;">
+
+            <!-- Contenedor imagen (overflow-hidden independiente) -->
+            <div class="absolute inset-0 rounded-3xl overflow-hidden">
+              <img
+                src={svc.img}
+                alt={svc.imgAlt}
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+              />
             </div>
 
+            <!-- Overlay degradado -->
+            <div
+              class="absolute inset-0 rounded-3xl"
+              style="background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.22) 55%, rgba(0,0,0,0.05) 100%);"
+              aria-hidden="true"
+            />
+
+            <!-- Texto (bottom-left, deja espacio a la derecha para el botón) -->
+            <div class="absolute bottom-8 left-6 right-28 z-10">
+              <span class="text-xs font-bold uppercase tracking-widest mb-1.5 block"
+                style="color: rgba(255,255,255,0.55);">
+                {svc.num}
+              </span>
+              <h3 class="text-white text-lg font-bold leading-snug mb-1.5">
+                {svc.title}
+              </h3>
+              <p class="text-sm line-clamp-2" style="color: rgba(255,255,255,0.75);">
+                {svc.desc}
+              </p>
+            </div>
+
+            <!-- Botón cápsula flotante (sobresale por abajo) -->
+            <a
+              href={svc.href}
+              class="absolute bottom-[-22px] right-6 z-20
+                     inline-flex items-center gap-2
+                     px-5 py-2.5 rounded-full
+                     text-white text-sm font-bold
+                     shadow-xl border-2 border-white
+                     transition-all duration-200 hover:scale-105 hover:shadow-2xl"
+              style="background: var(--color-green);"
+            >
+              {t.viewMore}
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+
           </div>
-        </a>
-      ))}
+        ))}
+      </div>
+
     </div>
 
     <!-- Mobile: view all -->
-    <div class="mt-8 text-center sm:hidden">
+    <div class="mt-10 text-center sm:hidden">
       <a href={t.viewAllHref}
         class="inline-flex items-center gap-2 text-sm font-semibold"
         style="color: var(--color-trust);">
@@ -234,44 +223,12 @@ const t = {
 </section>
 
 <style>
-  /* ── Base card height ── */
-  .bento-card {
-    height: 384px; /* h-96 */
-  }
-
-  /* ── Grid: 1 col mobile ── */
-  .bento-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  /* ── Tablet: 2 cols · featured spans both ── */
-  @media (min-width: 640px) {
-    .bento-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .bento-featured {
-      grid-column: 1 / -1;
-    }
-  }
-
-  /* ── Desktop: 3 cols · featured spans 2 ── */
-  @media (min-width: 1024px) {
-    .bento-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    .bento-featured {
-      grid-column: span 2;
-    }
-  }
-
-  /* ── Respect prefers-reduced-motion ── */
+  /* Reduced motion: desactiva zoom de imagen sin quitar el hover state */
   @media (prefers-reduced-motion: reduce) {
-    .bento-card > div:first-child {
+    .group img {
       transition: none !important;
     }
-    .bento-card:hover > div:first-child {
+    .group:hover img {
       transform: none !important;
     }
   }
