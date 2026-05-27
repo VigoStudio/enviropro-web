@@ -145,55 +145,67 @@ const t = {
       </article>
 
       <!-- ══════════════════════════════════════════════
-           Cards 02–05 — Imagen + botón cápsula flotante
+           Cards 02–05 — SVG Organic Cutout
            ══════════════════════════════════════════════ -->
-      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6 pb-7">
+      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
         {t.secondary.map((svc) => (
-          <div class="group relative rounded-3xl overflow-visible shadow-md"
-            style="height: 320px;">
+          <div class="group relative h-80 rounded-3xl overflow-hidden shadow-lg">
 
-            <!-- Contenedor imagen (overflow-hidden independiente) -->
-            <div class="absolute inset-0 rounded-3xl overflow-hidden">
-              <img
-                src={svc.img}
-                alt={svc.imgAlt}
-                loading="lazy"
-                decoding="async"
-                class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-              />
-            </div>
+            <!-- Imagen -->
+            <img
+              src={svc.img}
+              alt={svc.imgAlt}
+              loading="lazy"
+              decoding="async"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            />
 
-            <!-- Overlay degradado -->
+            <!-- Gradient overlay -->
             <div
-              class="absolute inset-0 rounded-3xl"
-              style="background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.22) 55%, rgba(0,0,0,0.05) 100%);"
+              class="absolute inset-0"
+              style="background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.20) 50%, transparent 100%);"
               aria-hidden="true"
             />
 
-            <!-- Texto (bottom-left, deja espacio a la derecha para el botón) -->
-            <div class="absolute bottom-8 left-6 right-28 z-10">
-              <span class="text-xs font-bold uppercase tracking-widest mb-1.5 block"
-                style="color: rgba(255,255,255,0.55);">
-                {svc.num}
-              </span>
-              <h3 class="text-white text-lg font-bold leading-snug mb-1.5">
+            <!-- SVG Organic Cutout (esquina inferior derecha) -->
+            <svg
+              class="absolute bottom-0 right-0 w-40 h-40 z-10"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path d="M100,0 Q75,25 50,50 C25,75 0,100 0,100 L100,100 Z" fill="white" />
+            </svg>
+
+            <!-- Número Liquid Glass -->
+            <div
+              class="absolute top-5 left-5 w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold z-20"
+              style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"
+            >
+              {svc.num}
+            </div>
+
+            <!-- Texto -->
+            <div class="absolute bottom-8 left-6 right-24 z-10">
+              <h3 class="text-white text-xl font-bold leading-tight">
                 {svc.title}
               </h3>
-              <p class="text-sm line-clamp-2" style="color: rgba(255,255,255,0.75);">
+              <p class="text-sm mt-2 line-clamp-2" style="color: rgba(255,255,255,0.78);">
                 {svc.desc}
               </p>
             </div>
 
-            <!-- Botón cápsula flotante (sobresale por abajo) -->
+            <!-- Botón verde (se asienta sobre el recorte SVG) -->
             <a
               href={svc.href}
-              class="absolute bottom-[-22px] right-6 z-20
+              class="absolute bottom-3 right-3 z-20
                      inline-flex items-center gap-2
                      px-5 py-2.5 rounded-full
-                     text-white text-sm font-bold
-                     shadow-xl border-2 border-white
-                     transition-all duration-200 hover:scale-105 hover:shadow-2xl"
+                     text-white text-sm font-semibold
+                     shadow-lg transition-all duration-200 hover:scale-105"
               style="background: var(--color-green);"
+              onmouseover="this.style.background='var(--color-green-hover)'"
+              onmouseout="this.style.background='var(--color-green)'"
             >
               {t.viewMore}
               <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
