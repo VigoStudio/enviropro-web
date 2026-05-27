@@ -48,9 +48,15 @@ const ctaText = lang === 'en' ? 'Call 24/7' : 'Llamar 24/7';
   <div class="container-x flex items-center justify-between py-3 lg:py-4">
 
     <!-- Logo -->
-    <a href={lang === 'en' ? '/' : '/es/'} class="flex items-center gap-2 font-bold text-xl" style="font-family: var(--font-display); color: var(--color-trust)">
-      <span>EnviroPro</span>
-      <span class="hidden sm:inline text-sm font-normal" style="color: var(--color-ink-soft)">USA</span>
+    <a href={lang === 'en' ? '/' : '/es/'} class="flex items-center" aria-label="EnviroPro USA — Home">
+      <img
+        src="/images/logos/enviro-pro-logo.png"
+        alt="EnviroPro USA"
+        width="180"
+        height="18"
+        class="h-9 w-auto"
+        loading="eager"
+      />
     </a>
 
     <!-- Nav desktop -->
