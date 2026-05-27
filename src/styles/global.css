@@ -22,12 +22,12 @@
   --color-emergency-hover: #B91C1C;
   --color-trust: #4384BF;            /* Azul marca */
   --color-trust-hover: #336ea0;
-  --color-green: #17B794;            /* Verde marca */
-  --color-green-hover: #12967a;
+  --color-green: #00C9A7;            /* Verde turquesa marca (logo) */
+  --color-green-hover: #00A38A;
   --color-accent: #F59E0B;           /* Acento amber (badges, ratings) */
 
   /* --- Estados --- */
-  --color-success: #17B794;          /* Verde marca como success */
+  --color-success: #00C9A7;          /* Verde marca como success */
   --color-warning: #D97706;
 
   /* --- Tipografía --- */
@@ -94,12 +94,12 @@
 @layer components {
   .btn-emergency {
     @apply inline-flex items-center justify-center gap-2 px-6 py-4 font-semibold text-white transition-all;
-    background: var(--color-emergency);
+    background: var(--color-green);
     border-radius: var(--radius-btn);
     box-shadow: var(--shadow-card);
   }
   .btn-emergency:hover {
-    background: var(--color-emergency-hover);
+    background: var(--color-green-hover);
     transform: translateY(-1px);
     box-shadow: var(--shadow-card-hover);
   }

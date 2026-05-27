@@ -57,11 +57,11 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
     <!-- Logo -->
     <a href={lang === 'en' ? '/' : '/es/'} class="shrink-0" aria-label="EnviroPro USA — Home">
       <img
-        src="/images/logos/enviro-pro-white.png"
+        src="/images/logos/enviro-pro-logo.png"
         alt="EnviroPro USA"
-        width="160"
-        height="16"
-        class="h-7 w-auto md:h-8 object-contain drop-shadow-lg"
+        width="200"
+        height="50"
+        class="h-10 w-auto md:h-12 object-contain"
         loading="eager"
       />
     </a>
@@ -128,7 +128,7 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
   >
     <!-- Close button at top-right inside overlay -->
     <div class="flex items-center justify-between pt-5 pb-6">
-      <img src="/images/logos/enviro-pro-white.png" alt="EnviroPro" class="h-6 w-auto opacity-60" />
+      <img src="/images/logos/enviro-pro-logo.png" alt="EnviroPro" class="h-8 w-auto opacity-80" />
       <button
         id="mobile-menu-close"
         class="p-2 text-white/70 hover:text-white transition-colors"
@@ -195,13 +195,13 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255,255,255,0.08);
   }
 
-  /* CTA button goes red when scrolled */
+  /* CTA button goes green when scrolled */
   #site-header.scrolled #header-cta {
-    background: #DC2626;
+    background: #00C9A7;
     border-color: transparent;
   }
   #site-header.scrolled #header-cta:hover {
-    background: #B91C1C;
+    background: #00A38A;
   }
 </style>
 
