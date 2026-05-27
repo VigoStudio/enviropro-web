@@ -44,30 +44,27 @@ const trustPoints = [
     class="relative overflow-hidden text-white"
     style="background: #0A0A0A; min-height: 88vh; display: flex; align-items: center;"
   >
-    <!-- Poster: siempre visible, reemplaza el video en móvil (<768px) -->
-    <img
-      src="https://res.cloudinary.com/dxdibfgvw/video/upload/so_0,f_auto,q_auto,dpr_auto,w_1920/v1779848047/GettyImages-1399919975_1_j9bdot.jpg"
-      alt=""
-      aria-hidden="true"
-      class="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      loading="eager"
-      fetchpriority="high"
-      decoding="async"
-    />
-
-    <!-- Video: solo desktop (md+). Oculto en móvil para proteger el LCP -->
+    <!-- Video de fondo — todos los dispositivos. Poster carga instantáneamente -->
     <video
-      class="absolute inset-0 w-full h-full object-cover pointer-events-none hidden md:block"
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none"
       autoplay
       loop
       muted
       playsinline
       aria-hidden="true"
-      preload="none"
-      poster="https://res.cloudinary.com/dxdibfgvw/video/upload/so_0,f_auto,q_auto,dpr_auto,w_1920/v1779848047/GettyImages-1399919975_1_j9bdot.jpg"
+      preload="metadata"
+      poster="https://res.cloudinary.com/dxdibfgvw/video/upload/so_0,f_jpg,q_auto:good,w_1280/v1779848047/GettyImages-1399919975_1_j9bdot.jpg"
     >
+      <!-- Móvil: 720p, bitrate reducido para 3G/4G -->
       <source
-        src="https://res.cloudinary.com/dxdibfgvw/video/upload/f_auto,q_auto,dpr_auto,w_1920/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
+        media="(max-width: 767px)"
+        src="https://res.cloudinary.com/dxdibfgvw/video/upload/f_auto,q_auto:good,w_720,vc_auto/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
+        type="video/mp4"
+      />
+      <!-- Desktop: 1920p calidad completa -->
+      <source
+        media="(min-width: 768px)"
+        src="https://res.cloudinary.com/dxdibfgvw/video/upload/f_auto,q_auto,w_1920,vc_auto/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
         type="video/mp4"
       />
     </video>
