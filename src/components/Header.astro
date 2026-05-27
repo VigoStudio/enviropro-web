@@ -1,8 +1,8 @@
 ---
 /**
- * Header.astro — Liquid Glass nav.
- * Initial: transparent fixed bar over the video hero.
- * On scroll (>60px): morphs into a floating green-brand pill with backdrop-blur.
+ * Header.astro — Floating pill nav, Apple-style.
+ * Always white/transparent glass pill from the first pixel.
+ * On scroll: pill becomes slightly more opaque — never changes color.
  */
 import { emergencyPhone } from '../data/business';
 
@@ -13,6 +13,7 @@ export interface Props {
 
 const { lang, currentPath } = Astro.props;
 
+// Desktop nav labels — ES uses abbreviated "Áreas" to stay single-line
 const nav = {
   en: [
     { label: 'Services',      href: '/services' },
@@ -21,10 +22,10 @@ const nav = {
     { label: 'Contact',       href: '/contact' },
   ],
   es: [
-    { label: 'Servicios',         href: '/es/servicios' },
-    { label: 'Áreas de Servicio', href: '/es/areas-de-servicio' },
-    { label: 'Nosotros',          href: '/es/nosotros' },
-    { label: 'Contacto',          href: '/es/contacto' },
+    { label: 'Servicios', href: '/es/servicios' },
+    { label: 'Áreas',     href: '/es/areas-de-servicio' },
+    { label: 'Nosotros',  href: '/es/nosotros' },
+    { label: 'Contacto',  href: '/es/contacto' },
   ],
 };
 
@@ -41,99 +42,112 @@ const langSwitchUrl = lang === 'en'
   ? (enToEs[currentPath] ?? enToEs[esPathKey] ?? `/es${currentPath}`)
   : (Object.entries(enToEs).find(([, es]) => es === currentPath || es === esPathKey + '/')?.[0] ?? '/');
 
-const ctaLabel = lang === 'en' ? 'Call 24/7' : 'Llamar 24/7';
-const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
+const callLabelFull  = lang === 'en' ? 'Call 24/7'   : 'Llamar 24/7';
+const callLabelShort = '24/7';
+const menuLabel      = lang === 'en' ? 'Open menu'   : 'Abrir menú';
 ---
 
-<!-- Fixed wrapper — always full-width, zero background -->
-<header id="site-header" class="fixed top-0 left-0 right-0 z-50">
+<!-- Fixed wrapper -->
+<header id="main-header" class="fixed top-0 left-0 right-0 z-50">
+  <div class="px-3 pt-3 md:px-5 md:pt-4">
 
-  <!-- Inner container: morphs from transparent bar → green brand pill on scroll -->
-  <div
-    id="nav-inner"
-    class="nav-inner mx-auto flex items-center justify-between gap-4 transition-all duration-500 ease-out px-5 py-4 lg:px-8"
-  >
+    <!-- ── Floating pill — contains EVERYTHING ── -->
+    <div
+      id="nav-pill"
+      class="max-w-7xl mx-auto flex items-center justify-between gap-2 md:gap-4
+             rounded-full px-3 py-2 md:px-5 md:py-2.5
+             transition-all duration-300"
+      style="background: rgba(255,255,255,0.12); backdrop-filter: blur(14px) saturate(1.5); -webkit-backdrop-filter: blur(14px) saturate(1.5); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 4px 24px rgba(0,0,0,0.18);"
+    >
 
-    <!-- Logo -->
-    <a href={lang === 'en' ? '/' : '/es/'} class="shrink-0" aria-label="EnviroPro USA — Home">
-      <img
-        src="/images/logos/enviro-pro-logo.png"
-        alt="EnviroPro USA"
-        width="200"
-        height="50"
-        class="h-8 md:h-10 w-auto object-contain"
-        loading="eager"
-      />
-    </a>
+      <!-- Logo -->
+      <a href={lang === 'en' ? '/' : '/es/'} class="shrink-0" aria-label="EnviroPro USA — Home">
+        <img
+          src="/images/logos/enviro-pro-logo.png"
+          alt="EnviroPro USA"
+          width="160"
+          height="40"
+          class="h-7 md:h-9 w-auto object-contain"
+          loading="eager"
+        />
+      </a>
 
-    <!-- Desktop nav — centered between logo and CTA -->
-    <nav class="hidden lg:flex items-center gap-4 flex-1 justify-center">
-      {nav[lang].map((item) => (
+      <!-- Desktop nav — centered, single line -->
+      <nav class="hidden md:flex items-center gap-2 lg:gap-4 flex-1 justify-center">
+        {nav[lang].map((item) => (
+          <a
+            href={item.href}
+            class="text-xs lg:text-sm font-medium text-white/85 hover:text-white
+                   whitespace-nowrap transition-colors px-2 py-1"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Right: lang + CTA + hamburger -->
+      <div class="flex items-center gap-1.5 md:gap-2 shrink-0">
+
+        <!-- Language toggle (desktop only) -->
         <a
-          href={item.href}
-          class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors whitespace-nowrap px-3 py-1"
+          href={langSwitchUrl}
+          class="hidden lg:inline-block text-xs font-semibold text-white/60 hover:text-white transition-colors px-2 py-1"
+          aria-label={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
         >
-          {item.label}
+          {lang === 'en' ? 'ES' : 'EN'}
         </a>
-      ))}
-    </nav>
 
-    <!-- Right: lang toggle + CTA + mobile hamburger -->
-    <div class="flex items-center gap-2 lg:gap-3 shrink-0">
+        <!-- Call CTA — green pill inside the glass pill -->
+        <a
+          href={`tel:${emergencyPhone.e164}`}
+          class="inline-flex items-center gap-1.5 rounded-full font-semibold text-white
+                 px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm
+                 whitespace-nowrap transition-colors shadow-md"
+          style="background: #00C9A7;"
+          onmouseover="this.style.background='#00A38A'"
+          onmouseout="this.style.background='#00C9A7'"
+          aria-label={`${callLabelFull} ${emergencyPhone.display}`}
+        >
+          <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+              d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+          <span class="hidden sm:inline">{callLabelFull}</span>
+          <span class="sm:hidden">{callLabelShort}</span>
+        </a>
 
-      <!-- Language toggle -->
-      <a
-        href={langSwitchUrl}
-        class="text-xs font-semibold text-white/60 hover:text-white transition-colors px-2 py-1"
-        aria-label={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
-      >
-        {lang === 'en' ? 'ES' : 'EN'}
-      </a>
+        <!-- Mobile hamburger -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden p-1.5 text-white rounded-full hover:bg-white/10 transition-colors"
+          aria-label={menuLabel}
+          aria-expanded="false"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
 
-      <!-- CTA: emergency call — glass pill initially, white pill on scroll -->
-      <a
-        href={`tel:${emergencyPhone.e164}`}
-        id="header-cta"
-        class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-full border border-white/25 text-white transition-all duration-300 hover:bg-white/20"
-        aria-label={`${ctaLabel} ${emergencyPhone.display}`}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-        </svg>
-        {ctaLabel}
-      </a>
-
-      <!-- Mobile hamburger -->
-      <button
-        id="mobile-menu-btn"
-        class="lg:hidden p-2 text-white"
-        aria-label={menuLabel}
-        aria-expanded="false"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
+      </div>
     </div>
   </div>
 
   <!-- Mobile menu — full-screen glass overlay -->
   <div
     id="mobile-menu"
-    class="lg:hidden hidden fixed inset-0 z-[60] flex flex-col px-6 pb-8"
+    class="md:hidden hidden fixed inset-0 z-[60] flex flex-col px-6 pb-8"
     style="-webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); background: rgba(5,10,20,0.92);"
   >
-    <!-- Close button -->
     <div class="flex items-center justify-between pt-5 pb-6">
-      <img src="/images/logos/enviro-pro-logo.png" alt="EnviroPro" class="h-8 w-auto opacity-80" />
+      <img src="/images/logos/enviro-pro-logo.png" alt="EnviroPro" class="h-8 w-auto opacity-85" />
       <button
         id="mobile-menu-close"
         class="p-2 text-white/70 hover:text-white transition-colors"
-        aria-label="Close menu"
+        aria-label={lang === 'en' ? 'Close menu' : 'Cerrar menú'}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"/>
           <line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
@@ -151,16 +165,16 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
       ))}
     </nav>
 
-    <!-- Mobile CTA -->
     <a
       href={`tel:${emergencyPhone.e164}`}
       class="btn-emergency text-center text-lg mt-4"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
       </svg>
       {emergencyPhone.display}
     </a>
+
     <a
       href={langSwitchUrl}
       class="text-center text-sm text-white/40 hover:text-white/70 transition-colors mt-3"
@@ -172,67 +186,30 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
 </header>
 
 <style>
-  /* ── Initial: transparent bar ── */
-  #nav-inner {
-    max-width: 100%;
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: 0;
-  }
-
-  /* ── Scrolled: floating green brand pill ── */
-  #site-header.scrolled #nav-inner {
-    max-width: 1080px;
-    margin-top: 12px;
-    background: rgba(0, 201, 167, 0.85);
-    -webkit-backdrop-filter: blur(16px) saturate(1.4);
-    backdrop-filter: blur(16px) saturate(1.4);
-    border: 1px solid rgba(255, 255, 255, 0.20);
-    border-radius: 9999px;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    box-shadow: 0 8px 32px rgba(0, 163, 138, 0.30), inset 0 1px 0 rgba(255,255,255,0.15);
-  }
-
-  /* Nav links — pure white on the green pill */
-  #site-header.scrolled .nav-link {
-    color: rgba(255, 255, 255, 0.90);
-  }
-  #site-header.scrolled .nav-link:hover {
-    color: #ffffff;
-  }
-
-  /* CTA button — white pill on green background for contrast */
-  #site-header.scrolled #header-cta {
-    background: rgba(255, 255, 255, 0.22);
-    border-color: rgba(255, 255, 255, 0.35);
-    color: #ffffff;
-  }
-  #site-header.scrolled #header-cta:hover {
-    background: rgba(255, 255, 255, 0.32);
+  /* On scroll: pill becomes more opaque white — never changes color */
+  #main-header.scrolled #nav-pill {
+    background: rgba(255, 255, 255, 0.20) !important;
+    border-color: rgba(255, 255, 255, 0.30) !important;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22) !important;
   }
 </style>
 
 <script>
-  const header    = document.getElementById('site-header');
-  const btn       = document.getElementById('mobile-menu-btn');
-  const menu      = document.getElementById('mobile-menu');
-  const closeBtn  = document.getElementById('mobile-menu-close');
+  const header   = document.getElementById('main-header');
+  const btn      = document.getElementById('mobile-menu-btn');
+  const menu     = document.getElementById('mobile-menu');
+  const closeBtn = document.getElementById('mobile-menu-close');
 
-  // Scroll → pill morph
-  const THRESHOLD = 60;
-  function onScroll() {
-    header?.classList.toggle('scrolled', window.scrollY > THRESHOLD);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  // Scroll → slightly more opaque pill
+  window.addEventListener('scroll', () => {
+    header?.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
 
   function openMenu() {
     menu?.classList.remove('hidden');
     btn?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   }
-
   function closeMenu() {
     menu?.classList.add('hidden');
     btn?.setAttribute('aria-expanded', 'false');
@@ -241,9 +218,5 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
 
   btn?.addEventListener('click', openMenu);
   closeBtn?.addEventListener('click', closeMenu);
-
-  // Close on nav link tap
-  menu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
+  menu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 </script>
