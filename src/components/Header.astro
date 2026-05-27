@@ -54,14 +54,18 @@ const menuLabel = lang === 'en' ? 'Open menu' : 'Abrir menú';
     class="nav-inner mx-auto flex items-center justify-between gap-4 transition-all duration-500 ease-out px-5 py-4 lg:px-8"
   >
 
-    <!-- Logo: white version — always legible over dark video + glass pill -->
-    <a href={lang === 'en' ? '/' : '/es/'} class="shrink-0" aria-label="EnviroPro USA — Home">
+    <!-- Logo -->
+    <a
+      href={lang === 'en' ? '/' : '/es/'}
+      class="shrink-0 flex items-center bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-lg hover:bg-black/30 transition-all duration-300"
+      aria-label="EnviroPro USA — Home"
+    >
       <img
         src="/images/logos/enviro-pro-white.png"
         alt="EnviroPro USA"
-        width="140"
-        height="14"
-        class="h-5 w-auto lg:h-6"
+        width="160"
+        height="16"
+        class="h-8 w-auto md:h-12 object-contain drop-shadow-lg"
         loading="eager"
       />
     </a>
