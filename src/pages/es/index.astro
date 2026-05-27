@@ -44,24 +44,39 @@ const trustPoints = [
     class="relative overflow-hidden text-white"
     style="background: #0A0A0A; min-height: 88vh; display: flex; align-items: center;"
   >
-    <!-- Video de fondo -->
-    <video
+    <!-- Poster: siempre visible, reemplaza el video en móvil (<768px) -->
+    <img
+      src="https://res.cloudinary.com/dxdibfgvw/video/upload/so_0,f_auto,q_auto,dpr_auto,w_1920/v1779848047/GettyImages-1399919975_1_j9bdot.jpg"
+      alt=""
+      aria-hidden="true"
       class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+
+    <!-- Video: solo desktop (md+). Oculto en móvil para proteger el LCP -->
+    <video
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none hidden md:block"
       autoplay
       loop
       muted
       playsinline
       aria-hidden="true"
-      preload="auto"
+      preload="none"
+      poster="https://res.cloudinary.com/dxdibfgvw/video/upload/so_0,f_auto,q_auto,dpr_auto,w_1920/v1779848047/GettyImages-1399919975_1_j9bdot.jpg"
     >
-      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260306_074215_04640ca7-042c-45d6-bb56-58b1e8a42489.mp4" type="video/mp4" />
+      <source
+        src="https://res.cloudinary.com/dxdibfgvw/video/upload/f_auto,q_auto,dpr_auto,w_1920/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
+        type="video/mp4"
+      />
     </video>
 
     <!-- Overlay oscuro para legibilidad del texto -->
     <div
       class="absolute inset-0 pointer-events-none"
       aria-hidden="true"
-      style="background: linear-gradient(135deg, rgba(8,8,8,0.82) 0%, rgba(12,23,48,0.72) 55%, rgba(8,8,8,0.82) 100%);"
+      style="background: linear-gradient(135deg, rgba(8,8,8,0.80) 0%, rgba(12,23,48,0.68) 55%, rgba(8,8,8,0.80) 100%);"
     ></div>
 
     <div class="container-x relative w-full">
