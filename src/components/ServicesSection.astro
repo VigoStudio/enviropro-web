@@ -4,6 +4,7 @@
  * Featured card (Water Damage) spans left column full height.
  * Cards 02–05: hover reveals Cloudinary background image (desktop only).
  */
+import { Image } from 'astro:assets';
 import { emergencyPhone } from '../data/business';
 
 export interface Props {
@@ -154,12 +155,13 @@ const copy = t[lang];
 
           <!-- ── Background image (desktop hover only) ── -->
           <div class="card-bg-img absolute inset-0 z-0" aria-hidden="true">
-            <img
+            <Image
               src={serviceImages[i]}
               alt=""
               aria-hidden="true"
               loading="lazy"
-              decoding="async"
+              width={800}
+              height={600}
               class="w-full h-full object-cover
                      blur-[2px]
                      opacity-0 md:group-hover:opacity-100

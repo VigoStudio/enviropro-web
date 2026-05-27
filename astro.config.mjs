@@ -8,6 +8,9 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://enviropro.net',
+  image: {
+    domains: ['res.cloudinary.com'],
+  },
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es'],
