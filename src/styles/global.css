@@ -17,15 +17,17 @@
   --color-surface-alt: #F4F4F5;      /* Fondo secciones */
   --color-border: #E4E4E7;
 
-  /* --- Marca (PROVISIONAL — pendiente decisión post-mockup) --- */
-  --color-emergency: #DC2626;        /* Rojo emergency CTA */
+  /* --- Marca EnviroPro --- */
+  --color-emergency: #DC2626;        /* Rojo emergency CTA — no cambiar */
   --color-emergency-hover: #B91C1C;
-  --color-trust: #1E3A8A;            /* Azul navy autoridad */
-  --color-trust-hover: #1E40AF;
+  --color-trust: #4384BF;            /* Azul marca */
+  --color-trust-hover: #336ea0;
+  --color-green: #17B794;            /* Verde marca */
+  --color-green-hover: #12967a;
   --color-accent: #F59E0B;           /* Acento amber (badges, ratings) */
 
   /* --- Estados --- */
-  --color-success: #16A34A;
+  --color-success: #17B794;          /* Verde marca como success */
   --color-warning: #D97706;
 
   /* --- Tipografía --- */
@@ -108,6 +110,13 @@
     border-radius: var(--radius-btn);
   }
   .btn-trust:hover { background: var(--color-trust-hover); }
+
+  .btn-green {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-4 font-semibold text-white transition-all;
+    background: var(--color-green);
+    border-radius: var(--radius-btn);
+  }
+  .btn-green:hover { background: var(--color-green-hover); }
 
   .container-x {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
