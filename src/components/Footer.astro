@@ -1,6 +1,6 @@
 ---
 /**
- * Footer.astro — NAP completo, redes, certificaciones, copyright.
+ * Footer.astro — Diseño moderno slate-950 · bilingüe · datos desde business.ts
  */
 import { business, emergencyPhone, miamiPhone, browardPhone, orlandoPhone } from '../data/business';
 
@@ -40,6 +40,8 @@ const certLogos = [
 const t = {
   en: {
     tagline: '36 years restoring South Florida homes — 24/7 emergency response.',
+    certTitle: 'Trusted & Certified Professionals',
+    emergency: '24/7 Emergency',
     services: 'Services',
     coverage: 'Coverage',
     company: 'Company',
@@ -56,12 +58,17 @@ const t = {
       { label: 'Contact', href: '/contact' },
       { label: 'Privacy Policy', href: '/privacy' },
     ],
-    emergency: '24/7 Emergency',
     rights: 'All rights reserved.',
     license: 'Licensed & Insured · IICRC Certified',
+    designedBy: 'Designed by',
+    privacy: 'Privacy',
+    terms: 'Terms',
+    sitemap: 'Sitemap',
   },
   es: {
     tagline: '36 años restaurando hogares en South Florida — emergencias 24/7.',
+    certTitle: 'Profesionales de Confianza y Certificados',
+    emergency: 'Emergencias 24/7',
     services: 'Servicios',
     coverage: 'Cobertura',
     company: 'Empresa',
@@ -78,98 +85,28 @@ const t = {
       { label: 'Contacto', href: '/es/contacto' },
       { label: 'Política de Privacidad', href: '/es/privacidad' },
     ],
-    emergency: 'Emergencias 24/7',
     rights: 'Todos los derechos reservados.',
     license: 'Licenciado y Asegurado · Certificado IICRC',
+    designedBy: 'Diseñado por',
+    privacy: 'Privacidad',
+    terms: 'Términos',
+    sitemap: 'Sitemap',
   },
 }[lang];
 
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-[var(--color-ink)] text-white">
-  <div class="container-x section-y">
+<footer class="bg-slate-950 text-white border-t border-white/10">
+  <div class="container-x py-16 md:py-20">
 
-    <!-- Top grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-
-      <!-- Brand + tagline + emergency -->
-      <div class="space-y-4">
-        <h3 class="text-2xl font-bold" style="font-family: var(--font-display)">{business.brandName}</h3>
-        <p class="text-sm opacity-80 leading-relaxed">{t.tagline}</p>
-
-        <div class="pt-2">
-          <p class="text-xs uppercase tracking-wider opacity-60 mb-1">{t.emergency}</p>
-          <a
-            href={`tel:${emergencyPhone.e164}`}
-            class="text-xl font-bold hover:underline"
-            style="color: var(--color-emergency)"
-          >
-            {emergencyPhone.display}
-          </a>
-        </div>
-      </div>
-
-      <!-- Services -->
-      <div>
-        <h4 class="text-sm font-semibold uppercase tracking-wider mb-4 opacity-90">{t.services}</h4>
-        <ul class="space-y-2">
-          {t.serviceList.map((s) => (
-            <li>
-              <a href={s.href} class="text-sm opacity-80 hover:opacity-100 hover:underline transition-opacity">
-                {s.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- Coverage -->
-      <div>
-        <h4 class="text-sm font-semibold uppercase tracking-wider mb-4 opacity-90">{t.coverage}</h4>
-        <ul class="space-y-2 text-sm">
-          <li class="opacity-80">
-            <span class="block text-xs uppercase opacity-60">Miami-Dade</span>
-            <a href={`tel:${miamiPhone.e164}`} class="hover:underline">{miamiPhone.display}</a>
-          </li>
-          <li class="opacity-80">
-            <span class="block text-xs uppercase opacity-60">Broward</span>
-            <a href={`tel:${browardPhone.e164}`} class="hover:underline">{browardPhone.display}</a>
-          </li>
-          <li class="opacity-80">
-            <span class="block text-xs uppercase opacity-60">Orlando</span>
-            <a href={`tel:${orlandoPhone.e164}`} class="hover:underline">{orlandoPhone.display}</a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Company + address -->
-      <div>
-        <h4 class="text-sm font-semibold uppercase tracking-wider mb-4 opacity-90">{t.company}</h4>
-        <ul class="space-y-2 mb-4">
-          {t.companyList.map((c) => (
-            <li>
-              <a href={c.href} class="text-sm opacity-80 hover:opacity-100 hover:underline">
-                {c.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <address class="text-sm opacity-70 not-italic leading-relaxed">
-          {business.address.street}<br/>
-          {business.address.city}, {business.address.state} {business.address.zip}
-        </address>
-      </div>
-    </div>
-
-    <!-- Certification logos -->
-    <div class="mt-12 pt-10 border-t border-white/10">
+    <!-- ── Certificaciones ── -->
+    <div class="mb-14">
       <p class="text-center text-xs font-semibold uppercase tracking-widest mb-8"
-        style="color: rgba(255,255,255,0.40); letter-spacing: 0.12em;">
-        {lang === 'en' ? 'Trusted & Certified' : 'Confianza y Certificación'}
+        style="color: rgba(255,255,255,0.38); letter-spacing: 0.12em;">
+        {t.certTitle}
       </p>
-      <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14">
+      <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
         {certLogos.map((logo) => (
           <img
             src={logo.src}
@@ -178,39 +115,178 @@ const year = new Date().getFullYear();
             height={logo.height}
             loading="lazy"
             decoding="async"
-            class="h-10 md:h-12 w-auto object-contain opacity-60 hover:opacity-90 transition-opacity duration-200"
+            class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
           />
         ))}
       </div>
     </div>
 
-    <!-- Bottom strip -->
-    <div class="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-      <p class="text-xs opacity-60">
-        © {year} {business.legalName}. {t.rights} · {t.license}
+    <!-- ── Divider ── -->
+    <div class="border-t border-white/8 mb-12"></div>
+
+    <!-- ── Grid principal ── -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 mb-14">
+
+      <!-- Columna 1: Brand -->
+      <div>
+        <a href={lang === 'en' ? '/' : '/es/'} aria-label={business.brandName} class="inline-block mb-6">
+          <img
+            src="/images/logos/enviro-pro-white.png"
+            alt={business.brandName}
+            width="150"
+            height="48"
+            loading="lazy"
+            decoding="async"
+            class="h-10 md:h-12 w-auto object-contain"
+          />
+        </a>
+        <p class="text-sm leading-relaxed mb-6" style="color: rgba(255,255,255,0.65);">
+          {t.tagline}
+        </p>
+        <div>
+          <p class="text-xs uppercase tracking-wider mb-1.5" style="color: rgba(255,255,255,0.45);">
+            {t.emergency}
+          </p>
+          <a
+            href={`tel:${emergencyPhone.e164}`}
+            class="text-xl font-bold hover:opacity-80 transition-opacity"
+            style="color: var(--color-green);"
+          >
+            {emergencyPhone.display}
+          </a>
+        </div>
+      </div>
+
+      <!-- Columna 2: Services -->
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-widest mb-5"
+          style="color: rgba(255,255,255,0.50);">
+          {t.services}
+        </h4>
+        <ul class="space-y-3">
+          {t.serviceList.map((s) => (
+            <li>
+              <a href={s.href}
+                class="text-sm transition-colors duration-200 hover:text-white"
+                style="color: rgba(255,255,255,0.65);">
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Columna 3: Coverage -->
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-widest mb-5"
+          style="color: rgba(255,255,255,0.50);">
+          {t.coverage}
+        </h4>
+        <ul class="space-y-4">
+          <li>
+            <p class="text-xs uppercase tracking-wider mb-0.5" style="color: rgba(255,255,255,0.38);">
+              Miami-Dade
+            </p>
+            <a href={`tel:${miamiPhone.e164}`}
+              class="text-sm transition-colors duration-200 hover:text-white"
+              style="color: rgba(255,255,255,0.65);">
+              {miamiPhone.display}
+            </a>
+          </li>
+          <li>
+            <p class="text-xs uppercase tracking-wider mb-0.5" style="color: rgba(255,255,255,0.38);">
+              Broward
+            </p>
+            <a href={`tel:${browardPhone.e164}`}
+              class="text-sm transition-colors duration-200 hover:text-white"
+              style="color: rgba(255,255,255,0.65);">
+              {browardPhone.display}
+            </a>
+          </li>
+          <li>
+            <p class="text-xs uppercase tracking-wider mb-0.5" style="color: rgba(255,255,255,0.38);">
+              Orlando
+            </p>
+            <a href={`tel:${orlandoPhone.e164}`}
+              class="text-sm transition-colors duration-200 hover:text-white"
+              style="color: rgba(255,255,255,0.65);">
+              {orlandoPhone.display}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 4: Company + Address -->
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-widest mb-5"
+          style="color: rgba(255,255,255,0.50);">
+          {t.company}
+        </h4>
+        <ul class="space-y-3 mb-6">
+          {t.companyList.map((c) => (
+            <li>
+              <a href={c.href}
+                class="text-sm transition-colors duration-200 hover:text-white"
+                style="color: rgba(255,255,255,0.65);">
+                {c.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="pt-5 border-t border-white/10">
+          <address class="not-italic text-sm leading-relaxed" style="color: rgba(255,255,255,0.50);">
+            {business.address.street}<br />
+            {business.address.city}, {business.address.state} {business.address.zip}
+          </address>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Bottom bar ── -->
+    <div class="border-t border-white/10 pt-7 flex flex-col md:flex-row justify-between items-center gap-5">
+
+      <!-- Copyright + license -->
+      <p class="text-xs text-center md:text-left" style="color: rgba(255,255,255,0.40);">
+        © {year} {business.legalName}. {t.rights}<br class="sm:hidden" />
+        <span class="hidden sm:inline"> · </span>{t.license}
       </p>
 
-      <!-- Agency credit -->
-      <a
-        href="https://www.vigostudio.io"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="VigoStudio — Web Design Agency"
-        class="flex items-center gap-2 opacity-50 hover:opacity-90 transition-opacity duration-200"
-      >
-        <span class="text-xs" style="color: rgba(255,255,255,0.5);">
-          {lang === 'en' ? 'Designed by' : 'Diseñado por'}
-        </span>
-        <img
-          src="https://res.cloudinary.com/dxdibfgvw/image/upload/f_auto,q_auto/v1779917480/logo-vigostudio-white_zqxhdn.png"
-          alt="VigoStudio"
-          width="90"
-          height="20"
-          loading="lazy"
-          decoding="async"
-          class="h-4 w-auto object-contain"
-        />
-      </a>
+      <!-- Legal links + VigoStudio -->
+      <div class="flex items-center gap-5 flex-wrap justify-center">
+        <a href={lang === 'en' ? '/privacy' : '/es/privacidad'}
+          class="text-xs transition-colors duration-200 hover:text-white"
+          style="color: rgba(255,255,255,0.40);">
+          {t.privacy}
+        </a>
+        <span style="color: rgba(255,255,255,0.15);" aria-hidden="true">·</span>
+        <a href={lang === 'en' ? '/sitemap' : '/es/sitemap'}
+          class="text-xs transition-colors duration-200 hover:text-white"
+          style="color: rgba(255,255,255,0.40);">
+          {t.sitemap}
+        </a>
+        <span style="color: rgba(255,255,255,0.15);" aria-hidden="true">·</span>
+        <!-- VigoStudio credit -->
+        <a
+          href="https://www.vigostudio.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="VigoStudio — Web Design Agency"
+          class="flex items-center gap-1.5 opacity-40 hover:opacity-80 transition-opacity duration-200"
+        >
+          <span class="text-xs" style="color: rgba(255,255,255,0.9);">{t.designedBy}</span>
+          <img
+            src="https://res.cloudinary.com/dxdibfgvw/image/upload/f_auto,q_auto/v1779917480/logo-vigostudio-white_zqxhdn.png"
+            alt="VigoStudio"
+            width="90"
+            height="20"
+            loading="lazy"
+            decoding="async"
+            class="h-4 w-auto object-contain"
+          />
+        </a>
+      </div>
+
     </div>
   </div>
 </footer>
