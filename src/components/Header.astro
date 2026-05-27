@@ -76,7 +76,10 @@ const menuOpen = lang === 'en' ? 'Open menu' : 'Abrir menú';
       </a>
 
       <!-- ② Nav — center (desktop) -->
-      <nav class="hidden md:flex items-center gap-4 lg:gap-6 flex-1 justify-center">
+      <nav
+        class="hidden md:flex items-center gap-4 lg:gap-6 flex-1 justify-center"
+        aria-label={lang === 'en' ? 'Main navigation' : 'Navegación principal'}
+      >
         {nav[lang].map((item) => (
           <a
             href={item.href}
@@ -126,6 +129,7 @@ const menuOpen = lang === 'en' ? 'Open menu' : 'Abrir menú';
           class="md:hidden p-1.5 rounded-full transition-colors hamburger-btn"
           aria-label={menuOpen}
           aria-expanded="false"
+          aria-controls="mobile-menu"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="3" y1="6" x2="21" y2="6"/>
@@ -143,6 +147,9 @@ const menuOpen = lang === 'en' ? 'Open menu' : 'Abrir menú';
     id="mobile-menu"
     class="md:hidden hidden fixed inset-0 z-[60] flex flex-col px-6 pb-10"
     style="background: rgba(2, 6, 23, 0.96); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);"
+    role="dialog"
+    aria-modal="true"
+    aria-label={lang === 'en' ? 'Navigation menu' : 'Menú de navegación'}
   >
 
     <!-- Header row: logo + close -->
@@ -161,7 +168,10 @@ const menuOpen = lang === 'en' ? 'Open menu' : 'Abrir menú';
     </div>
 
     <!-- 1. Nav links -->
-    <nav class="flex flex-col">
+    <nav
+      class="flex flex-col"
+      aria-label={lang === 'en' ? 'Mobile navigation' : 'Navegación móvil'}
+    >
       {nav[lang].map((item) => (
         <a
           href={item.href}

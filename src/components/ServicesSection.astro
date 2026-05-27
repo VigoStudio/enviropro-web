@@ -88,7 +88,6 @@ const copy = t[lang];
 
       <!-- ── Card 01: Featured (blue, row-span-2) ── -->
       <article
-        role="article"
         aria-label={copy.featured.title}
         class="card-featured group flex flex-col h-full rounded-2xl p-8 cursor-pointer
                transition-all duration-300 ease-in-out
@@ -145,7 +144,6 @@ const copy = t[lang];
       {copy.secondary.map((svc, i) => (
         <a
           href={svc.href}
-          role="article"
           aria-label={svc.title}
           class="card-secondary group relative overflow-hidden rounded-2xl p-6 lg:p-7
                  flex flex-col justify-between
