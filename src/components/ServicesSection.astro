@@ -149,9 +149,9 @@ const copy = t[lang];
           aria-label={svc.title}
           class="card-secondary group relative overflow-hidden rounded-2xl p-6 lg:p-7
                  flex flex-col justify-between
-                 cursor-pointer transition-all duration-300 ease-in-out
-                 hover:-translate-y-2 hover:shadow-xl"
-          style="background: #F8FAFC; min-height: 200px;"
+                 cursor-pointer transition-all duration-300 ease-out
+                 hover:-translate-y-1"
+          style="min-height: 200px;"
         >
 
           <!-- ── Background image (desktop hover only) ── -->
@@ -183,12 +183,12 @@ const copy = t[lang];
           <div class="relative z-20 flex flex-col flex-1">
 
             <!-- Number accent -->
-            <span class="text-xs font-bold tracking-widest mb-4 block" style="color: #D97706;">
+            <span class="text-xs font-semibold tracking-widest mb-4 block text-blue-600/70">
               {svc.num}
             </span>
 
             <!-- Title — shifts to blue on hover -->
-            <h3 class="text-base lg:text-lg font-bold text-slate-900 leading-snug mb-2
+            <h3 class="text-base lg:text-lg font-semibold text-slate-900 leading-snug mb-2
                        group-hover:text-blue-600 transition-colors duration-300">
               {svc.title}
             </h3>
@@ -251,17 +251,16 @@ const copy = t[lang];
     }
   }
 
-  /* ── Mobile: clean white card with brand left-border accent ── */
+  /* ── Liquid Glass base — all breakpoints ── */
   .card-secondary {
-    border: 1px solid #E2E8F0;
-    border-left: 4px solid #4384BF;
+    background: #ffffff;
+    border: 1px solid rgba(241, 245, 249, 0.9); /* gray-100, barely visible */
+    box-shadow: 0 1px 6px rgba(148, 163, 184, 0.12); /* whisper shadow */
   }
 
-  /* Desktop: uniform thin border (image hover replaces accent) */
-  @media (min-width: 768px) {
-    .card-secondary {
-      border: 1px solid #E2E8F0;
-    }
+  .card-secondary:hover {
+    border-color: rgba(147, 197, 253, 0.5); /* blue-200/50 — glass shimmer */
+    box-shadow: 0 12px 40px rgba(148, 163, 184, 0.22); /* deep diffuse shadow */
   }
 
   /* ── Respect prefers-reduced-motion ── */
