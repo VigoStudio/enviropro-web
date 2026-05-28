@@ -7,7 +7,12 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://enviropro.net',
+  output: 'static',
+  site: 'https://enviropro-web.pages.dev',
+  base: '/',
+  build: {
+    format: 'directory',
+  },
   image: {
     domains: ['res.cloudinary.com'],
   },
@@ -19,7 +24,7 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
   },
-  integrations: [sitemap()]
+  integrations: [sitemap()],
 });
