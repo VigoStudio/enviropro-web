@@ -49,18 +49,23 @@ const trustPoints = [
     <!-- ── Video background ── -->
     <video
       class="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      autoplay muted loop playsinline preload="auto" aria-hidden="true"
-      poster="https://res.cloudinary.com/dxdibfgvw/image/upload/w_720,h_1280,c_fill,q_auto/v1779848047/GettyImages-1399919975_1_j9bdot.jpg"
+      autoplay muted loop playsinline preload="auto"
+      width="1920" height="1080"
+      aria-hidden="true"
+      poster="https://res.cloudinary.com/dxdibfgvw/image/upload/w_1920,h_1080,c_fill,q_auto:best,f_auto/v1779848047/GettyImages-1399919975_1_j9bdot.jpg"
     >
+      <!-- Mobile: vertical 720×1280, bitrate reducido -->
       <source
         media="(max-width: 768px)"
-        src="https://res.cloudinary.com/dxdibfgvw/video/upload/w_720,h_1280,c_fill,q_auto:eco,f_mp4,br_400k,du_15,e_loop:0/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
+        src="https://res.cloudinary.com/dxdibfgvw/video/upload/w_720,h_1280,c_fill,q_auto:eco,f_mp4,br_600k,du_15/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
         type="video/mp4"
       />
+      <!-- Desktop: 1920×1080 Full HD, calidad máxima -->
       <source
-        src="https://res.cloudinary.com/dxdibfgvw/video/upload/w_1920,q_auto,f_mp4,br_800k,du_15,e_loop:0/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
+        src="https://res.cloudinary.com/dxdibfgvw/video/upload/w_1920,h_1080,c_fill,q_auto:best,f_mp4,br_5000k,du_15/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
         type="video/mp4"
       />
+      Tu navegador no soporta videos HTML5
     </video>
 
     <!-- ── Cinematic overlay: vignette + dark base ── -->
