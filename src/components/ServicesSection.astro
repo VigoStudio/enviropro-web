@@ -162,29 +162,21 @@ const t = {
             <!-- Overlay fijo: sin transition, nunca se mueve -->
             <div class="card-overlay" aria-hidden="true"></div>
 
-            <!--
-              tag-number: absoluto relativo a .premium-card
-              (no dentro de card-content, para anclarse al tope real de la tarjeta)
-            -->
+            <!-- Número Liquid Glass: absoluto desde .premium-card -->
             <span class="tag-number">{svc.num}</span>
 
-            <!-- Bloque de texto inferior -->
+            <!-- Título + descripción: esquina inferior izquierda -->
             <div class="card-content">
               <h3 class="card-title">{svc.title}</h3>
               <p class="card-desc">{svc.desc}</p>
             </div>
 
-            <!-- Recorte orgánico + botón -->
-            <div class="cutout-wrapper">
-              <div class="inverse-curve-x"></div>
-              <div class="inverse-curve-y"></div>
-              <a href={svc.href} class="action-btn">
-                {t.viewMore}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
-            </div>
+            <!-- Botón círculo — esquina inferior derecha -->
+            <a href={svc.href} class="action-btn" aria-label={svc.title}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
 
           </div>
         ))}
@@ -238,7 +230,7 @@ const t = {
   }
 
   .premium-card:hover .card-bg {
-    background-size: 110% 110%;
+    background-size: 105% 105%;
   }
 
   /* ═══════════════════════════════════════════════════
@@ -282,18 +274,20 @@ const t = {
   }
 
   /* ═══════════════════════════════════════════════════
-     BLOQUE DE TEXTO
+     BLOQUE DE TEXTO — esquina inferior izquierda
   ═══════════════════════════════════════════════════ */
   .card-content {
-    position: relative;
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
     z-index: 2;
-    padding: 28px 28px 48px 28px;
-    padding-right: 155px; /* espacio libre para el cutout-wrapper */
     color: white;
+    padding: 0;
+    max-width: 68%; /* no toca el cutout-wrapper */
   }
 
   .card-title {
-    margin: 32px 0 12px 0; /* 32px top = separación visual del número */
+    margin: 0 0 8px 0;
     font-size: 1.5rem;
     font-weight: 800;
     line-height: 1.2;
@@ -312,79 +306,38 @@ const t = {
   }
 
   /* ═══════════════════════════════════════════════════
-     CUTOUT — caja blanca con curvas inversas
-  ═══════════════════════════════════════════════════ */
-  .cutout-wrapper {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 175px;
-    height: 88px;
-    background-color: #ffffff;
-    border-top-left-radius: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
-  }
-
-  /* Curva inversa: esquina superior-derecha */
-  .inverse-curve-y {
-    position: absolute;
-    top: -26px;
-    right: 0;
-    width: 26px;
-    height: 26px;
-    background-color: transparent;
-    border-bottom-right-radius: 26px;
-    box-shadow: 0 26px 0 0 #ffffff;
-  }
-
-  /* Curva inversa: esquina inferior-izquierda */
-  .inverse-curve-x {
-    position: absolute;
-    bottom: 0;
-    left: -26px;
-    width: 26px;
-    height: 26px;
-    background-color: transparent;
-    border-bottom-right-radius: 26px;
-    box-shadow: 26px 0 0 0 #ffffff;
-  }
-
-  /* ═══════════════════════════════════════════════════
-     BOTÓN VERDE
+     BOTÓN CÍRCULO — esquina inferior derecha
   ═══════════════════════════════════════════════════ */
   .action-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 3;
     background-color: var(--color-green);
     color: white;
     text-decoration: none;
-    padding: 12px 22px;
-    border-radius: 100px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    display: inline-flex;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 15px rgba(0, 201, 167, 0.30);
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0, 201, 167, 0.35);
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    white-space: nowrap;
   }
 
   .action-btn:hover {
     background-color: var(--color-green-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 201, 167, 0.40);
+    box-shadow: 0 6px 20px rgba(0, 201, 167, 0.45);
   }
 
-  /* Icono: círculo blanco con flecha verde */
   .action-btn svg {
-    background: white;
-    color: var(--color-green);
-    border-radius: 50%;
-    padding: 2px;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
+    stroke: white;
     flex-shrink: 0;
   }
 
