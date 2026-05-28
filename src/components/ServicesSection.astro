@@ -2,7 +2,7 @@
 /**
  * ServicesSection.astro — Grid híbrido:
  *   Col 1 (lg): Tarjeta azul con steps + CTA (Water Damage)
- *   Cols 2–3 (lg): Grid 2×2 con tarjetas de imagen y botón cápsula flotante
+ *   Cols 2–3 (lg): Premium Cutout cards (02–05)
  */
 import { emergencyPhone } from '../data/business';
 
@@ -13,10 +13,10 @@ export interface Props {
 const { lang } = Astro.props;
 
 const imgs = {
-  mold:      'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_640,c_fill,f_auto,q_auto/v1779853414/mold1_iuqg9y.jpg',
-  fire:      'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_640,c_fill,f_auto,q_auto/v1779853304/fireandsmoke_orcmkk.jpg',
-  hurricane: 'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_640,c_fill,f_auto,q_auto/v1779853304/hurricane_jozczp.jpg',
-  windows:   'https://res.cloudinary.com/dxdibfgvw/image/upload/w_800,h_640,c_fill,f_auto,q_auto/v1779853304/safetywindow_rfsksm.jpg',
+  mold:      'https://res.cloudinary.com/dxdibfgvw/image/upload/w_600,h_400,c_fill,f_auto,q_auto/v1779853414/mold1_iuqg9y.jpg',
+  fire:      'https://res.cloudinary.com/dxdibfgvw/image/upload/w_600,h_400,c_fill,f_auto,q_auto/v1779853304/fireandsmoke_orcmkk.jpg',
+  hurricane: 'https://res.cloudinary.com/dxdibfgvw/image/upload/w_600,h_400,c_fill,f_auto,q_auto/v1779853304/hurricane_jozczp.jpg',
+  windows:   'https://res.cloudinary.com/dxdibfgvw/image/upload/w_600,h_400,c_fill,f_auto,q_auto/v1779853304/safetywindow_rfsksm.jpg',
 };
 
 const t = {
@@ -96,23 +96,19 @@ const t = {
                hover:-translate-y-1 hover:shadow-2xl"
         style="background: var(--color-trust); min-height: 500px;"
       >
-        <!-- Number -->
         <span class="text-xs font-bold tracking-widest text-white/50 mb-5 block">
           {t.featured.num}
         </span>
 
-        <!-- Title -->
         <h3 class="text-2xl lg:text-3xl font-bold text-white leading-snug mb-4"
           style="font-family: var(--font-display);">
           {t.featured.title}
         </h3>
 
-        <!-- Description -->
         <p class="text-white/80 text-sm lg:text-base leading-relaxed mb-6">
           {t.featured.desc}
         </p>
 
-        <!-- Steps — flex-1 pushes CTA to bottom -->
         <ul class="flex flex-col gap-3 flex-1">
           {t.featured.steps.map((step, i) => (
             <li class="flex items-center gap-3">
@@ -127,7 +123,6 @@ const t = {
           ))}
         </ul>
 
-        <!-- CTA — green call button, pinned to bottom -->
         <div class="mt-auto pt-8">
           <a
             href={t.featured.ctaHref}
@@ -145,34 +140,44 @@ const t = {
       </article>
 
       <!-- ══════════════════════════════════════════════
-           Cards 02–05 — Premium Cutout (inverse-curve CSS)
+           Cards 02–05 — Premium Cutout
            ══════════════════════════════════════════════ -->
-      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
+      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
         {t.secondary.map((svc) => (
           <div class="premium-card group">
-            <!-- Imagen de fondo -->
-            <div class="card-bg" style={`background-image: url('${svc.img}')`} role="img" aria-label={svc.imgAlt}></div>
-            <!-- Overlay oscuro -->
+
+            <!-- Imagen de fondo: SOLO esta escala en hover -->
+            <div
+              class="card-bg"
+              style={`background-image: url('${svc.img}')`}
+              role="img"
+              aria-label={svc.imgAlt}
+            ></div>
+
+            <!-- Overlay oscuro: SIN transición, siempre fijo -->
             <div class="card-overlay" aria-hidden="true"></div>
 
-            <!-- Contenido de texto -->
+            <!-- Número Liquid Glass: posición absoluta desde la tarjeta -->
+            <span class="tag-number">{svc.num}</span>
+
+            <!-- Bloque de texto -->
             <div class="card-content">
-              <span class="tag-number">{svc.num}</span>
               <h3 class="card-title">{svc.title}</h3>
               <p class="card-desc">{svc.desc}</p>
             </div>
 
-            <!-- Recorte con curvas inversas + botón -->
+            <!-- Recorte orgánico + botón -->
             <div class="cutout-wrapper">
               <div class="inverse-curve-x"></div>
               <div class="inverse-curve-y"></div>
               <a href={svc.href} class="action-btn">
                 {t.viewMore}
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
             </div>
+
           </div>
         ))}
       </div>
@@ -195,132 +200,171 @@ const t = {
 </section>
 
 <style>
-  /* ── Premium Card ── */
+  /* ═══════════════════════════════════════
+     Premium Card — contenedor
+  ═══════════════════════════════════════ */
   .premium-card {
     position: relative;
     width: 100%;
-    height: 380px;
-    border-radius: 24px;
-    overflow: hidden;
+    height: 360px;
+    border-radius: 22px;
+    /* overflow: visible — permite que el cutout-wrapper no sea clippeado */
+    overflow: visible;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background-color: #1a1a2e;
+    background-color: #1a1a2e; /* fallback mientras carga imagen */
   }
 
+  /* ═══════════════════════════════════════
+     Imagen de fondo
+     Solo esta capa hace zoom en hover
+  ═══════════════════════════════════════ */
   .card-bg {
     position: absolute;
     inset: 0;
     background-size: cover;
     background-position: center;
+    border-radius: 22px;   /* clip propio — no depende del padre */
+    overflow: hidden;
     z-index: 0;
-    transition: transform 0.5s ease-out;
+    transition: transform 0.4s ease;
   }
 
   .premium-card:hover .card-bg {
     transform: scale(1.05);
   }
 
+  /* ═══════════════════════════════════════
+     Overlay oscuro — SIN transición
+     Se queda absolutamente fijo
+  ═══════════════════════════════════════ */
   .card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 65%);
+    border-radius: 22px;   /* coincide con .card-bg */
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 70%);
     z-index: 1;
+    /* Sin transition — no se mueve con la imagen */
   }
 
+  /* ═══════════════════════════════════════
+     Número Liquid Glass
+     Anclado a la esquina superior-izquierda
+     de la tarjeta (relativo a .premium-card)
+  ═══════════════════════════════════════ */
+  .tag-number {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 10;
+    display: inline-block;
+    background: rgba(255,255,255,0.20);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.30);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.95);
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .premium-card:hover .tag-number {
+    background: rgba(255,255,255,0.30);
+    transform: translateY(-2px);
+  }
+
+  /* ═══════════════════════════════════════
+     Bloque de texto
+  ═══════════════════════════════════════ */
   .card-content {
     position: relative;
     z-index: 2;
+    padding: 32px 24px 48px 24px;
+    padding-right: 150px;   /* espacio para cutout-wrapper */
     color: white;
-    padding: 28px 28px 52px 28px;
-    padding-right: 150px; /* espacio para el cutout */
-  }
-
-  .tag-number {
-    display: inline-block;
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255,255,255,0.22);
-    padding: 3px 11px;
-    border-radius: 100px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    margin-bottom: 10px;
-    color: rgba(255,255,255,0.9);
   }
 
   .card-title {
-    margin: 0 0 6px 0;
-    font-size: 1.35rem;
+    margin-top: 24px;       /* separación visual del número (que está fuera del flujo) */
+    margin-bottom: 10px;
+    font-size: 1.5rem;
     font-weight: 700;
-    line-height: 1.25;
+    line-height: 1.2;
     color: white;
   }
 
   .card-desc {
     margin: 0;
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.75);
-    line-height: 1.45;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.80);
+    max-height: 64px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    overflow: hidden;
   }
 
-  /* ── Cutout con curvas inversas ── */
+  /* ═══════════════════════════════════════
+     Cutout — caja blanca con curvas inversas
+  ═══════════════════════════════════════ */
   .cutout-wrapper {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 180px;
-    height: 90px;
+    width: 172px;
+    height: 87px;
     background-color: #ffffff;
-    border-top-left-radius: 28px;
+    border-top-left-radius: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 3;
   }
 
-  /* Curva inversa vertical: esquina superior-derecha del recorte */
+  /* Curva inversa: esquina superior-derecha del recorte */
   .inverse-curve-y {
     position: absolute;
-    top: -28px;
+    top: -26px;
     right: 0;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     background-color: transparent;
-    border-bottom-right-radius: 28px;
-    box-shadow: 0 28px 0 0 #ffffff;
+    border-bottom-right-radius: 26px;
+    box-shadow: 0 26px 0 0 #ffffff;
   }
 
-  /* Curva inversa horizontal: esquina inferior-izquierda del recorte */
+  /* Curva inversa: esquina inferior-izquierda del recorte */
   .inverse-curve-x {
     position: absolute;
     bottom: 0;
-    left: -28px;
-    width: 28px;
-    height: 28px;
+    left: -26px;
+    width: 26px;
+    height: 26px;
     background-color: transparent;
-    border-bottom-right-radius: 28px;
-    box-shadow: 28px 0 0 0 #ffffff;
+    border-bottom-right-radius: 26px;
+    box-shadow: 26px 0 0 0 #ffffff;
   }
 
-  /* ── Botón verde ── */
+  /* ═══════════════════════════════════════
+     Botón verde
+  ═══════════════════════════════════════ */
   .action-btn {
     background-color: var(--color-green);
     color: white;
     text-decoration: none;
-    padding: 11px 18px;
+    padding: 12px 20px;
     border-radius: 100px;
     font-weight: 600;
     font-size: 0.875rem;
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    box-shadow: 0 4px 12px rgba(0, 201, 167, 0.30);
     transition: background-color 0.2s ease, transform 0.2s ease;
     white-space: nowrap;
   }
@@ -330,6 +374,7 @@ const t = {
     transform: scale(1.04);
   }
 
+  /* Icono: círculo blanco con flecha verde */
   .action-btn svg {
     background: white;
     color: var(--color-green);
@@ -343,12 +388,12 @@ const t = {
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .card-bg,
+    .tag-number,
     .action-btn {
       transition: none !important;
     }
-    .premium-card:hover .card-bg {
-      transform: none !important;
-    }
+    .premium-card:hover .card-bg,
+    .premium-card:hover .tag-number,
     .action-btn:hover {
       transform: none !important;
     }
