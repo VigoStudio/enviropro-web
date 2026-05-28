@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ServicesSection from '../components/ServicesSection.astro';
+import Testimonials from '../components/Testimonials.astro';
 import { business, emergencyPhone } from '../data/business';
 
 const title = 'EnviroPro USA · 24/7 Water, Mold & Fire Damage Restoration · Miami-Dade';
@@ -29,12 +30,6 @@ const credentials = [
   '36 Years in South Florida',
 ];
 
-const trustPoints = [
-  { label: '36 years', sub: 'Serving South Florida since 1990' },
-  { label: 'IICRC', sub: 'Certified technicians on every project' },
-  { label: 'Insurance', sub: 'Direct billing — no out-of-pocket for covered claims' },
-  { label: 'Bilingual', sub: 'English & Spanish, native-level service' },
-];
 ---
 
 <BaseLayout title={title} description={description} lang="en" pathname="/">
@@ -133,66 +128,9 @@ const trustPoints = [
   <!-- Services Bento -->
   <ServicesSection lang="en" />
 
-  <!-- ===================================================
-       TRUST — TESTIMONIAL
-       Committed navy section: color carries the section.
-       =================================================== -->
-  <section class="section-y" style="background: var(--color-trust); color: white;">
-    <div class="container-x">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+  <!-- Testimonials Carousel -->
+  <Testimonials lang="en" />
 
-        <!-- Left: large testimonial -->
-        <div class="lg:col-span-7">
-          <p
-            class="text-xs uppercase font-semibold mb-6"
-            style="letter-spacing: 0.08em; color: rgba(255,255,255,0.5);"
-          >What our customers say</p>
-
-          <blockquote
-            class="text-2xl lg:text-3xl font-medium leading-snug mb-8"
-            style="font-family: var(--font-display); letter-spacing: -0.01em;"
-          >
-            "EnviroPro responded within an hour after our pipe burst. Professional,
-            bilingual, and worked directly with our insurance. Highly recommended."
-          </blockquote>
-
-          <div>
-            <p class="font-semibold">Mellissa Clark</p>
-            <p class="text-sm" style="color: rgba(255,255,255,0.6);">Pinecrest, FL</p>
-          </div>
-        </div>
-
-        <!-- Right: credential list + CTA -->
-        <div class="lg:col-span-5">
-          <ul class="space-y-5 mb-8">
-            {trustPoints.map((item) => (
-              <li class="flex gap-3 items-start">
-                <svg
-                  width="18" height="18" viewBox="0 0 18 18" fill="none"
-                  aria-hidden="true"
-                  class="flex-shrink-0 mt-0.5"
-                >
-                  <path d="M2.5 9l4.5 4.5 8.5-9" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
-                </svg>
-                <div>
-                  <p class="font-bold text-base">{item.label}</p>
-                  <p class="text-sm" style="color: rgba(255,255,255,0.7);">{item.sub}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <a href={`tel:${emergencyPhone.e164}`} class="btn-emergency">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-            </svg>
-            Call Now: {emergencyPhone.display}
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </section>
 
   <!-- ===================================================
        INSURANCE STRIP
