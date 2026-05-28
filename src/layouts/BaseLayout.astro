@@ -29,7 +29,7 @@ const {
   description,
   lang = 'en',
   pathname = '/',
-  ogImage = 'https://res.cloudinary.com/dxdibfgvw/image/upload/w_1200,h_630,c_fill,q_auto:best/v1779936637/enviro-pro-logo_siexxy.png',
+  ogImage = 'https://res.cloudinary.com/dxdibfgvw/image/upload/w_1200,h_630,c_fill,q_auto:best,f_auto/v1779936637/enviro-pro-logo_siexxy.png',
   noindex = false,
 } = Astro.props;
 
@@ -128,6 +128,7 @@ const localBusinessSchema = {
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={fullUrl} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
