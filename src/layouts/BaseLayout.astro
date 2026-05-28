@@ -29,11 +29,11 @@ const {
   description,
   lang = 'en',
   pathname = '/',
-  ogImage = '/images/og-default.jpg',
+  ogImage = 'https://res.cloudinary.com/dxdibfgvw/image/upload/w_1200,h_630,c_fill,q_auto:best/v1779936637/enviro-pro-logo_siexxy.png',
   noindex = false,
 } = Astro.props;
 
-const siteUrl = 'https://enviropro.net';
+const siteUrl = 'https://enviropro-web.pages.dev';
 const fullUrl = `${siteUrl}${pathname}`;
 
 // hreflang: construye la URL alterna en el otro idioma
@@ -119,15 +119,19 @@ const localBusinessSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={fullUrl} />
-    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="EnviroPro USA — 24/7 Restoration Experts" />
     <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'es_US'} />
     <meta property="og:site_name" content={business.brandName} />
 
-    <!-- Twitter -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="EnviroPro USA — 24/7 Restoration Experts" />
 
     <!-- Fuentes (Inter + Manrope vía Google Fonts con preconnect) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
