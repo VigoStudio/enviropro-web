@@ -1,0 +1,213 @@
+---
+// src/components/sections/Hero.astro
+---
+
+<section class="hero-emergency relative min-h-screen flex items-center overflow-hidden bg-slate-900">
+  <!-- Background con gradiente animado -->
+  <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900"></div>
+  
+  <!-- Efecto de "alerta" sutil (pulsos) -->
+  <div class="emergency-pulse absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-red-600/5 rounded-full blur-3xl pointer-events-none"></div>
+  
+  <!-- Grid pattern overlay -->
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+
+  <div class="container mx-auto px-6 pt-20 pb-32 relative z-10">
+    <!-- Badge superior animado -->
+    <div class="hero-badge flex justify-center mb-8">
+      <div class="inline-flex items-center gap-2 px-6 py-3 bg-red-600/10 border border-red-600/30 rounded-full backdrop-blur-sm">
+        <span class="emergency-dot w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+        <span class="text-red-400 font-semibold tracking-wide uppercase text-sm md:text-base">
+          24/7 Emergency Response
+        </span>
+      </div>
+    </div>
+
+    <!-- Título principal con SplitText épico -->
+    <h1 class="hero-title text-center mb-8">
+      <span class="block text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
+        <span class="title-line inline-block overflow-hidden">
+          <span class="title-word inline-block" data-split>When disaster</span>
+        </span>
+        <span class="block">
+          <span class="title-line inline-block overflow-hidden">
+            <span class="title-word inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500" data-split>strikes,</span>
+          </span>
+          <span class="title-line inline-block overflow-hidden">
+            <span class="title-word inline-block" data-split>i'm already</span>
+          </span>
+          <span class="title-line inline-block overflow-hidden">
+            <span class="title-word inline-block text-blue-400" data-split>on the way.</span>
+          </span>
+        </span>
+      </span>
+    </h1>
+
+    <!-- Subtítulo -->
+    <p class="hero-subtitle text-center text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12 opacity-0">
+      South Florida's 24/7 disaster response experts. We handle rapid cleanup, certified restoration, and direct insurance claims—so you can focus on getting back to normal.
+    </p>
+
+    <!-- CTAs -->
+    <div class="hero-ctas flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 opacity-0">
+      <a href="tel:18772166653" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-300 bg-red-600 rounded-full hover:bg-red-700 hover:scale-105 hover:shadow-2xl hover:shadow-red-600/50 focus:outline-none focus:ring-4 focus:ring-red-600/50">
+        <span class="absolute inset-0 rounded-full bg-red-600 animate-ping opacity-75"></span>
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+        </svg>
+        Call 1-877-216-6653
+      </a>
+      
+      <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 bg-blue-600 rounded-full hover:bg-blue-700 hover:scale-105 hover:shadow-2xl hover:shadow-blue-600/50 border-2 border-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-600/50">
+        Book Free Inspection
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Badges -->
+    <div class="hero-badges flex flex-wrap justify-center gap-6 md:gap-8 opacity-0">
+      <div class="badge-item flex items-center gap-2 text-gray-400">
+        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <span class="text-sm font-medium">IICRC Certified</span>
+      </div>
+      <div class="badge-item flex items-center gap-2 text-gray-400">
+        <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+        </svg>
+        <span class="text-sm font-medium">Insurance Direct</span>
+      </div>
+      <div class="badge-item flex items-center gap-2 text-gray-400">
+        <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <span class="text-sm font-medium">Licensed & Insured</span>
+      </div>
+      <div class="badge-item flex items-center gap-2 text-gray-400">
+        <svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+        </svg>
+        <span class="text-sm font-medium">Bilingual Team</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+    <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+    </svg>
+  </div>
+</section>
+
+<script>
+  // GSAP Animation Timeline
+  if (typeof window !== 'undefined') {
+    import('gsap').then(({ gsap }) => {
+      // Check reduced motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      
+      if (prefersReducedMotion) {
+        // Fallback accesible
+        gsap.set('.hero-badge, .hero-subtitle, .hero-ctas, .hero-badges', { opacity: 1, y: 0 });
+        gsap.set('.title-word', { opacity: 1, y: 0 });
+        return;
+      }
+
+      // Timeline principal
+      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+      // 1. Badge superior (slide down)
+      tl.from('.hero-badge', {
+        y: -50,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+      });
+
+      // 2. Título con SplitText escalonado
+      tl.from('.title-word', {
+        y: 150,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 1.2,
+        ease: 'expo.out'
+      }, '-=0.3');
+
+      // 3. Subtítulo (fade up)
+      tl.from('.hero-subtitle', {
+        y: 30,
+        opacity: 0,
+        duration: 0.8
+      }, '-=0.6');
+
+      // 4. CTAs (stagger + scale)
+      tl.from('.hero-ctas > *', {
+        y: 20,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 0.6,
+        ease: 'back.out(1.7)'
+      }, '-=0.4');
+
+      // 5. Badges inferiores (fade in stagger)
+      tl.from('.badge-item', {
+        y: 20,
+        opacity: 0,
+        stagger: 0.08,
+        duration: 0.5
+      }, '-=0.3');
+
+      // Animación continua: pulso sutil en el botón de emergencia
+      gsap.to('.emergency-dot', {
+        scale: 1.5,
+        opacity: 0,
+        duration: 1.5,
+        repeat: -1,
+        ease: 'power2.out'
+      });
+    });
+  }
+</script>
+
+<style>
+  .hero-emergency {
+    position: relative;
+  }
+  
+  .title-word {
+    will-change: transform, opacity;
+    display: inline-block;
+  }
+  
+  .emergency-pulse {
+    animation: pulse-ring 4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  }
+  
+  @keyframes pulse-ring {
+    0% {
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.3);
+      opacity: 0;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .emergency-pulse {
+      animation: none;
+    }
+    .title-word {
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+</style>

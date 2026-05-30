@@ -7,7 +7,7 @@ import { business, emergencyPhone } from '../data/business';
 const title = 'EnviroPro USA · 24/7 Water, Mold & Fire Damage Restoration · Miami-Dade';
 const description = "South Florida's trusted restoration experts for 36 years. Water damage, mold removal, fire restoration, hurricane response. 24/7 emergency service in Miami-Dade, Broward & Orlando.";
 
-const featuredService = {
+const featured_service = {
   num: '01',
   title: 'Water Damage Restoration',
   href: '/services/water-damage',
@@ -15,7 +15,7 @@ const featuredService = {
   steps: ['Emergency dispatch', 'Water extraction', 'Structural drying', 'Full restoration'],
 };
 
-const secondaryServices = [
+const secondary_services = [
   { num: '02', title: 'Mold Removal', desc: 'IICRC-certified inspection, containment, and remediation.', href: '/services/mold-removal' },
   { num: '03', title: 'Fire & Smoke', desc: 'Full restoration and direct insurance coordination.', href: '/services/fire-damage' },
   { num: '04', title: 'Hurricane Response', desc: 'Roof tarping, water extraction, mold prevention.', href: '/services/hurricane-emergency' },
@@ -29,7 +29,6 @@ const credentials = [
   'Bilingual Team',
   '36 Years in South Florida',
 ];
-
 ---
 
 <BaseLayout title={title} description={description} lang="en" pathname="/">
@@ -49,21 +48,18 @@ const credentials = [
       aria-hidden="true"
       poster="https://res.cloudinary.com/dxdibfgvw/image/upload/w_1920,h_1080,c_fill,q_auto:best,f_auto/v1779848047/GettyImages-1399919975_1_j9bdot.jpg"
     >
-      <!-- Mobile: vertical 720×1280, bitrate reducido -->
       <source
         media="(max-width: 768px)"
         src="https://res.cloudinary.com/dxdibfgvw/video/upload/w_720,h_1280,c_fill,q_auto:eco,f_mp4,br_600k,du_15/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
         type="video/mp4"
       />
-      <!-- Desktop: 1920×1080 Full HD, calidad máxima -->
       <source
         src="https://res.cloudinary.com/dxdibfgvw/video/upload/w_1920,h_1080,c_fill,q_auto:best,f_mp4,br_5000k,du_15/v1779848047/GettyImages-1399919975_1_j9bdot.mov"
         type="video/mp4"
       />
-      Tu navegador no soporta videos HTML5
     </video>
 
-    <!-- ── Cinematic overlay: vignette + dark base ── -->
+    <!-- ── Cinematic overlay ── -->
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
       style="background: radial-gradient(ellipse 120% 100% at 50% 0%, rgba(5,10,20,0.30) 0%, rgba(5,10,20,0.72) 100%);"></div>
     <div class="absolute inset-x-0 bottom-0 h-48 pointer-events-none" aria-hidden="true"
@@ -73,27 +69,27 @@ const credentials = [
     <div class="relative flex-1 flex flex-col items-center justify-center text-center px-5 pt-32 pb-36 lg:pt-36 lg:pb-40">
 
       <!-- Eyebrow badge -->
-      <p class="gsap-fade-in inline-flex items-center gap-2 text-xs uppercase font-semibold mb-8 px-5 py-2.5 rounded-full"
-        style="color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); letter-spacing: 0.1em; backdrop-filter: blur(8px);">
+      <p class="gsap-hero-elem inline-flex items-center gap-2 text-xs uppercase font-semibold mb-8 px-5 py-2.5 rounded-full"
+        style="color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); letter-spacing: 0.1em; backdrop-filter: blur(8px); opacity: 0;">
         <span class="w-1.5 h-1.5 rounded-full animate-pulse shrink-0" style="background: #DC2626;" aria-hidden="true"></span>
         24/7 Emergency Response
       </p>
 
       <!-- H1 -->
-      <h1 class="gsap-fade-in font-extrabold mb-6 max-w-4xl"
-        style="font-size: var(--text-display); font-family: var(--font-display); letter-spacing: -0.025em; line-height: 1.06;">
+      <h1 class="gsap-hero-elem font-extrabold mb-6 max-w-4xl"
+        style="font-size: var(--text-display); font-family: var(--font-display); letter-spacing: -0.025em; line-height: 1.06; opacity: 0;">
         When disaster strikes,<br />
         <span style="color: var(--color-green);">we're already on the way.</span>
       </h1>
 
       <!-- Sub-copy -->
-      <p class="gsap-fade-in text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-8"
-        style="color: rgba(255,255,255,0.90);">
+      <p class="gsap-hero-elem text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-8"
+        style="color: rgba(255,255,255,0.90); opacity: 0;">
         South Florida's 24/7 disaster response experts. We handle rapid cleanup, certified restoration, and direct insurance claims—so you can focus on getting back to normal.
       </p>
 
-      <!-- CTAs — directly below sub-copy -->
-      <div class="gsap-fade-in flex flex-col sm:flex-row items-center gap-3">
+      <!-- CTAs -->
+      <div class="gsap-hero-elem flex flex-col sm:flex-row items-center gap-3" style="opacity: 0;">
         <a href={`tel:${emergencyPhone.e164}`}
           class="btn-emergency gsap-pulse text-base py-3 px-6 whitespace-nowrap">
           <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -108,8 +104,8 @@ const credentials = [
 
     </div>
 
-    <!-- ── Bottom trust bar — badges only ── -->
-    <div class="absolute bottom-0 left-0 right-0 px-4 pb-5 lg:pb-6">
+    <!-- ── Bottom trust bar ── -->
+    <div class="absolute bottom-0 left-0 right-0 px-4 pb-5 lg:pb-6 gsap-hero-elem" style="opacity: 0;">
       <div class="max-w-3xl mx-auto rounded-2xl lg:rounded-full flex flex-wrap items-center justify-center gap-x-5 gap-y-2 px-5 py-3"
         style="background: rgba(10,15,30,0.55); backdrop-filter: blur(20px) saturate(1.5); -webkit-backdrop-filter: blur(20px) saturate(1.5); border: 1px solid rgba(255,255,255,0.10); box-shadow: 0 8px 32px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.06);">
         {credentials.map((c) => (
@@ -131,16 +127,12 @@ const credentials = [
   <!-- Testimonials Carousel -->
   <Testimonials lang="en" />
 
-
   <!-- ===================================================
        INSURANCE STRIP
        =================================================== -->
   <section class="section-y" style="background: var(--color-surface-alt);">
     <div class="container-x max-w-3xl text-center">
-      <h2
-        class="text-3xl lg:text-4xl font-bold mb-4"
-        style="font-family: var(--font-display); letter-spacing: -0.02em;"
-      >We work directly with your insurance.</h2>
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4" style="font-family: var(--font-display); letter-spacing: -0.02em;">We work directly with your insurance.</h2>
       <p class="text-lg leading-relaxed mb-6" style="color: var(--color-ink-soft);">
         No out-of-pocket cost for covered claims. We coordinate documentation,
         scoping, and direct billing with your adjuster so you can focus on your
@@ -157,10 +149,7 @@ const credentials = [
        =================================================== -->
   <section class="section-y text-center" style="background: var(--color-ink); color: white;">
     <div class="container-x">
-      <h2
-        class="text-3xl lg:text-5xl font-bold mb-4"
-        style="font-family: var(--font-display); letter-spacing: -0.02em;"
-      >
+      <h2 class="text-3xl lg:text-5xl font-bold mb-4" style="font-family: var(--font-display); letter-spacing: -0.02em;">
         Water doesn't wait.<br class="hidden sm:block" /> Neither do we.
       </h2>
       <p class="text-lg mb-8" style="color: rgba(255,255,255,0.7);">
@@ -176,30 +165,66 @@ const credentials = [
   </section>
 
   <!-- ===================================================
-       GSAP — disciplined, prefers-reduced-motion respected
+       GSAP — ANIMACIONES CORREGIDAS Y SEGURA
        =================================================== -->
   <script>
-    import { gsap } from 'gsap';
+    // Verificamos que estamos en el navegador
+    if (typeof window !== 'undefined') {
+      // Importamos GSAP de forma segura
+      import('gsap').then((gsapModule) => {
+        const gsap = gsapModule.gsap;
+        
+        // Verificamos si el usuario prefiere movimiento reducido
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduced) {
+          // Si prefiere no animar, simplemente mostramos todo
+          document.querySelectorAll('.gsap-hero-elem').forEach((el) => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+          });
+        } else {
+          // Animación normal
+          const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    if (prefersReduced) {
-      document.querySelectorAll<HTMLElement>('.gsap-fade-in, .gsap-stagger li').forEach((el) => {
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-      });
-    } else {
-      const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+          // Badge
+          tl.to('.gsap-hero-elem:nth-child(1)', { opacity: 1, y: 0, duration: 0.8 }, 0);
+          
+          // Título
+          tl.to('.gsap-hero-elem:nth-child(2)', { opacity: 1, y: 0, duration: 1, ease: 'expo.out' }, '-=0.5');
+          
+          // Subtítulo
+          tl.to('.gsap-hero-elem:nth-child(3)', { opacity: 1, y: 0, duration: 0.8 }, '-=0.6');
+          
+          // Botones
+          tl.to('.gsap-hero-elem:nth-child(4)', { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }, '-=0.4');
+          
+          // Barra inferior
+          tl.to('.gsap-hero-elem:nth-child(5)', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3');
 
-      tl.to('.gsap-fade-in', { opacity: 1, duration: 0.8, stagger: 0.15 });
-      tl.to('.gsap-stagger li', { opacity: 1, duration: 0.4, stagger: 0.08 }, '-=0.3');
-
-      gsap.to('.gsap-pulse', {
-        scale: 1.03,
-        duration: 1.2,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
+          // Configuración inicial de los elementos (posición y opacidad)
+          // Esto se ejecuta antes de la animación para evitar "flash" de contenido
+          gsap.set('.gsap-hero-elem', { opacity: 0, y: 30 });
+          
+          // Reiniciamos la timeline para que tome el estado set
+          tl.play(0);
+          
+          // Pulso en botón de emergencia
+          gsap.to('.gsap-pulse', {
+            scale: 1.03,
+            duration: 1.5,
+            repeat: -1,
+            yoyo: true,
+            ease: 'power1.inOut',
+          });
+        }
+      }).catch(err => {
+        console.error('GSAP failed to load:', err);
+        // Fallback: Si falla la carga, mostramos todo
+        document.querySelectorAll('.gsap-hero-elem').forEach((el) => {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        });
       });
     }
   </script>
